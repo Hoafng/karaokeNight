@@ -1,0 +1,72 @@
+
+{
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH RBLOCKERZBUG
+v
+java:S2095*"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(’ÀÌ‰H¡RBLOCKERZBUG
+h	java:S125™"<This block of commented-out lines of code should be removed.(†€éˆH¢RMAJORZ
+CODE_SMELL
+{
+java:S2095Z"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH£RBLOCKERZBUG
+X
+java:S1905,"'Remove this unnecessary cast to "Date".(ÿÜöòıÿÿÿÿH¤RMINORZ
+CODE_SMELL
+T
+java:S1905"'Remove this unnecessary cast to "Date".(úı™ÿH¦RMINORZ
+CODE_SMELL
+z
+java:S1192"KDefine a constant instead of duplicating this literal "maNhanVien" 4 times.(”ÕàH¨RCRITICALZ
+CODE_SMELL
+w
+java:S2095±"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(’ÀÌ‰H­RBLOCKERZBUG
+|
+java:S2095¤"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH®RBLOCKERZBUG
+€
+java:S1192"LDefine a constant instead of duplicating this literal "tenTaiKhoan" 4 times.(†œÆÿÿÿÿÿH¯RCRITICALZ
+CODE_SMELL
+{
+java:S1192"LDefine a constant instead of duplicating this literal "tenNhanVien" 4 times.(”ÕàH´RCRITICALZ
+CODE_SMELL
+|
+java:S2095‹"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH¹RBLOCKERZBUG
+i
+java:S2479n":Remove the non-escaped \u0009 character from this literal.(ı‚îúHºRCRITICALZ
+CODE_SMELL
+z
+java:S1192"FDefine a constant instead of duplicating this literal "email" 4 times.(È½ÖçùÿÿÿÿH»RCRITICALZ
+CODE_SMELL
+Š
+java:S2293i"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÜõéõùÿÿÿÿHÀRMINORZ
+CODE_SMELL
+s
+java:S2095<"GUse try-with-resources or close this "Statement" in a "finally" clause.(ùÃ›ßúÿÿÿÿHÂRBLOCKERZBUG
+{
+java:S1192"GDefine a constant instead of duplicating this literal "diaChi" 4 times.(ãÆ­ôûÿÿÿÿHÃRCRITICALZ
+CODE_SMELL
+{
+java:S1192"GDefine a constant instead of duplicating this literal "chucVu" 4 times.(È½ÖçùÿÿÿÿHÈRCRITICALZ
+CODE_SMELL
+Š
+java:S22937"YReplace the type specification in this constructor call with the diamond operator ("<>").(‘¹Î“ÿÿÿÿÿHÍRMINORZ
+CODE_SMELL
+{
+java:S1192"LDefine a constant instead of duplicating this literal "soDienThoai" 4 times.(”ÕàHÏRCRITICALZ
+CODE_SMELL
+}
+java:S1192"IDefine a constant instead of duplicating this literal "ngaySinh" 4 times.(ãÆ­ôûÿÿÿÿHÔRCRITICALZ
+CODE_SMELL
+T
+java:S1905´"'Remove this unnecessary cast to "Date".(½ïÍóHÙRMINORZ
+CODE_SMELL
+¡
+java:S1319h"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ò°…üÿÿÿÿHÛRMINORZ
+CODE_SMELL
+}
+java:S1192"IDefine a constant instead of duplicating this literal "gioiTinh" 4 times.(ãÆ­ôûÿÿÿÿHŞRCRITICALZ
+CODE_SMELL
+{
+java:S2095o"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHãRBLOCKERZBUG
+¡
+java:S13196"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(šÒ™şÿÿÿÿHäRMINORZ
+CODE_SMELL
+x	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(÷Ó¿ˆHçRMINORZ
+CODE_SMELL

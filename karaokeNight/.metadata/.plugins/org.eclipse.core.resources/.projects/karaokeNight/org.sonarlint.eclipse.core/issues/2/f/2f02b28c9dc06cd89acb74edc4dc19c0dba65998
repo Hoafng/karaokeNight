@@ -1,0 +1,20 @@
+
+Š
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ñ’õÕÿÿÿÿÿHêRMINORZ
+CODE_SMELL
+}	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(›ø¿ôùÿÿÿÿHìRMINORZ
+CODE_SMELL
+{
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHíRBLOCKERZBUG
+[
+java:S1128"/Remove this unused import 'java.sql.Statement'.(ÏÖÔøHîRMINORZ
+CODE_SMELL
+f
+java:S1128"5Remove this unused import 'entity.CTHoaDonThuePhong'.(È±€÷øÿÿÿÿHğRMINORZ
+CODE_SMELL
+V
+java:S1128"*Remove this unused import 'entity.DichVu'.(·©HòRMINORZ
+CODE_SMELL
+Z
+java:S1128")Remove this unused import 'entity.Phong'.(ˆÀš‰úÿÿÿÿHôRMINORZ
+CODE_SMELL

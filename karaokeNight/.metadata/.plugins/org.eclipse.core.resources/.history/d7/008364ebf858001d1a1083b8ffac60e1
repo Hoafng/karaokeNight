@@ -1,0 +1,130 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import connectDB.ConnectDB;
+import entity.CTHoaDonThuePhong;
+import entity.DichVu;
+import entity.LoaiDichVu;
+
+public class Dao_DichVu {
+	public List<DichVu> getAllDichVuTuMaPhong(String maPhong) {
+		List<DichVu> dsDichVu = new ArrayList<DichVu>();
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement statement = null;
+		try {
+			String sql =  "select d.maDichVu, d.tenDichVu, d.giaDichVu, c.soLuongDichVu "
+					    + "from DichVu d join CTHoaDonThuePhong c on d.maDichVu = c.maDichVu "
+					    + "where maPhong = ?";
+			statement = con.prepareStatement(sql);
+			statement.setString(1, maPhong);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				dsDichVu.add(
+						new DichVu(rs.getString("maDichVu"),rs.getString("tenDichVu"),rs.getDouble("giaDichVu"), rs.getInt("soLuongDichVu")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dsDichVu;
+	}
+	public DichVu getDichVuTheoMa(String maDichVu) {
+		DichVu dv = null;
+		PreparedStatement statement =null;
+		try {
+			ConnectDB.getInstance();
+			Connection con = ConnectDB.getConnection();
+			String sql = "select * from DichVu where maDichVu = ?";
+			statement = con.prepareStatement(sql);
+			statement.setString(1, maDichVu);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				LoaiDichVu loaiDichVu=new LoaiDichVu(rs.getString("maLoaiDichVu"));
+				dv=new DichVu(
+						rs.getString("maDichVu"),
+						rs.getString("tenDichVu"),
+						rs.getDouble("giaDichVu"),
+						rs.getInt("soLuong"),
+						loaiDichVu );
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dv;
+	}
+	public List<DichVu> getAllDichVu() {
+		List<DichVu> dsDichVuAll = new ArrayList<DichVu>();
+		
+		try {
+			ConnectDB.getInstance();
+			Connection con = ConnectDB.getConnection();
+			String sql =  "select  maDichVu, tenDichVu,giaDichVu, soLuong "
+					    + "from DichVu";
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				dsDichVuAll.add(
+						new DichVu(rs.getString("maDichVu"),rs.getString("tenDichVu"),rs.getDouble("giaDichVu"), rs.getInt("soLuong")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dsDichVuAll;
+	}
+	public boolean insertDichVu(DichVu dichVu) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement statement = null;
+		try {
+			String sql = "INSERT into DichVu VALUES(?,?,?,?,?)";
+			statement = con.prepareStatement(sql);
+			statement.setString(1, dichVu.getMaDichVu());
+			statement.setString(2, dichVu.getTenDichVu());
+			statement.setDouble(3, dichVu.getGiaDichVu());
+			statement.setInt(4, dichVu.getSoLuong());
+			statement.setString(5, dichVu.getMaLoaiDichVu().getMaLoaiDichVu());
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			return false;
+		}
+	}
+
+	public void deleteDichVu(String maDichVu) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement statement = null;
+		try {
+			String sql = "Delete from DichVu Where maDichVu = ?";
+			statement = con.prepareStatement(sql);
+			statement.setString(1, maDichVu);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateDichVu(DichVu dichVu) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			String sql = "Update DichVu set tenDichVu =?,giaDichVu=?,soLuong=?,maLoaiDichVu=? where maDichVu = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, dichVu.getTenDichVu());
+			stmt.setDouble(2, dichVu.getGiaDichVu());
+			stmt.setInt(3, dichVu.getSoLuong());
+			stmt.setString(4, dichVu.getMaLoaiDichVu().getMaLoaiDichVu());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

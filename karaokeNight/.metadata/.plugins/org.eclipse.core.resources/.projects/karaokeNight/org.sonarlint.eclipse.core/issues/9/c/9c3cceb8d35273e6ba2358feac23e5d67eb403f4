@@ -1,0 +1,73 @@
+
+\
+java:S3740Š"/Provide the parametrized type for this generic.(ÉÓã‹H‹RMAJORZ
+CODE_SMELL
+\
+java:S3740Š"/Provide the parametrized type for this generic.(ÉÓã‹HŒRMAJORZ
+CODE_SMELL
+a
+java:S3740›"/Provide the parametrized type for this generic.(ÓæûËüÿÿÿÿHRMAJORZ
+CODE_SMELL
+a
+java:S3740›"/Provide the parametrized type for this generic.(ÓæûËüÿÿÿÿHRMAJORZ
+CODE_SMELL
+€
+java:S1192R"QDefine a constant instead of duplicating this literal "Times New Roman" 20 times.(ÌÆ•»HRCRITICALZ
+CODE_SMELL
+}	java:S117Š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÓã‹H¤RMINORZ
+CODE_SMELL
+‚	java:S117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÓæûËüÿÿÿÿH¥RMINORZ
+CODE_SMELL
+|	java:S117Ú"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†Õø<H¦RMINORZ
+CODE_SMELL
+U
+java:S1604È"(Make this anonymous inner class a lambda(Ê»½µH§RMAJORZ
+CODE_SMELL
+x	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ø¬ÒH¨RMINORZ
+CODE_SMELL
+‘	java:S116 "aRename this field "textField_TenKhachHang" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ü®÷úÿÿÿÿH©RMINORZ
+CODE_SMELL
+‹	java:S116!"`Rename this field "textField_SoDienThoai" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ê·ëèHªRMINORZ
+CODE_SMELL
+Š	java:S116""_Rename this field "textField_MaNhanVien" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÉæH«RMINORZ
+CODE_SMELL
+	java:S116#"^Rename this field "textField_LoaiPhong" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ÈıÿÿÿÿH¬RMINORZ
+CODE_SMELL
+Œ	java:S116$"aRename this field "textField_SoLuongNguoi" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ãà¢ûH­RMINORZ
+CODE_SMELL
+†	java:S116%"\Rename this field "textField_MaPhong" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã¼àJH®RMINORZ
+CODE_SMELL
+ˆ	java:S116&"]Rename this field "textField_GiaPhong" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢’Ñ¤H¯RMINORZ
+CODE_SMELL
+[
+java:S1948'"'Make "phong" transient or serializable.(“Ï‡ÍûÿÿÿÿH°RCRITICALZ
+CODE_SMELL
+Y
+java:S1948("*Make "nhanvien" transient or serializable.(½Ü‹H±RCRITICALZ
+CODE_SMELL
+l	java:S125."<This block of commented-out lines of code should be removed.(õ–ôÄùÿÿÿÿH²RMAJORZ
+CODE_SMELL
+b
+java:S1135C"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿH¾RINFOZ
+CODE_SMELL
+}
+java:S3252G"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿH¿RCRITICALZ
+CODE_SMELL
+\
+java:S1128"0Remove this unused import 'java.awt.EventQueue'.(ùÅØæHÁRMINORZ
+CODE_SMELL
+V
+java:S1128"*Remove this unused import 'dao.Dao_Phong'.(ú¿ÌHÃRMINORZ
+CODE_SMELL
+_
+java:S1128".Remove this unused import 'javax.swing.JList'.(ù›ÂÃüÿÿÿÿHÅRMINORZ
+CODE_SMELL
+c
+java:S1128"7Remove this unused import 'java.text.SimpleDateFormat'.(ú¡ÙÛHÇRMINORZ
+CODE_SMELL
+W
+java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼üHÉRMINORZ
+CODE_SMELL
+X
+java:S1068(",Remove this unused "nhanvien" private field.(½Ü‹HËRMAJORZ
+CODE_SMELL

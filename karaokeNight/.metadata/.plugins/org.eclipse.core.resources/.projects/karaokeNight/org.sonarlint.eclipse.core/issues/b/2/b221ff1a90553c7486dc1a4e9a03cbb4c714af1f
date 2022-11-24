@@ -1,0 +1,69 @@
+
+s
+java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(ùÃ›ßúÿÿÿÿHèRBLOCKERZBUG
+|
+java:S2095‚"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHéRBLOCKERZBUG
+œ
+java:S1319P"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(şÚĞ´HêRMINORZ
+CODE_SMELL
+
+java:S1192"MDefine a constant instead of duplicating this literal "tenLoaiPhong" 5 times.(ôªÓßıÿÿÿÿHíRCRITICALZ
+CODE_SMELL
+v
+java:S1192"HDefine a constant instead of duplicating this literal "maPhong" 5 times.(¢ĞÌ!HóRCRITICALZ
+CODE_SMELL
+Ê
+java:S1192"šDefine a constant instead of duplicating this literal "select maPhong,tinhTrang,giaPhong,soLuongNguoi,p.maLoaiPhong,tenLoaiPhong from Phong p\r
+" 5 times.(×ÜÂëHùRCRITICALZ
+CODE_SMELL
+g	java:S125u"<This block of commented-out lines of code should be removed.(†€éˆHÿRMAJORZ
+CODE_SMELL
+…
+java:S2293Q"YReplace the type specification in this constructor call with the diamond operator ("<>").(Æòù©H€RMINORZ
+CODE_SMELL
+|
+java:S2095•"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH‚RBLOCKERZBUG
+|
+java:S1192"MDefine a constant instead of duplicating this literal "soLuongNguoi" 5 times.(¬¯³HƒRCRITICALZ
+CODE_SMELL
+{
+java:S2095B"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH‰RBLOCKERZBUG
+…
+java:S2293%"YReplace the type specification in this constructor call with the diamond operator ("<>").(Æòù©HŠRMINORZ
+CODE_SMELL
+œ
+java:S1319:"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(š¥ÔûHŒRMINORZ
+CODE_SMELL
+…
+java:S2293;"YReplace the type specification in this constructor call with the diamond operator ("<>").(Æòù©HRMINORZ
+CODE_SMELL
+œ
+java:S1319$"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(çü§ÛH‘RMINORZ
+CODE_SMELL
+{
+java:S2095,"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH”RBLOCKERZBUG
+x	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(İ˜éÏH•RMINORZ
+CODE_SMELL
+{
+java:S2095X"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH–RBLOCKERZBUG
+x
+java:S1192"JDefine a constant instead of duplicating this literal "tinhTrang" 5 times.(¢ĞÌ!H—RCRITICALZ
+CODE_SMELL
+€
+java:S1192"LDefine a constant instead of duplicating this literal "maLoaiPhong" 5 times.(ôªÓßıÿÿÿÿHRCRITICALZ
+CODE_SMELL
+¡
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(¿œÒúÿÿÿÿH£RMINORZ
+CODE_SMELL
+w
+java:S1192"IDefine a constant instead of duplicating this literal "giaPhong" 5 times.(¢ĞÌ!H¦RCRITICALZ
+CODE_SMELL
+{
+java:S2095l"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH¬RBLOCKERZBUG
+w
+java:S2095£"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(’ÀÌ‰H­RBLOCKERZBUG
+…
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(·ÎŒçH®RMINORZ
+CODE_SMELL
+w
+java:S2095²"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(’ÀÌ‰H°RBLOCKERZBUG

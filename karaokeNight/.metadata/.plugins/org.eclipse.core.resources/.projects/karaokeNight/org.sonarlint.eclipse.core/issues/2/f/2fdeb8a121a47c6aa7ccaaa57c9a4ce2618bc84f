@@ -1,0 +1,147 @@
+
+U
+java:S1604"(Make this anonymous inner class a lambda( ò÷àHRMAJORZ
+CODE_SMELL
+‚	java:S117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ºè½şÿÿÿÿHıRMINORZ
+CODE_SMELL
+b
+java:S19480".Make "dao_NhanVien" transient or serializable.(¼’èÇùÿÿÿÿHRCRITICALZ
+CODE_SMELL
+U
+java:S1604•"(Make this anonymous inner class a lambda(ûÒÈìHRMAJORZ
+CODE_SMELL
+`
+java:S1128
+"4Remove this unused import 'java.text.DecimalFormat'.(¤°Ó˜H¹RMINORZ
+CODE_SMELL
+U
+java:S1604Ô"(Make this anonymous inner class a lambda(í—†¾H“RMAJORZ
+CODE_SMELL
+a
+java:S1128"5Remove this unused import 'java.text.ParseException'.(ñ®ï•H»RMINORZ
+CODE_SMELL
+U
+java:S1604ú"(Make this anonymous inner class a lambda(Ê»½µH—RMAJORZ
+CODE_SMELL
+Z
+java:S1125Ç"(Remove the unnecessary boolean literals.(‹ğÄüÿÿÿÿH´RMINORZ
+CODE_SMELL
+s
+java:S1858Á"A"getText" returns a string, there's no need to call "toString()".(«À­üÿÿÿÿHªRMINORZ
+CODE_SMELL
+}	java:S117…"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó»üÅH†RMINORZ
+CODE_SMELL
+‚	java:S117Ğ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿŒÁûÿÿÿÿHÿRMINORZ
+CODE_SMELL
+\
+java:S10681"0Remove this unused "dao_TaiKhoan" private field.(ÄÉ½±H½RMAJORZ
+CODE_SMELL
+‚	java:S117º"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò‹í•şÿÿÿÿHşRMINORZ
+CODE_SMELL
+}	java:S117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ûğ¤H‡RMINORZ
+CODE_SMELL
+Z
+java:S1604é"(Make this anonymous inner class a lambda(ÛåÅ¤ùÿÿÿÿH–RMAJORZ
+CODE_SMELL
+s
+java:S1858¿"A"getText" returns a string, there's no need to call "toString()".(È·ÏöüÿÿÿÿH¦RMINORZ
+CODE_SMELL
+n
+java:S1858À"A"getText" returns a string, there's no need to call "toString()".(ÉôÌËH¨RMINORZ
+CODE_SMELL
+Z
+java:S1604®"(Make this anonymous inner class a lambda(ÈÅóìûÿÿÿÿHRMAJORZ
+CODE_SMELL
+‚	java:S117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹µ†©øÿÿÿÿHRMINORZ
+CODE_SMELL
+Y
+java:S1604c"(Make this anonymous inner class a lambda(¥’Å¦úÿÿÿÿHˆRMAJORZ
+CODE_SMELL
+U
+java:S1604¦"(Make this anonymous inner class a lambda(Ã°¶HRMAJORZ
+CODE_SMELL
+n
+java:S1858Ä"A"getText" returns a string, there's no need to call "toString()".(ÿ¥ÓÌH°RMINORZ
+CODE_SMELL
+b
+java:S1135O"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿH¢RINFOZ
+CODE_SMELL
+U
+java:S1604å"(Make this anonymous inner class a lambda(±ß‰¦H•RMAJORZ
+CODE_SMELL
+n
+java:S1858Å"A"getText" returns a string, there's no need to call "toString()".(îĞ€‚H²RMINORZ
+CODE_SMELL
+†
+java:S1192ï"QDefine a constant instead of duplicating this literal "Times New Roman" 14 times.(à¥ƒ¯ıÿÿÿÿHæRCRITICALZ
+CODE_SMELL
+x	java:S101'"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ç™©èHšRMINORZ
+CODE_SMELL
+Y
+java:S1604s"(Make this anonymous inner class a lambda(Õí•›ÿÿÿÿÿHŠRMAJORZ
+CODE_SMELL
+Y
+java:S1604{"(Make this anonymous inner class a lambda(ô“·€ùÿÿÿÿH‹RMAJORZ
+CODE_SMELL
+‚	java:S117«"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı¢®ÙşÿÿÿÿHƒRMINORZ
+CODE_SMELL
+T
+java:S1604"(Make this anonymous inner class a lambda(•ØúHŒRMAJORZ
+CODE_SMELL
+U
+java:S1604Æ"(Make this anonymous inner class a lambda(¢¯ä¡H’RMAJORZ
+CODE_SMELL
+n
+java:S1858Ã"A"getText" returns a string, there's no need to call "toString()".(ö·¹‚H®RMINORZ
+CODE_SMELL
+‚	java:S1161"WRename this field "dao_TaiKhoan" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÉ½±HœRMINORZ
+CODE_SMELL
+]
+java:S19481".Make "dao_TaiKhoan" transient or serializable.(ÄÉ½±HRCRITICALZ
+CODE_SMELL
+}	java:S117š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß±Ì´H‚RMINORZ
+CODE_SMELL
+U
+java:S1604¾"(Make this anonymous inner class a lambda(°¥¨ñH‘RMAJORZ
+CODE_SMELL
+Y
+java:S1604k"(Make this anonymous inner class a lambda(êáî•ûÿÿÿÿH‰RMAJORZ
+CODE_SMELL
+}
+java:S3252C"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿH RCRITICALZ
+CODE_SMELL
+‚	java:S117×"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶¤…ËÿÿÿÿÿH…RMINORZ
+CODE_SMELL
+Z
+java:S1604Ö"(Make this anonymous inner class a lambda( ÓååüÿÿÿÿH˜RMAJORZ
+CODE_SMELL
+€
+java:S1192Ù"KDefine a constant instead of duplicating this literal "yyyy-MM-dd" 3 times.(ÀÇùšûÿÿÿÿHùRCRITICALZ
+CODE_SMELL
+\
+java:S1128"0Remove this unused import 'java.awt.EventQueue'.(ùÅØæH·RMINORZ
+CODE_SMELL
+T
+java:S1125ë"'Remove the unnecessary boolean literal.( ”ˆíH£RMINORZ
+CODE_SMELL
+‚	java:S117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ï½åúÿÿÿÿH€RMINORZ
+CODE_SMELL
+‚	java:S117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãîæôÿÿÿÿÿH„RMINORZ
+CODE_SMELL
+S
+java:S1948="$Make "tk" transient or serializable.(ùÅ»ğHŸRCRITICALZ
+CODE_SMELL
+Z
+java:S1604é"(Make this anonymous inner class a lambda( ÓååüÿÿÿÿH™RMAJORZ
+CODE_SMELL
+U
+java:S1604Ü"(Make this anonymous inner class a lambda(°É™€H”RMAJORZ
+CODE_SMELL
+|
+java:S1192Œ"LDefine a constant instead of duplicating this literal "Dá»‹ch vá»¥" 3 times.(òüÙŞHõRCRITICALZ
+CODE_SMELL
+‡	java:S1160"WRename this field "dao_NhanVien" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼’èÇùÿÿÿÿH›RMINORZ
+CODE_SMELL
+n
+java:S1858Â"A"getText" returns a string, there's no need to call "toString()".(åÿ®ŠH¬RMINORZ
+CODE_SMELL

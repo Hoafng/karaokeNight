@@ -1,0 +1,119 @@
+
+[
+java:S3740 "/Provide the parametrized type for this generic.(¦µÁáHÊ
+RMAJORZ
+CODE_SMELL
+`
+java:S3740)"/Provide the parametrized type for this generic.(áÇ”ÄûÿÿÿÿHË
+RMAJORZ
+CODE_SMELL
+\
+java:S3740"/Provide the parametrized type for this generic.(±Óà†HÌ
+RMAJORZ
+CODE_SMELL
+a
+java:S3740´"/Provide the parametrized type for this generic.(ƒÁ·§úÿÿÿÿHÍ
+RMAJORZ
+CODE_SMELL
+…
+java:S1192a"QDefine a constant instead of duplicating this literal "Times New Roman" 21 times.(Ï€”ïıÿÿÿÿHÎ
+RCRITICALZ
+CODE_SMELL
+}	java:S117ò"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­«éÉHä
+RMINORZ
+CODE_SMELL
+U
+java:S1604ê"(Make this anonymous inner class a lambda(Ê»½µHå
+RMAJORZ
+CODE_SMELL
+}	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(§ıÕöúÿÿÿÿHæ
+RMINORZ
+CODE_SMELL
+	java:S116"dRename this field "textField_MaPhongChuyenDi" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çâáïHç
+RMINORZ
+CODE_SMELL
+‚	java:S116"WRename this field "lbl_iconhome" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù§âHè
+RMINORZ
+CODE_SMELL
+ˆ	java:S116"XRename this field "lbl_iconhome1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘‹ÎñıÿÿÿÿHé
+RMINORZ
+CODE_SMELL
+‰	java:S116"^Rename this field "lbl_icon_rightsmall" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò­³Hê
+RMINORZ
+CODE_SMELL
+	java:S116 "cRename this field "comboBox_MaPhongChuyenDi" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦µÁáHë
+RMINORZ
+CODE_SMELL
+	java:S116!"eRename this field "textField_MaPhongChuyenDen" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡¸ÿ“Hì
+RMINORZ
+CODE_SMELL
+	java:S116#"^Rename this field "textField_LoaiPhong" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ÈıÿÿÿÿHí
+RMINORZ
+CODE_SMELL
+Œ	java:S116%"aRename this field "textField_SoLuongNguoi" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ãà¢ûHî
+RMINORZ
+CODE_SMELL
+ˆ	java:S116'"]Rename this field "textField_GiaPhong" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢’Ñ¤Hï
+RMINORZ
+CODE_SMELL
+‚	java:S116("WRename this field "lblMaPhong_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(è†ä²Hğ
+RMINORZ
+CODE_SMELL
+”	java:S116)"dRename this field "comboBox_MaPhongChuyenDen" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áÇ”ÄûÿÿÿÿHñ
+RMINORZ
+CODE_SMELL
+„	java:S116*"YRename this field "lblLoaiPhong_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘Á¨ùHò
+RMINORZ
+CODE_SMELL
+Š	java:S116+"_Rename this field "textField_LoaiPhong1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì±Hó
+RMINORZ
+CODE_SMELL
+‡	java:S116,"WRename this field "lblSucChua_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åÿú´üÿÿÿÿHô
+RMINORZ
+CODE_SMELL
+	java:S116-"bRename this field "textField_SoLuongNguoi1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ñƒ‘Hõ
+RMINORZ
+CODE_SMELL
+ˆ	java:S116."XRename this field "lblGiaPhong_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈŒÔûÿÿÿÿHö
+RMINORZ
+CODE_SMELL
+‰	java:S116/"^Rename this field "textField_GiaPhong1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ è¦H÷
+RMINORZ
+CODE_SMELL
+‡	java:S1160"\Rename this field "lbl_icon_rightbig" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸËÇHø
+RMINORZ
+CODE_SMELL
+[
+java:S19485"'Make "phong" transient or serializable.(“Ï‡ÍûÿÿÿÿHù
+RCRITICALZ
+CODE_SMELL
+Y
+java:S1172L"(Remove this unused method parameter "p".(¾ÎŞ‹ùÿÿÿÿHú
+RMAJORZ
+CODE_SMELL
+l	java:S125:"<This block of commented-out lines of code should be removed.(õ–ôÄùÿÿÿÿHü
+RMAJORZ
+CODE_SMELL
+b
+java:S1135Q"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿHˆRINFOZ
+CODE_SMELL
+}
+java:S3252U"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿH‰RCRITICALZ
+CODE_SMELL
+m	java:S125€"<This block of commented-out lines of code should be removed.(éÇâüÿÿÿÿH‹RMAJORZ
+CODE_SMELL
+m	java:S125ƒ"<This block of commented-out lines of code should be removed.(ª¢ïúÿÿÿÿHRMAJORZ
+CODE_SMELL
+m	java:S125‰"<This block of commented-out lines of code should be removed.(›ŠšìûÿÿÿÿH’RMAJORZ
+CODE_SMELL
+m	java:S125Œ"<This block of commented-out lines of code should be removed.(éØ»ÚûÿÿÿÿH”RMAJORZ
+CODE_SMELL
+\
+java:S1128"0Remove this unused import 'java.awt.EventQueue'.(ùÅØæH•RMINORZ
+CODE_SMELL
+f
+java:S1068%":Remove this unused "textField_SoLuongNguoi" private field.(Ãà¢ûH—RMAJORZ
+CODE_SMELL
+Z
+java:S10685")Remove this unused "phong" private field.(“Ï‡ÍûÿÿÿÿH™RMAJORZ
+CODE_SMELL

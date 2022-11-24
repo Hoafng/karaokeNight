@@ -1,0 +1,114 @@
+
+U
+java:S1604æ"(Make this anonymous inner class a lambda(±ß‰¦HÓRMAJORZ
+CODE_SMELL
+‚	java:S117Ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿŒÁûÿÿÿÿHÅRMINORZ
+CODE_SMELL
+[
+java:S1128"/Remove this unused import 'java.awt.Container'.(˜ƒ×‹HâRMINORZ
+CODE_SMELL
+Y
+java:S1604e"(Make this anonymous inner class a lambda(êáî•ûÿÿÿÿHÇRMAJORZ
+CODE_SMELL
+|
+java:S1192†"LDefine a constant instead of duplicating this literal "Dá»‹ch vá»¥" 3 times.(òüÙŞH¿RCRITICALZ
+CODE_SMELL
+U
+java:S1604¢"(Make this anonymous inner class a lambda(Ã°¶HÍRMAJORZ
+CODE_SMELL
+S
+java:S19488"$Make "tk" transient or serializable.(ùÅ»ğHØRCRITICALZ
+CODE_SMELL
+†
+java:S1192ÿ"QDefine a constant instead of duplicating this literal "MÃ£ KhÃ¡ch HÃ ng" 3 times.(ÈóÕÿÿÿÿÿH»RCRITICALZ
+CODE_SMELL
+‚	java:S117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ºè½şÿÿÿÿHÃRMINORZ
+CODE_SMELL
+T
+java:S1125»"'Remove the unnecessary boolean literal.(àşû„HÜRMINORZ
+CODE_SMELL
+¶
+java:S1186â"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¼ ÒşüÿÿÿÿHŞRCRITICALZ
+CODE_SMELL
+[
+java:S37402"/Provide the parametrized type for this generic.( ‡åH¨RMAJORZ
+CODE_SMELL
+T
+java:S1604‡"(Make this anonymous inner class a lambda(•ØúHÊRMAJORZ
+CODE_SMELL
+U
+java:S1604™"(Make this anonymous inner class a lambda( ò÷àHÌRMAJORZ
+CODE_SMELL
+b
+java:S1948.".Make "daoKhachHang" transient or serializable.(©„õíüÿÿÿÿH×RCRITICALZ
+CODE_SMELL
+U
+java:S1604"(Make this anonymous inner class a lambda(ûÒÈìHËRMAJORZ
+CODE_SMELL
+
+java:S1192ò"QDefine a constant instead of duplicating this literal "Times New Roman" 17 times.(Œ¸ê„H©RCRITICALZ
+CODE_SMELL
+‚	java:S117·"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò‹í•şÿÿÿÿHÄRMINORZ
+CODE_SMELL
+Y
+java:S1604]"(Make this anonymous inner class a lambda(¥’Å¦úÿÿÿÿHÆRMAJORZ
+CODE_SMELL
+c
+java:S1135«"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿHáRINFOZ
+CODE_SMELL
+U
+java:S1604á"(Make this anonymous inner class a lambda(İÓó¨HÔRMAJORZ
+CODE_SMELL
+c
+java:S1135£"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿHàRINFOZ
+CODE_SMELL
+^
+java:S1068("2Remove this unused "tableKhachHang" private field.(«ÈòİHäRMAJORZ
+CODE_SMELL
+U
+java:S1604Ü"(Make this anonymous inner class a lambda(°É™€HÒRMAJORZ
+CODE_SMELL
+Z
+java:S1604«"(Make this anonymous inner class a lambda(ÈÅóìûÿÿÿÿHÎRMAJORZ
+CODE_SMELL
+}
+java:S3252I"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿHÚRCRITICALZ
+CODE_SMELL
+U
+java:S1604Ä"(Make this anonymous inner class a lambda(¢¯ä¡HĞRMAJORZ
+CODE_SMELL
+U
+java:S1604Ó"(Make this anonymous inner class a lambda(í—†¾HÑRMAJORZ
+CODE_SMELL
+}	java:S101%"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.( ø—ûÿÿÿÿHÖRMINORZ
+CODE_SMELL
+Y
+java:S1604m"(Make this anonymous inner class a lambda(Õí•›ÿÿÿÿÿHÈRMAJORZ
+CODE_SMELL
+b
+java:S1135E"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿHÙRINFOZ
+CODE_SMELL
+U
+java:S1604»"(Make this anonymous inner class a lambda(°¥¨ñHÏRMAJORZ
+CODE_SMELL
+Z
+java:S1604í"(Make this anonymous inner class a lambda( Éû¬ûÿÿÿÿHÕRMAJORZ
+CODE_SMELL
+Y
+java:S1604u"(Make this anonymous inner class a lambda(ô“·€ùÿÿÿÿHÉRMAJORZ
+CODE_SMELL
+j
+java:S1135Á"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8ó±÷Â0H·RINFOZ
+CODE_SMELL
+j
+java:S1135Ç"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8ó±÷Â0H¸RINFOZ
+CODE_SMELL
+j
+java:S1135Í"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8ó±÷Â0H¹RINFOZ
+CODE_SMELL
+j
+java:S1135Ó"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8ó±÷Â0HºRINFOZ
+CODE_SMELL
+j
+java:S1135Ù"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8ó±÷Â0H»RINFOZ
+CODE_SMELL

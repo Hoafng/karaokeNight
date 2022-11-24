@@ -1,0 +1,53 @@
+
+{
+java:S2095N"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHşRBLOCKERZBUG
+{
+java:S2095*"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHÿRBLOCKERZBUG
+¡
+java:S1319\"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(¦ß×ùÿÿÿÿH€RMINORZ
+CODE_SMELL
+}	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(¦ËîåùÿÿÿÿHƒRMINORZ
+CODE_SMELL
+
+java:S1192"MDefine a constant instead of duplicating this literal "tenKhachHang" 4 times.(é£Í‘ùÿÿÿÿH„RCRITICALZ
+CODE_SMELL
+[
+java:S2695e"/This "PreparedStatement" only has 1 parameters.(–Ğ¾úÿÿÿÿH‰RBLOCKERZBUG
+{
+java:S2095c"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHŠRBLOCKERZBUG
+[
+java:S2695f"/This "PreparedStatement" only has 1 parameters.(¤Û¤ÇûÿÿÿÿH‹RBLOCKERZBUG
+Š
+java:S2293]"YReplace the type specification in this constructor call with the diamond operator ("<>").(ñá±ºüÿÿÿÿHŒRMINORZ
+CODE_SMELL
+œ
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(·©æHRMINORZ
+CODE_SMELL
+w
+java:S2095ˆ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(’ÀÌ‰H‘RBLOCKERZBUG
+Y
+java:S1128"-Remove this unused import 'entity.LoaiPhong'.(íŒğ™H’RMINORZ
+CODE_SMELL
+Z
+java:S1128")Remove this unused import 'entity.Phong'.(ˆÀš‰úÿÿÿÿH”RMINORZ
+CODE_SMELL
+{
+java:S2095{"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH–RBLOCKERZBUG
+s
+java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(ùÃ›ßúÿÿÿÿH—RBLOCKERZBUG
+…
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ıİ«…H˜RMINORZ
+CODE_SMELL
+€
+java:S1192"LDefine a constant instead of duplicating this literal "soDienThoai" 4 times.(´û›úÿÿÿÿHšRCRITICALZ
+CODE_SMELL
+€
+java:S1192"LDefine a constant instead of duplicating this literal "maKhachHang" 4 times.(´û›úÿÿÿÿHŸRCRITICALZ
+CODE_SMELL
+b
+java:S1128"1Remove this unused import 'entity.PhieuDatPhong'.(ëä²şÿÿÿÿÿH¤RMINORZ
+CODE_SMELL
+{
+java:S2095<"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿH¦RBLOCKERZBUG
+g	java:S125C"<This block of commented-out lines of code should be removed.(†€éˆH§RMAJORZ
+CODE_SMELL

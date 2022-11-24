@@ -1,0 +1,29 @@
+
+„
+java:S1192I"PDefine a constant instead of duplicating this literal "Times New Roman" 7 times.(ùÑ‚¤ÿÿÿÿÿH›RCRITICALZ
+CODE_SMELL
+Y
+java:S1604'"(Make this anonymous inner class a lambda(¤©ÒâüÿÿÿÿH£RMAJORZ
+CODE_SMELL
+T
+java:S1604f"(Make this anonymous inner class a lambda(¤¼ÚÑH¤RMAJORZ
+CODE_SMELL
+Y
+java:S1604y"(Make this anonymous inner class a lambda(°ç¥úÿÿÿÿH¥RMAJORZ
+CODE_SMELL
+x	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(æ›®€H¦RMINORZ
+CODE_SMELL
+ˆ	java:S116"XRename this field "lblNewLabel_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â®­œÿÿÿÿÿH§RMINORZ
+CODE_SMELL
+[
+java:S1948 "'Make "daotk" transient or serializable.(„ÌĞûÿÿÿÿH¨RCRITICALZ
+CODE_SMELL
+S
+java:S1948!"$Make "tk" transient or serializable.(ùÅ»ğH©RCRITICALZ
+CODE_SMELL
+b
+java:S1135:"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿHªRINFOZ
+CODE_SMELL
+}
+java:S3252?"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿH«RCRITICALZ
+CODE_SMELL

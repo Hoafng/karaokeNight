@@ -1,0 +1,99 @@
+
+	java:S117}"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ºè½şÿÿÿÿH±RMINORZ
+CODE_SMELL
+Z
+java:S1604¥"(Make this anonymous inner class a lambda(ÈÅóìûÿÿÿÿH²RMAJORZ
+CODE_SMELL
+b
+java:S1135@"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿH³RINFOZ
+CODE_SMELL
+S
+java:S19482"$Make "tk" transient or serializable.(ùÅ»ğH´RCRITICALZ
+CODE_SMELL
+Y
+java:S1604W"(Make this anonymous inner class a lambda(¥’Å¦úÿÿÿÿHµRMAJORZ
+CODE_SMELL
+U
+java:S1604à"(Make this anonymous inner class a lambda(±ß‰¦H¶RMAJORZ
+CODE_SMELL
+W
+java:S19481"(Make "dao_dv" transient or serializable.(‹÷ûûH·RCRITICALZ
+CODE_SMELL
+Y
+java:S1604g"(Make this anonymous inner class a lambda(Õí•›ÿÿÿÿÿH¸RMAJORZ
+CODE_SMELL
+‚	java:S117±"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò‹í•şÿÿÿÿH¹RMINORZ
+CODE_SMELL
+U
+java:S1604µ"(Make this anonymous inner class a lambda(°¥¨ñHºRMAJORZ
+CODE_SMELL
+Y
+java:S1604_"(Make this anonymous inner class a lambda(êáî•ûÿÿÿÿH»RMAJORZ
+CODE_SMELL
+‚	java:S117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿŒÁûÿÿÿÿH¼RMINORZ
+CODE_SMELL
+“
+java:S3252Û"^Use static access with "javax.swing.ScrollPaneConstants" for "HORIZONTAL_SCROLLBAR_AS_NEEDED".(çÈ¶‹ıÿÿÿÿH½RCRITICALZ
+CODE_SMELL
+}	java:S101("MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(öÀ£ÏşÿÿÿÿH¿RMINORZ
+CODE_SMELL
+U
+java:S1604œ"(Make this anonymous inner class a lambda(Ã°¶HÀRMAJORZ
+CODE_SMELL
+Z
+java:S1604†"(Make this anonymous inner class a lambda( ÓååüÿÿÿÿHÁRMAJORZ
+CODE_SMELL
+Y
+java:S1604o"(Make this anonymous inner class a lambda(ô“·€ùÿÿÿÿHÂRMAJORZ
+CODE_SMELL
+|	java:S1161"QRename this field "dao_dv" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹÷ûûHÃRMINORZ
+CODE_SMELL
+|
+java:S1192€"LDefine a constant instead of duplicating this literal "Dá»‹ch vá»¥" 3 times.(òüÙŞHÄRCRITICALZ
+CODE_SMELL
+	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰Ê³¿ÿÿÿÿÿHÈRMINORZ
+CODE_SMELL
+c
+java:S1135‰"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿHÉRINFOZ
+CODE_SMELL
+
+java:S1192ì"QDefine a constant instead of duplicating this literal "Times New Roman" 15 times.(Œ¸ê„HÊRCRITICALZ
+CODE_SMELL
+c
+java:S1135ƒ"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿHÚRINFOZ
+CODE_SMELL
+Z
+java:S1604¦"(Make this anonymous inner class a lambda(ŒÚúÃşÿÿÿÿHÛRMAJORZ
+CODE_SMELL
+U
+java:S1604“"(Make this anonymous inner class a lambda( ò÷àHÜRMAJORZ
+CODE_SMELL
+‰
+java:S3252Ú"YUse static access with "javax.swing.ScrollPaneConstants" for "VERTICAL_SCROLLBAR_ALWAYS".(Ïø¦óHİRCRITICALZ
+CODE_SMELL
+T
+java:S1604"(Make this anonymous inner class a lambda(•ØúHßRMAJORZ
+CODE_SMELL
+U
+java:S1604Í"(Make this anonymous inner class a lambda(í—†¾HàRMAJORZ
+CODE_SMELL
+}
+java:S3252E"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿHáRCRITICALZ
+CODE_SMELL
+U
+java:S1604Š"(Make this anonymous inner class a lambda(ûÒÈìHãRMAJORZ
+CODE_SMELL
+¶
+java:S1186¡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¼ ÒşüÿÿÿÿHäRCRITICALZ
+CODE_SMELL
+U
+java:S1604¾"(Make this anonymous inner class a lambda(¢¯ä¡HæRMAJORZ
+CODE_SMELL
+U
+java:S1604 "(Make this anonymous inner class a lambda(åÄûêHçRMAJORZ
+CODE_SMELL
+U
+java:S1604Ö"(Make this anonymous inner class a lambda(°É™€HèRMAJORZ
+CODE_SMELL
+‚	java:S116."XRename this field "dateChooser_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó½·HéRMINORZ
+CODE_SMELL

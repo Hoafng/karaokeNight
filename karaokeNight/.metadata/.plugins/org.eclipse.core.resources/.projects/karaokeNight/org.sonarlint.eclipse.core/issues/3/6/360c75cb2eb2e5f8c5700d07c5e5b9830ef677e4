@@ -1,0 +1,144 @@
+
+x	java:S101/"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(î§Æ–HêRMINORZ
+CODE_SMELL
+Š
+java:S4144š"]Update this method so that its implementation is not identical to "insertUpdate" on line 399.(¤¼›ÎHëRMAJORZ
+CODE_SMELL
+|	java:S1166"QRename this field "dao_dv" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹÷ûûHíRMINORZ
+CODE_SMELL
+‚	java:S117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ºè½şÿÿÿÿHîRMINORZ
+CODE_SMELL
+“
+java:S3252°"^Use static access with "javax.swing.ScrollPaneConstants" for "HORIZONTAL_SCROLLBAR_AS_NEEDED".(çÈ¶‹ıÿÿÿÿHïRCRITICALZ
+CODE_SMELL
+U
+java:S1604»"(Make this anonymous inner class a lambda(­®Ù‹HñRMAJORZ
+CODE_SMELL
+	java:S100ó"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰Ê³¿ÿÿÿÿÿHòRMINORZ
+CODE_SMELL
+q
+java:S1117Ä"DRename "btnTimKiemDichVu" which hides the field declared at line 59.(ºäÊ¬HóRMAJORZ
+CODE_SMELL
+\
+java:S3740Ö"/Provide the parametrized type for this generic.(£Òú›HôRMAJORZ
+CODE_SMELL
+c
+java:S1135®"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿHõRINFOZ
+CODE_SMELL
+U
+java:S1604ï"(Make this anonymous inner class a lambda(±ß‰¦HöRMAJORZ
+CODE_SMELL
+Y
+java:S1604f"(Make this anonymous inner class a lambda(¥’Å¦úÿÿÿÿH÷RMAJORZ
+CODE_SMELL
+Z
+java:S1604È"(Make this anonymous inner class a lambda(·Üº“üÿÿÿÿHøRMAJORZ
+CODE_SMELL
+€
+java:S1192û"PDefine a constant instead of duplicating this literal "Times New Roman" 9 times.(Œ¸ê„HùRCRITICALZ
+CODE_SMELL
+U
+java:S1604ã"(Make this anonymous inner class a lambda(—±ö©HƒRMAJORZ
+CODE_SMELL
+m
+java:S1117Ö"@Rename "cbLoaiDichVu" which hides the field declared at line 55.(£Òú›H„RMAJORZ
+CODE_SMELL
+S
+java:S1948<"$Make "tk" transient or serializable.(ùÅ»ğH…RCRITICALZ
+CODE_SMELL
+}
+java:S3252S"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿH†RCRITICALZ
+CODE_SMELL
+}	java:S1168"RRename this field "dao_lDv" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÃ’áHˆRMINORZ
+CODE_SMELL
+|
+java:S1192"LDefine a constant instead of duplicating this literal "Dá»‹ch vá»¥" 3 times.(òüÙŞH‰RCRITICALZ
+CODE_SMELL
+U
+java:S1604Ü"(Make this anonymous inner class a lambda(í—†¾HRMAJORZ
+CODE_SMELL
+Y
+java:S1604n"(Make this anonymous inner class a lambda(êáî•ûÿÿÿÿHRMAJORZ
+CODE_SMELL
+X
+java:S19488")Make "dao_lDv" transient or serializable.(öÃ’áHRCRITICALZ
+CODE_SMELL
+U
+java:S1604™"(Make this anonymous inner class a lambda(ûÒÈìHRMAJORZ
+CODE_SMELL
+Y
+java:S1604~"(Make this anonymous inner class a lambda(ô“·€ùÿÿÿÿH‘RMAJORZ
+CODE_SMELL
+‚	java:S117À"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò‹í•şÿÿÿÿH’RMINORZ
+CODE_SMELL
+U
+java:S1604¢"(Make this anonymous inner class a lambda( ò÷àH“RMAJORZ
+CODE_SMELL
+c
+java:S1135ü"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿH”RINFOZ
+CODE_SMELL
+^
+java:S1068:"2Remove this unused "cmbLoaiTimKiem" private field.(ÖúøØH•RMAJORZ
+CODE_SMELL
+\
+java:S3740Ö"/Provide the parametrized type for this generic.(£Òú›H—RMAJORZ
+CODE_SMELL
+U
+java:S1604Í"(Make this anonymous inner class a lambda(¢¯ä¡H˜RMAJORZ
+CODE_SMELL
+a
+java:S10687"0Remove this unused "cbLoaiDichVu" private field.(­ÊİÿÿÿÿÿH™RMAJORZ
+CODE_SMELL
+b
+java:S1135L"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿH›RINFOZ
+CODE_SMELL
+Y
+java:S1604v"(Make this anonymous inner class a lambda(Õí•›ÿÿÿÿÿHœRMAJORZ
+CODE_SMELL
+U
+java:S1604å"(Make this anonymous inner class a lambda(°É™€HRMAJORZ
+CODE_SMELL
+a
+java:S1948;"2Make "btnTimKiemDichVu" transient or serializable.(ú¨…ÙHRCRITICALZ
+CODE_SMELL
+
+java:S3252¯"YUse static access with "javax.swing.ScrollPaneConstants" for "VERTICAL_SCROLLBAR_ALWAYS".(÷­‰‚ûÿÿÿÿHŸRCRITICALZ
+CODE_SMELL
+T
+java:S1604"(Make this anonymous inner class a lambda(•ØúH¡RMAJORZ
+CODE_SMELL
+¶
+java:S1186É"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¼ ÒşüÿÿÿÿH¢RCRITICALZ
+CODE_SMELL
+‹
+java:S2293à"YReplace the type specification in this constructor call with the diamond operator ("<>").(œüñÓÿÿÿÿÿH¤RMINORZ
+CODE_SMELL
+c
+java:S10689"2Remove this unused "cboLoaiTimKiem" private field.(ö†ô”ıÿÿÿÿH¦RMAJORZ
+CODE_SMELL
+W
+java:S19486"(Make "dao_dv" transient or serializable.(‹÷ûûH¨RCRITICALZ
+CODE_SMELL
+c
+java:S1135‚"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿH©RINFOZ
+CODE_SMELL
+Z
+java:S1604´"(Make this anonymous inner class a lambda(ÈÅóìûÿÿÿÿHªRMAJORZ
+CODE_SMELL
+‚	java:S117Ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿŒÁûÿÿÿÿH«RMINORZ
+CODE_SMELL
+¶
+java:S1186‡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(˜Â½€øÿÿÿÿH¬RCRITICALZ
+CODE_SMELL
+U
+java:S1604Ä"(Make this anonymous inner class a lambda(°¥¨ñH®RMAJORZ
+CODE_SMELL
+¶
+java:S1186¼"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¼ ÒşüÿÿÿÿH¯RCRITICALZ
+CODE_SMELL
+U
+java:S1604«"(Make this anonymous inner class a lambda(Ã°¶H±RMAJORZ
+CODE_SMELL
+`
+java:S1068;"4Remove this unused "btnTimKiemDichVu" private field.(ú¨…ÙH²RMAJORZ
+CODE_SMELL

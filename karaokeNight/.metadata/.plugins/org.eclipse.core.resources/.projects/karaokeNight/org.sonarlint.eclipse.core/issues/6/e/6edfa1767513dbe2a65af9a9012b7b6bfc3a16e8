@@ -1,0 +1,127 @@
+
+Y
+java:S1604x"(Make this anonymous inner class a lambda(Õí•›ÿÿÿÿÿHëRMAJORZ
+CODE_SMELL
+c
+java:S1135Î"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿH—RINFOZ
+CODE_SMELL
+Y
+java:S1604p"(Make this anonymous inner class a lambda(êáî•ûÿÿÿÿHæRMAJORZ
+CODE_SMELL
+	java:S100Â"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€‘°ñ8«ôœùÂ0Hı RMINORZ
+CODE_SMELL
+U
+java:S1604ç"(Make this anonymous inner class a lambda(°É™€HRMAJORZ
+CODE_SMELL
+U
+java:S1604¤"(Make this anonymous inner class a lambda( ò÷àHˆRMAJORZ
+CODE_SMELL
+j
+java:S1135Ã"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8’ééÂ0HøRINFOZ
+CODE_SMELL
+Y
+java:S1604h"(Make this anonymous inner class a lambda(¥’Å¦úÿÿÿÿHåRMAJORZ
+CODE_SMELL
+j
+java:S1135Ú"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8’ééÂ0HöRINFOZ
+CODE_SMELL
+j
+java:S1135æ"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8«ôœùÂ0Hş RINFOZ
+CODE_SMELL
+€
+java:S1192ú"QDefine a constant instead of duplicating this literal "Times New Roman" 17 times.(¬ÓÃuHìRCRITICALZ
+CODE_SMELL
+‚	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ºè½şÿÿÿÿHÿRMINORZ
+CODE_SMELL
+j
+java:S1135¹"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8’ééÂ0H­RINFOZ
+CODE_SMELL
+c
+java:S1128"+Remove this unused import 'java.awt.Color'.(ùÈãÈøÿÿÿÿ8’ééÂ0H¨RMINORZ
+CODE_SMELL
+j
+java:S1135ê"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ8«ôœùÂ0Hú RINFOZ
+CODE_SMELL
+‚	java:S117Ú"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿŒÁûÿÿÿÿH•RMINORZ
+CODE_SMELL
+U
+java:S1604Ï"(Make this anonymous inner class a lambda(¢¯ä¡HŠRMAJORZ
+CODE_SMELL
+U
+java:S1604›"(Make this anonymous inner class a lambda(ûÒÈìH€RMAJORZ
+CODE_SMELL
+c
+java:S19489"/Make "daoLoaiDichVu" transient or serializable.(©ó‡ÃùÿÿÿÿHŸRCRITICALZ
+CODE_SMELL
+}
+java:S3252S"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿHçRCRITICALZ
+CODE_SMELL
+b
+java:S1128"/Remove this unused import 'java.awt.Container'.(˜ƒ×‹8’ééÂ0HùRMINORZ
+CODE_SMELL
+T
+java:S1604’"(Make this anonymous inner class a lambda(•ØúH‡RMAJORZ
+CODE_SMELL
+‚	java:S117Â"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò‹í•şÿÿÿÿH“RMINORZ
+CODE_SMELL
+j
+java:S1135à"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8’ééÂ0HšRINFOZ
+CODE_SMELL
+U
+java:S1604­"(Make this anonymous inner class a lambda(Ã°¶H‚RMAJORZ
+CODE_SMELL
+U
+java:S1604ñ"(Make this anonymous inner class a lambda(±ß‰¦H’RMAJORZ
+CODE_SMELL
+U
+java:S1604Æ"(Make this anonymous inner class a lambda(°¥¨ñH–RMAJORZ
+CODE_SMELL
+Z
+java:S1604€"(Make this anonymous inner class a lambda(ô“·€ùÿÿÿÿH…RMAJORZ
+CODE_SMELL
+U
+java:S1604Ş"(Make this anonymous inner class a lambda(í—†¾HRMAJORZ
+CODE_SMELL
+‘
+java:S1128$"^Remove this unused import 'org.apache.commons.compress.archivers.dump.InvalidFormatException'.(ö–¼8«ôœùÂ0Hÿ RMINORZ
+CODE_SMELL
+Z
+java:S1604¶"(Make this anonymous inner class a lambda(ÈÅóìûÿÿÿÿHÔ RMAJORZ
+CODE_SMELL
+b
+java:S1135O"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿHşRINFOZ
+CODE_SMELL
+|
+java:S1192‘"LDefine a constant instead of duplicating this literal "Dá»‹ch vá»¥" 3 times.(òüÙŞHRCRITICALZ
+CODE_SMELL
+x	java:S1010"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(’ô·‰H¤RMINORZ
+CODE_SMELL
+_
+java:S19488"+Make "daoDichVu" transient or serializable.(À¶ÛÓøÿÿÿÿH¬RCRITICALZ
+CODE_SMELL
+†
+java:S2293¢"YReplace the type specification in this constructor call with the diamond operator ("<>").(ãó—H‹RMINORZ
+CODE_SMELL
+a
+java:S1144Â"-Remove this unused private "NhapFile" method.(€‘°ñ8«ôœùÂ0H!RMAJORZ
+CODE_SMELL
+U
+java:S1116ï"Remove this empty statement.(ôŸìúÿÿÿÿ8«ôœùÂ0Hû RMINORZ
+CODE_SMELL
+
+java:S3776K"RRefactor this method to reduce its Cognitive Complexity from 57 to the 15 allowed.(„ıÍøÿÿÿÿ8«ôœùÂ0Hê RCRITICALZ
+CODE_SMELL
+j
+java:S1135Ô"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8’ééÂ0H¥RINFOZ
+CODE_SMELL
+U
+java:S1604°"(Make this anonymous inner class a lambda(°å§†H—RMAJORZ
+CODE_SMELL
+y
+java:S2095Ò"JUse try-with-resources or close this "XSSFWorkbook" in a "finally" clause.(¹ÒŸÄ8«ôœùÂ0Hé RBLOCKERZBUG
+U
+java:S1604Ä"(Make this anonymous inner class a lambda(ÃÿúøH”RMAJORZ
+CODE_SMELL
+S
+java:S1948A"$Make "tk" transient or serializable.(ùÅ»ğHƒRCRITICALZ
+CODE_SMELL

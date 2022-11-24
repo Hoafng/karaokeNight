@@ -1,0 +1,44 @@
+
+x	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(²²‰·H´RMINORZ
+CODE_SMELL
+Š
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¡ÅùÛşÿÿÿÿHµRMINORZ
+CODE_SMELL
+€
+java:S1192"JDefine a constant instead of duplicating this literal "tenDichVu" 3 times.(ùÛÑ8ŒçøçÂ0H·RCRITICALZ
+CODE_SMELL
+f
+java:S1128"5Remove this unused import 'entity.CTHoaDonThuePhong'.(È±€÷øÿÿÿÿH»RMINORZ
+CODE_SMELL
+
+java:S1192"IDefine a constant instead of duplicating this literal "maDichVu" 3 times.(ùÛÑ8ŒçøçÂ0H½RCRITICALZ
+CODE_SMELL
+‚
+java:S2095k"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿ8ŒçøçÂ0HÁRBLOCKERZBUG
+{
+java:S2095-"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHÂRBLOCKERZBUG
+€
+java:S1192"JDefine a constant instead of duplicating this literal "giaDichVu" 3 times.(ùÛÑ8ŒçøçÂ0HÃRCRITICALZ
+CODE_SMELL
+‚
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿ8ŒçøçÂ0HÇRBLOCKERZBUG
+}
+java:S2095x"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(’ÀÌ‰8ŒçøçÂ0HÈRBLOCKERZBUG
+…
+java:S2293?"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ó‰Í”HÉRMINORZ
+CODE_SMELL
+‚
+java:S2095W"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿ8ŒçøçÂ0HËRBLOCKERZBUG
+n	java:S125`"<This block of commented-out lines of code should be removed.(†€éˆ8ŒçøçÂ0HÌRMAJORZ
+CODE_SMELL
+s
+java:S2095F"GUse try-with-resources or close this "Statement" in a "finally" clause.(ùÃ›ßúÿÿÿÿHÍRBLOCKERZBUG
+£
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ŠÆ˜‘8”¡‚ôÂ0HÎRMINORZ
+CODE_SMELL
+£
+java:S1319>"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(àÏÖ®8”¡‚ôÂ0HĞRMINORZ
+CODE_SMELL
+c
+java:S1128	"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8”¡‚ôÂ0HÒRMINORZ
+CODE_SMELL

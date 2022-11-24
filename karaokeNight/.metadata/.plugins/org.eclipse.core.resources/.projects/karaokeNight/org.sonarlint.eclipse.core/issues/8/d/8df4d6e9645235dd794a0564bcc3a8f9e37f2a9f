@@ -1,0 +1,27 @@
+
+x	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(¢è–HùRMINORZ
+CODE_SMELL
+v
+java:S20956"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(’ÀÌ‰HüRBLOCKERZBUG
+{
+java:S2095D"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHıRBLOCKERZBUG
+{
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿHøRBLOCKERZBUG
+Œ
+java:S2293""YReplace the type specification in this constructor call with the diamond operator ("<>").(Ç¥œ“8¶£¡÷Â0H‹RMINORZ
+CODE_SMELL
+‚
+java:S1192"LDefine a constant instead of duplicating this literal "tenTaiKhoan" 3 times.(ñÕ·8¶£¡÷Â0HRCRITICALZ
+CODE_SMELL
+~
+java:S1192"HDefine a constant instead of duplicating this literal "matKhau" 3 times.(ñÕ·8¶£¡÷Â0H‘RCRITICALZ
+CODE_SMELL
+¨
+java:S1319!"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(åïÏŒûÿÿÿÿ8¶£¡÷Â0H•RMINORZ
+CODE_SMELL
+z
+java:S2095'"GUse try-with-resources or close this "Statement" in a "finally" clause.(ùÃ›ßúÿÿÿÿ8¶£¡÷Â0H˜RBLOCKERZBUG
+‚
+java:S2095U"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÎÖ«£üÿÿÿÿ8¶£¡÷Â0H™RBLOCKERZBUG
+n	java:S125J"<This block of commented-out lines of code should be removed.(†€éˆ8¶£¡÷Â0HšRMAJORZ
+CODE_SMELL

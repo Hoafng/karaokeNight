@@ -1,0 +1,215 @@
+
+[
+java:S3740G"/Provide the parametrized type for this generic.(±øĞÙH½RMAJORZ
+CODE_SMELL
+Y
+java:S1604r"(Make this anonymous inner class a lambda(¥’Å¦úÿÿÿÿHÖRMAJORZ
+CODE_SMELL
+`
+java:S3740E"/Provide the parametrized type for this generic.(ÙÁ†³üÿÿÿÿH–RMAJORZ
+CODE_SMELL
+W
+java:S1068G"+Remove this unused "modelCV" private field.(±øĞÙHRMAJORZ
+CODE_SMELL
+\
+java:S3740"/Provide the parametrized type for this generic.(ãœá–H¿RMAJORZ
+CODE_SMELL
+\
+java:S3740ø"/Provide the parametrized type for this generic.(­õÌHÎRMAJORZ
+CODE_SMELL
+`
+java:S3740F"/Provide the parametrized type for this generic.(¿›¨ÜıÿÿÿÿHRMAJORZ
+CODE_SMELL
+Z
+java:S1604Š"(Make this anonymous inner class a lambda(ô“·€ùÿÿÿÿHŠRMAJORZ
+CODE_SMELL
+‚	java:S116<"XRename this field "dateChooser_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó½·HÓRMINORZ
+CODE_SMELL
+Z
+java:S1604Ô"(Make this anonymous inner class a lambda(ÛåÅ¤ùÿÿÿÿHÉRMAJORZ
+CODE_SMELL
+c
+java:S1135–"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿHÍRINFOZ
+CODE_SMELL
+}	java:S101."MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ëÑÜøÿÿÿÿHÖRMINORZ
+CODE_SMELL
+¶
+java:S1186ß"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¼ ÒşüÿÿÿÿH—RCRITICALZ
+CODE_SMELL
+c
+java:S1135Ä"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿH¦RINFOZ
+CODE_SMELL
+l
+java:S1858Ì"@"format" returns a string, there's no need to call "toString()".(µåHÔRMINORZ
+CODE_SMELL
+U
+java:S1604¥"(Make this anonymous inner class a lambda(ûÒÈìH“RMAJORZ
+CODE_SMELL
+Y
+java:S1948D"*Make "taiKhoan" transient or serializable.(…Ü‹±HªRCRITICALZ
+CODE_SMELL
+`
+java:S1125ğ"'Remove the unnecessary boolean literal.(†—½ üÿÿÿÿ8­£¡÷Â0HşRMINORZ
+CODE_SMELL
+j
+java:S1135ƒ"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8­£¡÷Â0HˆRINFOZ
+CODE_SMELL
+T
+java:S1604œ"(Make this anonymous inner class a lambda(•ØúH‹RMAJORZ
+CODE_SMELL
+U
+java:S1604Ğ"(Make this anonymous inner class a lambda(°¥¨ñH¡RMAJORZ
+CODE_SMELL
+€
+java:S1192œ"KDefine a constant instead of duplicating this literal "Quáº£n LÃ½" 5 times.(Âü¡¶úÿÿÿÿHRCRITICALZ
+CODE_SMELL
+b
+java:S1135\"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿH±RINFOZ
+CODE_SMELL
+U
+java:S1604Ş"(Make this anonymous inner class a lambda(åÄûêH¼RMAJORZ
+CODE_SMELL
+
+java:S1192Ë"ODefine a constant instead of duplicating this literal "Xoa thanh cong" 3 times.(¿ÅƒH·RCRITICALZ
+CODE_SMELL
+…
+java:S3973ò"IUse indentation to denote the code conditionally executed by this "else".(„¶áìøÿÿÿÿ8­£¡÷Â0HçRCRITICALZ
+CODE_SMELL
+m
+java:S1858ß"@"format" returns a string, there's no need to call "toString()".(ºŒôÚH¤RMINORZ
+CODE_SMELL
+j
+java:S1135÷"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8­£¡÷Â0H†RINFOZ
+CODE_SMELL
+Y
+java:S1125›"'Remove the unnecessary boolean literal.(´ÀèµúÿÿÿÿHÊRMINORZ
+CODE_SMELL
+Z
+java:S3740H"/Provide the parametrized type for this generic.(»‚æ/HšRMAJORZ
+CODE_SMELL
+U
+java:S1604Ù"(Make this anonymous inner class a lambda(¢¯ä¡H¯RMAJORZ
+CODE_SMELL
+U
+java:S1604è"(Make this anonymous inner class a lambda(í—†¾H°RMAJORZ
+CODE_SMELL
+k
+java:S1905ã"9Remove this unnecessary cast to "PropertyChangeListener".(ôÁÊªÿÿÿÿÿHŒRMINORZ
+CODE_SMELL
+a
+java:S3740‚"/Provide the parametrized type for this generic.(èİÿ°úÿÿÿÿHÕRMAJORZ
+CODE_SMELL
+U
+java:S1604Û"(Make this anonymous inner class a lambda(ôğ€HÀRMAJORZ
+CODE_SMELL
+p
+java:S1117"<Rename "taiKhoan" which hides the field declared at line 68.(Ù†Ë8­£¡÷Â0H€RMAJORZ
+CODE_SMELL
+k
+java:S1905Â"9Remove this unnecessary cast to "PropertyChangeListener".(©ÃèÿÿÿÿÿH¢RMINORZ
+CODE_SMELL
+À
+java:S2681ô"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(Ş§¡úÿÿÿÿ8­£¡÷Â0HéRMAJORZ
+CODE_SMELL
+Z
+java:S1604‚"(Make this anonymous inner class a lambda(Õí•›ÿÿÿÿÿHİRMAJORZ
+CODE_SMELL
+j
+java:S1135‰"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8­£¡÷Â0H‰RINFOZ
+CODE_SMELL
+U
+java:S1604ñ"(Make this anonymous inner class a lambda(°É™€H¶RMAJORZ
+CODE_SMELL
+
+java:S1192ƒ"LDefine a constant instead of duplicating this literal "NhÃ¢n ViÃªn" 5 times.(Ê‰ˆ»ıÿÿÿÿH²RCRITICALZ
+CODE_SMELL
+j
+java:S1135"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8­£¡÷Â0HŠRINFOZ
+CODE_SMELL
+U
+java:S1604®"(Make this anonymous inner class a lambda( ò÷àH”RMAJORZ
+CODE_SMELL
+Z
+java:S1604À"(Make this anonymous inner class a lambda(ÈÅóìûÿÿÿÿH RMAJORZ
+CODE_SMELL
+U
+java:S1604æ"(Make this anonymous inner class a lambda(«³†¯HÂRMAJORZ
+CODE_SMELL
+a
+java:S3740÷"/Provide the parametrized type for this generic.(÷ÙÛ¬şÿÿÿÿH¾RMAJORZ
+CODE_SMELL
+Z
+java:S1604â"(Make this anonymous inner class a lambda(É««ûÿÿÿÿHËRMAJORZ
+CODE_SMELL
+Z
+java:S1604ã"(Make this anonymous inner class a lambda(ôÁÊªÿÿÿÿÿH™RMAJORZ
+CODE_SMELL
+Z
+java:S1604Â"(Make this anonymous inner class a lambda(©ÃèÿÿÿÿÿHÊRMAJORZ
+CODE_SMELL
+‚	java:S117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ºè½şÿÿÿÿHÜRMINORZ
+CODE_SMELL
+T
+java:S1125¼"'Remove the unnecessary boolean literal.(ç‘™ŞHÓRMINORZ
+CODE_SMELL
+ƒ
+java:S3973ğ"GUse indentation to denote the code conditionally executed by this "if".(†—½ üÿÿÿÿ8­£¡÷Â0HåRCRITICALZ
+CODE_SMELL
+€
+java:S1192"PDefine a constant instead of duplicating this literal "MÃ£ NhÃ¢n ViÃªn" 3 times.(Ûá¹²HÃRCRITICALZ
+CODE_SMELL
+
+java:S3776X"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(«¡¢†úÿÿÿÿ8­£¡÷Â0HêRCRITICALZ
+CODE_SMELL
+‚	java:S117Ì"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò‹í•şÿÿÿÿH§RMINORZ
+CODE_SMELL
+‚	java:S117ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿŒÁûÿÿÿÿHÁRMINORZ
+CODE_SMELL
+j
+java:S1135ı"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8­£¡÷Â0H‡RINFOZ
+CODE_SMELL
+X
+java:S1948C"$Make "tk" transient or serializable.(•¸ĞÎùÿÿÿÿH•RCRITICALZ
+CODE_SMELL
+U
+java:S1604·"(Make this anonymous inner class a lambda(Ã°¶HŸRMAJORZ
+CODE_SMELL
+u
+java:S1117¨"<Rename "taiKhoan" which hides the field declared at line 68.(¦š»ıÿÿÿÿ8­£¡÷Â0HRMAJORZ
+CODE_SMELL
+a
+java:S1948?"-Make "daoNhanVien" transient or serializable.(˜˜»¼ùÿÿÿÿHÔRCRITICALZ
+CODE_SMELL
+u
+java:S1117±"<Rename "taiKhoan" which hides the field declared at line 68.(¦š»ıÿÿÿÿ8­£¡÷Â0H‚RMAJORZ
+CODE_SMELL
+†
+java:S1192…"QDefine a constant instead of duplicating this literal "Times New Roman" 43 times.(ƒ›ß¹øÿÿÿÿHŞRCRITICALZ
+CODE_SMELL
+}
+java:S1192"MDefine a constant instead of duplicating this literal "Giá»›i TÃ­nh" 3 times.(Ûá¹²H×RCRITICALZ
+CODE_SMELL
+|
+java:S1192›"LDefine a constant instead of duplicating this literal "Dá»‹ch vá»¥" 3 times.(òüÙŞH«RCRITICALZ
+CODE_SMELL
+}
+java:S3252a"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿH×RCRITICALZ
+CODE_SMELL
+{
+java:S1126ğ"BReplace this if-then-else statement by a single method invocation.(†—½ üÿÿÿÿ8­£¡÷Â0HƒRMINORZ
+CODE_SMELL
+Y
+java:S1604z"(Make this anonymous inner class a lambda(êáî•ûÿÿÿÿHÛRMAJORZ
+CODE_SMELL
+‚
+java:S1192æ"KDefine a constant instead of duplicating this literal "dd/MM/yyyy" 3 times.(—²®8—®ŞçÂ0HÏRCRITICALZ
+CODE_SMELL
+U
+java:S1604û"(Make this anonymous inner class a lambda(±ß‰¦H»RMAJORZ
+CODE_SMELL
+T
+java:S1604Æ"(Make this anonymous inner class a lambda(©ŞøRHÌRMAJORZ
+CODE_SMELL
+u
+java:S1117»"<Rename "taiKhoan" which hides the field declared at line 68.(¦š»ıÿÿÿÿ8¼Æÿ÷Â0H RMAJORZ
+CODE_SMELL
