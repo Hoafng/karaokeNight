@@ -1,23 +1,23 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import connectDB.ConnectDB;
 import dao.Dao_TaiKhoan;
 import entity.TaiKhoan;
-
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
 
 public class GUI_DangNhap extends JFrame {
 
@@ -26,11 +26,12 @@ public class GUI_DangNhap extends JFrame {
 	private JLabel lblMatKhau;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JTextField txtMatKhau;
+	private JPasswordField txtMatKhau;
 	private JButton btnDangNhap;
 	private JButton btnQuenMatKhau;
 	private Dao_TaiKhoan daotk = new Dao_TaiKhoan();
 	private TaiKhoan tk;
+
 
 	/**
 	 * Launch the application.
@@ -90,7 +91,7 @@ public class GUI_DangNhap extends JFrame {
 		lblMatKhau.setBounds(70, 187, 94, 30);
 		contentPane.add(lblMatKhau);
 
-		txtMatKhau = new JTextField();
+		txtMatKhau = new JPasswordField();
 		txtMatKhau.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(171, 176, 299, 41);
@@ -103,10 +104,11 @@ public class GUI_DangNhap extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (daotk.getTaiKhoan(txtTaiKhoan.getText()) == null) {
 					lblNewLabel_1.setText("Tên tài khoản không tồn tại");
-				} else if (daotk.getTaiKhoan(txtTaiKhoan.getText(), txtMatKhau.getText()) == null) {
+					
+				} else if (daotk.getTaiKhoan(txtTaiKhoan.getText(), new String(txtMatKhau.getPassword())) == null) {
 					lblNewLabel_1.setText("Sai Mật Khẩu");
-				} else if(daotk.getTaiKhoan(txtTaiKhoan.getText(), txtMatKhau.getText()) != null){
-					tk=daotk.getTaiKhoan(txtTaiKhoan.getText(), txtMatKhau.getText());
+				} else if(daotk.getTaiKhoan(txtTaiKhoan.getText(),  new String(txtMatKhau.getPassword())) != null){
+					tk=daotk.getTaiKhoan(txtTaiKhoan.getText(),  new String(txtMatKhau.getPassword()));
 					dispose();
 					new GUI_TrangChu(tk).setVisible(true);
 				}
