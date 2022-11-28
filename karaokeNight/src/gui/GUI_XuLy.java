@@ -43,6 +43,10 @@ import dao.Dao_Phong;
 import entity.NhanVien;
 import entity.Phong;
 import entity.TaiKhoan;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.SystemColor;
 
 public class GUI_XuLy extends JFrame implements MouseListener {
 
@@ -242,69 +246,77 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		panel_5.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Xử lí phòng");
-		lblNewLabel.setBounds(6, 5, 1470, 69);
+		lblNewLabel.setBounds(635, 5, 200, 69);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		lblNewLabel.setBackground(new Color(255, 255, 140));
 		panel_5.add(lblNewLabel);
 		
 		lblThongTinNhanVien = new JLabel("");
-		lblThongTinNhanVien.setIcon(new ImageIcon("image\\nhanVien.png"));
 		lblThongTinNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblThongTinNhanVien.setBounds(1210, 12, 228, 48);
 		NhanVien nv=dao_NhanVien.getNhanVien(tk.getTenTaiKhoan());
 		lblThongTinNhanVien.setText(nv.getTenNhanVien());
 		panel_5.add(lblThongTinNhanVien);
-
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(5, 1, 377, 20);
-		contentPane.add(menuBar);
-
-		JMenu mnTrangChu = new JMenu("Trang chủ");
-		mnTrangChu.setFont(UIManager.getFont("Menu.font"));
-		menuBar.add(mnTrangChu);
-
-		JMenuItem mntmTrangChu = new JMenuItem("Trang chủ");
-		mntmTrangChu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new GUI_TrangChu(tk).setVisible(true);
-			}
-		});
-		mnTrangChu.add(mntmTrangChu);
-
+		
+		JMenuBar menuBar_1 = new JMenuBar();
+		menuBar_1.setBorderPainted(false);
+		menuBar_1.setBackground(new Color(255, 255, 140));
+		menuBar_1.setBounds(1150, 12, 60, 48);
+		panel_5.add(menuBar_1);
+		
+		JMenu mnNewMenu = new JMenu("");
+		mnNewMenu.setIcon(new ImageIcon("image\\nhanVien.png"));
+		menuBar_1.add(mnNewMenu);
+		
 		JMenuItem mntmThongTinTaiKhoan = new JMenuItem("Thông tin tài khoản");
+		mnNewMenu.add(mntmThongTinTaiKhoan);
 		mntmThongTinTaiKhoan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				new GUI_ThongTinTaiKhoan(tk).setVisible(true);
 			}
 		});
-		mnTrangChu.add(mntmThongTinTaiKhoan);
-
+		
 		JMenuItem mntmDoiMatKhau = new JMenuItem("Đổi mật khẩu");
+		mnNewMenu.add(mntmDoiMatKhau);
 		mntmDoiMatKhau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				new GUI_DoiMatKhau(tk).setVisible(true);
 			}
 		});
-		mnTrangChu.add(mntmDoiMatKhau);
-
+		
 		JMenuItem mntmDangXuat = new JMenuItem("Đăng xuất");
-		mntmDangXuat.addActionListener(new ActionListener() {
+		mnNewMenu.add(mntmDangXuat);
+		mnNewMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new GUI_DangNhap().setVisible(true);
 			}
 		});
-		mnTrangChu.add(mntmDangXuat);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBorderPainted(false);
+		menuBar.setBackground(SystemColor.menu);
+		menuBar.setBounds(5, 1, 420, 20);
+		contentPane.add(menuBar);
+		
+		JMenuItem mntmTrangChu = new JMenuItem("Trang chủ  ");
+		mntmTrangChu.setHorizontalAlignment(SwingConstants.CENTER);
+		mntmTrangChu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new GUI_TrangChu(tk).setVisible(true);
+			}
+		});
+		mntmTrangChu.setFont(UIManager.getFont("MenuBar.font"));
+		menuBar.add(mntmTrangChu);
 
-		JSeparator separator = new JSeparator();
-		mnTrangChu.add(separator);
 
-		JMenu mnDanhMuc = new JMenu("Danh mục");
+		JMenu mnDanhMuc = new JMenu("  Danh mục");
+		mnDanhMuc.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnDanhMuc);
-
-		JSeparator separator_1 = new JSeparator();
-		mnDanhMuc.add(separator_1);
 
 		JMenuItem mntmDanhMucDichVu = new JMenuItem("Dịch vụ");
 		mntmDanhMucDichVu.addActionListener(new ActionListener() {
@@ -342,21 +354,21 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		});
 		mnDanhMuc.add(mntmDanhMucNhanVien);
 
-		JMenuItem mnXuLi = new JMenuItem(" Xử lí  ");
+		JMenuItem mnXuLi = new JMenuItem("Xử lí");
+		mnXuLi.setSelected(true);
+		mnXuLi.setHorizontalAlignment(SwingConstants.CENTER);
 		mnXuLi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new GUI_XuLy(tk).setVisible(true);
 			}
 		});
-		mnXuLi.setFont(UIManager.getFont("Menu.font"));
+		mnXuLi.setFont(UIManager.getFont("MenuBar.font"));
 		menuBar.add(mnXuLi);
 
-		JMenu mnTimKiem = new JMenu("Tìm kiếm");
+		JMenu mnTimKiem = new JMenu("Tìm kiếm ");
+		mnTimKiem.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnTimKiem);
-
-		JSeparator separator_2 = new JSeparator();
-		mnTimKiem.add(separator_2);
 
 		JMenuItem mntmTimKiemDichVu = new JMenuItem("Dịch vụ");
 		mntmTimKiemDichVu.addActionListener(new ActionListener() {
@@ -376,11 +388,9 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		});
 		mnTimKiem.add(mntmTimKiemHoaDon);
 
-		JMenu mnThongKe = new JMenu("Thống kê");
+		JMenu mnThongKe = new JMenu(" Thống kê ");
+		mnThongKe.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnThongKe);
-
-		JSeparator separator_3 = new JSeparator();
-		mnThongKe.add(separator_3);
 
 		JMenuItem mntmThongKeDoanhThu = new JMenuItem("Doanh thu");
 		mntmThongKeDoanhThu.addActionListener(new ActionListener() {
@@ -401,6 +411,7 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		mnThongKe.add(mntmThongKeDichVu);
 
 		JMenuItem mnTroGiup = new JMenuItem("Trợ giúp ");
+		mnTroGiup.setHorizontalAlignment(SwingConstants.CENTER);
 		mnTroGiup.setFont(UIManager.getFont("MenuBar.font"));
 		mnTroGiup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -707,5 +718,22 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }

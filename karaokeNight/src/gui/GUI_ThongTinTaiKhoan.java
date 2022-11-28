@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -88,57 +89,26 @@ public class GUI_ThongTinTaiKhoan extends JFrame {
 
 		// Menu
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(5, 1, 377, 20);
+		menuBar.setBorderPainted(false);
+		menuBar.setBackground(SystemColor.menu);
+		menuBar.setBounds(5, 1, 420, 20);
 		contentPane.add(menuBar);
-
-		JMenu mnTrangChu = new JMenu("Trang chủ");
-		mnTrangChu.setFont(UIManager.getFont("Menu.font"));
-		menuBar.add(mnTrangChu);
-
-		JMenuItem mntmTrangChu = new JMenuItem("Trang chủ");
+		
+		JMenuItem mntmTrangChu = new JMenuItem("Trang chủ  ");
+		mntmTrangChu.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmTrangChu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new GUI_TrangChu(tk).setVisible(true);
 			}
 		});
-		mnTrangChu.add(mntmTrangChu);
+		mntmTrangChu.setFont(UIManager.getFont("MenuBar.font"));
+		menuBar.add(mntmTrangChu);
 
-		JMenuItem mntmThongTinTaiKhoan = new JMenuItem("Thông tin tài khoản");
-		mntmThongTinTaiKhoan.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_ThongTinTaiKhoan(tk).setVisible(true);
-			}
-		});
-		mnTrangChu.add(mntmThongTinTaiKhoan);
 
-		JMenuItem mntmDoiMatKhau = new JMenuItem("Đổi mật khẩu");
-		mntmDoiMatKhau.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_DoiMatKhau(tk).setVisible(true);
-			}
-		});
-		mnTrangChu.add(mntmDoiMatKhau);
-
-		JMenuItem mntmDangXuat = new JMenuItem("Đăng xuất");
-		mntmDangXuat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_DangNhap().setVisible(true);
-			}
-		});
-		mnTrangChu.add(mntmDangXuat);
-
-		JSeparator separator = new JSeparator();
-		mnTrangChu.add(separator);
-
-		JMenu mnDanhMuc = new JMenu("Danh mục");
+		JMenu mnDanhMuc = new JMenu("  Danh mục");
+		mnDanhMuc.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnDanhMuc);
-
-		JSeparator separator_1 = new JSeparator();
-		mnDanhMuc.add(separator_1);
 
 		JMenuItem mntmDanhMucDichVu = new JMenuItem("Dịch vụ");
 		mntmDanhMucDichVu.addActionListener(new ActionListener() {
@@ -176,21 +146,20 @@ public class GUI_ThongTinTaiKhoan extends JFrame {
 		});
 		mnDanhMuc.add(mntmDanhMucNhanVien);
 
-		JMenuItem mnXuLi = new JMenuItem(" Xử lí  ");
+		JMenuItem mnXuLi = new JMenuItem("Xử lí");
+		mnXuLi.setHorizontalAlignment(SwingConstants.CENTER);
 		mnXuLi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new GUI_XuLy(tk).setVisible(true);
 			}
 		});
-		mnXuLi.setFont(UIManager.getFont("Menu.font"));
+		mnXuLi.setFont(UIManager.getFont("MenuBar.font"));
 		menuBar.add(mnXuLi);
 
-		JMenu mnTimKiem = new JMenu("Tìm kiếm");
+		JMenu mnTimKiem = new JMenu("Tìm kiếm ");
+		mnTimKiem.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnTimKiem);
-
-		JSeparator separator_2 = new JSeparator();
-		mnTimKiem.add(separator_2);
 
 		JMenuItem mntmTimKiemDichVu = new JMenuItem("Dịch vụ");
 		mntmTimKiemDichVu.addActionListener(new ActionListener() {
@@ -210,11 +179,9 @@ public class GUI_ThongTinTaiKhoan extends JFrame {
 		});
 		mnTimKiem.add(mntmTimKiemHoaDon);
 
-		JMenu mnThongKe = new JMenu("Thống kê");
+		JMenu mnThongKe = new JMenu(" Thống kê ");
+		mnThongKe.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnThongKe);
-
-		JSeparator separator_3 = new JSeparator();
-		mnThongKe.add(separator_3);
 
 		JMenuItem mntmThongKeDoanhThu = new JMenuItem("Doanh thu");
 		mntmThongKeDoanhThu.addActionListener(new ActionListener() {
@@ -235,6 +202,7 @@ public class GUI_ThongTinTaiKhoan extends JFrame {
 		mnThongKe.add(mntmThongKeDichVu);
 
 		JMenuItem mnTroGiup = new JMenuItem("Trợ giúp ");
+		mnTroGiup.setHorizontalAlignment(SwingConstants.CENTER);
 		mnTroGiup.setFont(UIManager.getFont("MenuBar.font"));
 		mnTroGiup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
