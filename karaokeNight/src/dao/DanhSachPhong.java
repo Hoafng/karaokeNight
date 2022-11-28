@@ -20,16 +20,22 @@ import entity.Phong;
 import gui.GUI_XuLy;
 
 public class DanhSachPhong {
-	JPanel pnDanhSachPhong, pnPhongDS;
+	JPanel pnDanhSachPhong;
+	JPanel[] pnPhongDS = new JPanel[100];
 	Dao_Phong dao_Phong = new Dao_Phong();
+	ArrayList<JLabel> soLuongPhong ;
 	ArrayList<Phong> danhSachPhong;
+	private JLabel lblSoPhong;
 	public interface Event {
 
 		public abstract void onChange(Phong p);
 	}
+	public interface Event2 {
 
+		public abstract void onChange(JPanel pn);
+	}
 	public DanhSachPhong() {
-
+		danhSachPhong= new ArrayList<Phong>();
 	}
 	public JPanel themPhong(Phong p) {
 		JPanel pn = new JPanel();
@@ -47,7 +53,7 @@ public class DanhSachPhong {
 		else if(p.getTinhTrang().equals("Đang sử dụng"))
 			lblIconPhong.setIcon(new ImageIcon("image\\home-icon-dangsudung.png"));
 
-		JLabel lblSoPhong = new JLabel();
+		lblSoPhong = new JLabel();
 		lblSoPhong.setText(p.getMaPhong());
 		lblSoPhong.setPreferredSize(new Dimension(140, 20));
 		lblSoPhong.setName("");
@@ -82,30 +88,36 @@ public class DanhSachPhong {
 		return pn;
 	}
 	public void docDuLieuTuSQL(Event event) {
+		soLuongPhong = new ArrayList<JLabel>();
+		int i=0;
 		for (Phong p : dao_Phong.getAllPhong()) {
-			pnPhongDS = themPhong(p);
-			pnDanhSachPhong.add(pnPhongDS);
-			pnPhongDS.addMouseListener(new MouseAdapter() {
+			pnPhongDS[i] = themPhong(p);
+			soLuongPhong.add(lblSoPhong);
+			pnDanhSachPhong.add(pnPhongDS[i]);
+			pnPhongDS[i].addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
 					 event.onChange(p);
 				}
 			});
+			i++;
 		}
 		pnDanhSachPhong.updateUI();
 	}
 	public void docDuLieuTimKiem(Event event,ArrayList<Phong> ds) {
-		for (Phong p : ds) {
-			pnPhongDS = themPhong(p);
-			pnDanhSachPhong.add(pnPhongDS);
-			pnPhongDS.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent e) {
-					 event.onChange(p);
-				}
-			});
-		}
-		pnDanhSachPhong.updateUI();
+
+//		for (Phong p : ds) {
+//			pnPhongDS = themPhong(p);
+//
+//			pnDanhSachPhong.add(pnPhongDS);
+//			pnPhongDS.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mousePressed(MouseEvent e) {
+//					 event.onChange(p);
+//				}
+//			});
+//		}
+//		pnDanhSachPhong.updateUI();
 	}
 	public JPanel getPnDanhSachPhong() {
 		return pnDanhSachPhong;
@@ -113,13 +125,25 @@ public class DanhSachPhong {
 	public void setPnDanhSachPhong(JPanel pnDanhSachPhong) {
 		this.pnDanhSachPhong = pnDanhSachPhong;
 	}
-	public JPanel getPnPhong() {
-		return pnPhongDS;
+	public ArrayList<JLabel> getlblSoLuongPhong (){
+		return soLuongPhong;
 	}
-	public void setPnPhong(JPanel pnPhong) {
-		this.pnPhongDS = pnPhong;
-	}
-	public void changeBorder(){
-		pnPhongDS.setBackground(Color.RED);
+//	public JPanel getPnPhong() {
+//		return pnPhongDS;
+//	}
+//	public void setPnPhong(JPanel pnPhong) {
+//		this.pnPhongDS = pnPhong;
+//	}
+//	public JPanel getPnPhong() {
+//		return pnPhongDS;
+//	}
+//	public void setPnPhong(JPanel pnPhong) {
+//		this.pnPhongDS = pnPhong;
+//	}
+	public void changeBorder(int i){
+		if(pnPhongDS[i].getBackground()!= Color.RED)
+			pnPhongDS[i].setBackground(Color.RED);
+		else 
+			pnPhongDS[i].setBackground(new Color(255, 255, 140));
 	}
 }
