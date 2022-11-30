@@ -3,7 +3,6 @@ go
 use karaokeNight
 go
 
-
 create Table TaiKhoan
 (
 	tenTaiKhoan Varchar(50) not null primary key,
@@ -27,6 +26,7 @@ create Table KhachHang
 (	maKhachHang Varchar(20) not null primary key,
  	soDienThoai Varchar(20),
 	tenKhachHang NVarchar(50),
+    ngaySinh Date,
 	diaChi NVarchar(100),
 	gioiTinh bit,
     cmnd Varchar(20),
@@ -149,29 +149,29 @@ Values('NV01' , N'Nguyễn A Đại' , '0909111111' , '2001-01-01' , N'Quận 1,
 
 
 Insert into KhachHang
-Values('KH001', '0909090909' , N'Diệp Chung Minh',N'Quận 1, Thành Phố Hồ Chí Minh',1,'38581234',1,'2022-10-14'),
-	  ('KH002', '0908080808' , N'Phong Vân',N'Quận 3, Thành Phố Hồ Chí Minh',1,'38581235',1,'2022-10-14'),
-	  ('KH003', '0907070707' , N'Tô Bình ',N'Quận 5, Thành Phố Hồ Chí Minh',0,'38581236',1,'2022-10-03'),
-	  ('KH004', '0906060606' , N'Dương Gian',N'Quận 2, Thành Phố Hồ Chí Minh',1,'38581237',1,'2022-10-04'),
-	  ('KH005', '0905050505' , N'Lâm Uyên',N'Quận 2, Thành Phố Hồ Chí Minh',0,'38581238',1,'2022-10-14'),
-	  ('KH006', '0904040404' , N'Tô Lê',N'Quận 3, Thành Phố Hồ Chí Minh',0,'38581239',1,'2022-10-14'),
-	  ('KH007', '0903030303' , N'Vương Trường Sinh',N'Quận 2, Thành Phố Hồ Chí Minh',1,'38581241',1,'2022-10-07'),
-	  ('KH008', '0902020202' , N'Uông Như Yên',N'Quận 6, Thành Phố Hồ Chí Minh',0,'38581242',1,'2022-10-08'),
-	  ('KH009', '0901010101' , N'Vương Thanh Sơn',N'Quận 1, Thành Phố Hồ Chí Minh',0,'38581243',1,'2022-10-14'),
-	  ('KH010', '0900000000' , N'Chu Tiểu Yêu',N'Quận 7, Thành Phố Hồ Chí Minh',0,'38581244',1,'2022-10-10'),
-	  ('KH011', '0912345678' , N'Chu Bá Thông',N'Quận 8, Thành Phố Hồ Chí Minh',1,'38581245',1,'2022-10-14'),
-	  ('KH012', '0911111111' , N'Lý Long Cơ',N'Quận 9, Thành Phố Hồ Chí Minh',0,'38581246',1,'2022-10-11'),
-	  ('KH013', '0922222222' , N'Duynaldinho',N'Quận 3, Thành Phố Hồ Chí Minh',0,'38581247',1,'2022-10-11'),
-	  ('KH014', '0933333333' , N'Duybrahimovic',N'Quận 3, Thành Phố Hồ Chí Minh',1,'38581248',1,'2022-10-12'),
-	  ('KH015', '0944444444' , N'Cristiano Lionel Messinaldo',N'Quận 1, Thành Phố Hồ Chí Minh',1,'38581249',1,'2022-10-12'),
-	  ('KH016', '0955555555' , N'Uchiha Sasuke',N'Quận 1, Thành Phố Hồ Chí Minh',1,'38581254',1,'2022-10-12'),
-	  ('KH017', '0966666666' , N'Uchiha Itachi',N'Quận 9, Thành Phố Hồ Chí Minh',1,'38581255',1,'2022-10-12'),
-	  ('KH018', '0977777777' , N'Uchiha Obito',N'Quận 9, Thành Phố Hồ Chí Minh',1,'38581256',1,'2022-10-13'),
-	  ('KH019', '0988888888' , N'Uchiha Shishui',N'Quận 8, Thành Phố Hồ Chí Minh',0,'38581257',1,'2022-10-13'),
-	  ('KH020', '0999999999' , N'Uchiha Madara',N'Quận 6, Thành Phố Hồ Chí Minh',0,'38581258',1,'2022-10-13'),
-	  ('KH021', '0911234567' , N'Tobirama Senju',N'Quận 5, Thành Phố Hồ Chí Minh',0,'38581260',1,'2022-10-13'),
-	  ('KH022', '0922345678' , N'Uzumaki Naruto',N'Quận 4, Thành Phố Hồ Chí Minh',1,'38581263',1,'2022-10-13'),
-	  ('KH023', '0933456789' , N'Namikaze Minato',N'Quận 4, Thành Phố Hồ Chí Minh',1,'38581264d',1,'2022-10-13')
+Values('KH001', '0909090909' , N'Diệp Chung Minh','2002-09-14',N'Quận 1, Thành Phố Hồ Chí Minh',1,'38581234',1,'2022-10-14'),
+	  ('KH002', '0908080808' , N'Phong Vân','2002-09-14',N'Quận 3, Thành Phố Hồ Chí Minh',1,'38581235',1,'2022-10-14'),
+	  ('KH003', '0907070707' , N'Tô Bình ','2002-09-14',N'Quận 5, Thành Phố Hồ Chí Minh',0,'38581236',1,'2022-10-03'),
+	  ('KH004', '0906060606' , N'Dương Gian','2002-09-14',N'Quận 2, Thành Phố Hồ Chí Minh',1,'38581237',1,'2022-10-04'),
+	  ('KH005', '0905050505' , N'Lâm Uyên','2002-09-14',N'Quận 2, Thành Phố Hồ Chí Minh',0,'38581238',1,'2022-10-14'),
+	  ('KH006', '0904040404' , N'Tô Lê','2002-09-14',N'Quận 3, Thành Phố Hồ Chí Minh',0,'38581239',1,'2022-10-14'),
+	  ('KH007', '0903030303' , N'Vương Trường Sinh','2002-09-14',N'Quận 2, Thành Phố Hồ Chí Minh',1,'38581241',1,'2022-10-07'),
+	  ('KH008', '0902020202' , N'Uông Như Yên','2002-09-14',N'Quận 6, Thành Phố Hồ Chí Minh',0,'38581242',1,'2022-10-08'),
+	  ('KH009', '0901010101' , N'Vương Thanh Sơn','2002-09-14',N'Quận 1, Thành Phố Hồ Chí Minh',0,'38581243',1,'2022-10-14'),
+	  ('KH010', '0900000000' , N'Chu Tiểu Yêu','2002-09-14',N'Quận 7, Thành Phố Hồ Chí Minh',0,'38581244',1,'2022-10-10'),
+	  ('KH011', '0912345678' , N'Chu Bá Thông','2002-09-14',N'Quận 8, Thành Phố Hồ Chí Minh',1,'38581245',1,'2022-10-14'),
+	  ('KH012', '0911111111' , N'Lý Long Cơ','2002-09-14',N'Quận 9, Thành Phố Hồ Chí Minh',0,'38581246',1,'2022-10-11'),
+	  ('KH013', '0922222222' , N'Duynaldinho','2002-09-14',N'Quận 3, Thành Phố Hồ Chí Minh',0,'38581247',1,'2022-10-11'),
+	  ('KH014', '0933333333' , N'Duybrahimovic','2002-09-14',N'Quận 3, Thành Phố Hồ Chí Minh',1,'38581248',1,'2022-10-12'),
+	  ('KH015', '0944444444' , N'Cristiano Lionel Messinaldo','2002-09-14',N'Quận 1, Thành Phố Hồ Chí Minh',1,'38581249',1,'2022-10-12'),
+	  ('KH016', '0955555555' , N'Uchiha Sasuke','2002-09-14',N'Quận 1, Thành Phố Hồ Chí Minh',1,'38581254',1,'2022-10-12'),
+	  ('KH017', '0966666666' , N'Uchiha Itachi','2002-09-14',N'Quận 9, Thành Phố Hồ Chí Minh',1,'38581255',1,'2022-10-12'),
+	  ('KH018', '0977777777' , N'Uchiha Obito','2002-09-14',N'Quận 9, Thành Phố Hồ Chí Minh',1,'38581256',1,'2022-10-13'),
+	  ('KH019', '0988888888' , N'Uchiha Shishui','2002-09-14',N'Quận 8, Thành Phố Hồ Chí Minh',0,'38581257',1,'2022-10-13'),
+	  ('KH020', '0999999999' , N'Uchiha Madara','2002-09-14',N'Quận 6, Thành Phố Hồ Chí Minh',0,'38581258',1,'2022-10-13'),
+	  ('KH021', '0911234567' , N'Tobirama Senju','2002-09-14',N'Quận 5, Thành Phố Hồ Chí Minh',0,'38581260',1,'2022-10-13'),
+	  ('KH022', '0922345678' , N'Uzumaki Naruto','2002-09-14',N'Quận 4, Thành Phố Hồ Chí Minh',1,'38581263',1,'2022-10-13'),
+	  ('KH023', '0933456789' , N'Namikaze Minato','2002-09-14',N'Quận 4, Thành Phố Hồ Chí Minh',1,'38581264d',1,'2022-10-13')
 
 Insert into PhieuDatPhong
 Values('MPDP01' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'PVip001008' , 'KH001',1),
