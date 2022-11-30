@@ -38,8 +38,10 @@ import javax.swing.border.TitledBorder;
 
 import connectDB.ConnectDB;
 import dao.DanhSachPhong;
+import dao.Dao_HoaDon;
 import dao.Dao_NhanVien;
 import dao.Dao_Phong;
+import entity.HoaDonThuePhong;
 import entity.NhanVien;
 import entity.Phong;
 import entity.TaiKhoan;
@@ -71,6 +73,8 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 	private TaiKhoan tk;
 	private JLabel lblThongTinNhanVien;
 	private Dao_NhanVien dao_NhanVien = new Dao_NhanVien();
+	private JTextField txtGioVaoPhong;
+	private Dao_HoaDon dao_HoaDon;
 
 	/**
 	 * Launch the application.
@@ -485,6 +489,19 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		txtThongTinMaPhong.setColumns(10);
 		txtThongTinMaPhong.setBounds(126, 30, 150, 30);
 		panel_3_1.add(txtThongTinMaPhong);
+		
+		JLabel lblGioVaoPhong = new JLabel("Giờ vào phòng");
+		lblGioVaoPhong.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGioVaoPhong.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblGioVaoPhong.setBounds(5, 230, 120, 30);
+		panel_3_1.add(lblGioVaoPhong);
+		
+		txtGioVaoPhong = new JTextField();
+		txtGioVaoPhong.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtGioVaoPhong.setEditable(false);
+		txtGioVaoPhong.setColumns(10);
+		txtGioVaoPhong.setBounds(126, 230, 150, 30);
+		panel_3_1.add(txtGioVaoPhong);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(
@@ -576,17 +593,22 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		gbc_pnPhong.gridy = 0;
 		dSP.docDuLieuTuSQL(p -> {
 			xemThongTin(p);
-			int i= danhSachPhong.indexOf(p);
+			int i = danhSachPhong.indexOf(p);
 			dSP.changeBorder(i);
 		});
 
 	}
 
 	public void xemThongTin(Phong p) {
+		dao_HoaDon = new Dao_HoaDon();
+		HoaDonThuePhong hdtp = dao_HoaDon.getMaHoaDonPhong(p.getMaPhong());
 		txtThongTinMaPhong.setText(p.getMaPhong());
 		txtThongTinLoaiPhong.setText(p.getMaLoaiPhong().getTenLoaiPhong());
 		txtThongTinGiaPhong.setText(String.valueOf(p.getGiaPhong()));
 		txtTinTrangPhong.setText(p.getTinhTrang());
+		if(dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đang sử dụng"))
+			txtGioVaoPhong.setText(hdtp.getGioVaoPhong().toString());
+		else txtGioVaoPhong.setText("");
 		phong = p;
 	}
 
@@ -623,14 +645,16 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		ArrayList<Phong> dsLoaiPhong = null;
 		if (cbMaPhong.getSelectedIndex() != 0) {
 			dsMaPhong = dao_Phong.getPhongTheoMaPhong(maPhong);
-		}
+		} else
+			dsMaPhong = dao_Phong.getAllPhong();
 		if (cbTinhTrang.getSelectedIndex() != 0) {
 			dsTinhTrang = dao_Phong.getPhongTheoTinhTrang(tinhTrang);
-		}
+		} else
+			dsTinhTrang = dao_Phong.getAllPhong();
 		if (rdLoaiPhongTatCa.isSelected() == false) {
 			dsLoaiPhong = dao_Phong.getPhongTheoLoaiPhong(maLoaiPhong);
 		} else {
-			dsLoaiPhong = danhSachPhong;
+			dsLoaiPhong = dao_Phong.getAllPhong();
 		}
 		if (dsMaPhong != null) {
 			if (dsTinhTrang != null) {
@@ -656,41 +680,20 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 			ds = dsLoaiPhong;
 
 		}
-		danhSachPhong =ds;
+		danhSachPhong = ds;
 		danhSachTimKiem(danhSachPhong);
 	}
 
 	public void danhSachTimKiem(ArrayList<Phong> ds) {
 		pnDanhSachPhong.removeAll();
 		dSP.docDuLieuTimKiem(p -> {
-			for (Phong phong : ds) {
-				phong.getMaPhong().equalsIgnoreCase(p.getMaPhong());
-				xemThongTin(p);
-			}
+			xemThongTin(p);
+			int i = danhSachPhong.indexOf(p);
+			dSP.changeBorder(i);
+
 		}, ds);
 	}
 
-//	private void docDuLieuTimKiem() {
-//		String a;
-//		if (rdLoaiPhongThuong.isSelected())
-//			a = "PT";
-//		else if (rdLoaiPhongVip.isSelected())
-//			a = "PVip";
-//		else {
-//			docDuLieuTuSQL();
-//			return;
-//		}
-//		pnDanhSachPhong.removeAll();
-//		int x = 0, y = 0;
-//		for (Phong p : dao_Phong.getPhongTheoTinhTrang(a)) {
-//			pnPhong= themPhong(p);
-//			x++;
-//			if (x == 6) {
-//				x = 0;
-//				y++;
-//			}
-//		}
-//	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	}

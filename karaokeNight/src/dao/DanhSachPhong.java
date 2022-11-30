@@ -106,18 +106,22 @@ public class DanhSachPhong {
 	}
 	public void docDuLieuTimKiem(Event event,ArrayList<Phong> ds) {
 
-//		for (Phong p : ds) {
-//			pnPhongDS = themPhong(p);
-//
-//			pnDanhSachPhong.add(pnPhongDS);
-//			pnPhongDS.addMouseListener(new MouseAdapter() {
-//				@Override
-//				public void mousePressed(MouseEvent e) {
-//					 event.onChange(p);
-//				}
-//			});
-//		}
-//		pnDanhSachPhong.updateUI();
+		soLuongPhong.clear();
+		int i=0;
+		for (Phong p : ds) {
+			pnPhongDS[i] = themPhong(p);
+			soLuongPhong.add(lblSoPhong);
+			pnDanhSachPhong.add(pnPhongDS[i]);
+			pnPhongDS[i].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					 event.onChange(p);
+				}
+				public void mouse
+			});
+			i++;
+		}
+		pnDanhSachPhong.updateUI();
 	}
 	public JPanel getPnDanhSachPhong() {
 		return pnDanhSachPhong;
@@ -141,6 +145,9 @@ public class DanhSachPhong {
 //		this.pnPhongDS = pnPhong;
 //	}
 	public void changeBorder(int i){
+		for(int j=0;j<soLuongPhong.size();j++)
+			if(pnPhongDS[j].getBackground()== Color.RED && j!=i)
+				pnPhongDS[j].setBackground(new Color(255, 255, 140));
 		if(pnPhongDS[i].getBackground()!= Color.RED)
 			pnPhongDS[i].setBackground(Color.RED);
 		else 
