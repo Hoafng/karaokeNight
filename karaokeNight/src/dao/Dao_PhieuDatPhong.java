@@ -21,14 +21,14 @@ public class Dao_PhieuDatPhong {
 		try {
 			ConnectDB.getInstance();
 			Connection con = ConnectDB.getConnection();
-			String sql = "select * from PhieuDatPhong";
+			String sql = "select * from PhieuDatPhong pd join KhachHang kh on kh.maKhachHang=pd.maKhachHang";
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				KhachHang kh = new KhachHang(rs.getString("maKhachHang"));
 				Phong p = new Phong(rs.getString("maPhong"));
 				ds.add(new PhieuDatPhong(rs.getString("maPhieuDatPhong"), rs.getInt("soGioDat"),
-						rs.getDate("ngayDatPhong"), rs.getDate("ngayNhanPhong"), p, kh));
+						rs.getTimestamp("ngayDatPhong"), rs.getTimestamp("ngayNhanPhong"), p, kh,rs.getBoolean("tonTai")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,18 +53,17 @@ public class Dao_PhieuDatPhong {
 		return ds;
 	}
 
-	public boolean insertPhieuDatPhong(PhieuDatPhong phieu,String time) {
+	public boolean insertPhieuDatPhong(PhieuDatPhong phieu) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement statement = null;
-		String a =phieu.getNgayNhanPhong().toString()+" "+time;
 		try {
 			String sql = "INSERT into PhieuDatPhong VALUES(?,?,?,?,?,?)";
 			statement = con.prepareStatement(sql);
 			statement.setString(1, phieu.getMaPhieuDatPhong());
 			statement.setInt(2, phieu.getSoGioDat());
-			statement.setDate(3, phieu.getNgayDatPhong());
-			statement.setTimestamp(4, Timestamp.valueOf(a));
+			statement.setTimestamp(3, phieu.getNgayDatPhong());
+			statement.setTimestamp(4, phieu.getNgayNhanPhong());
 			statement.setString(5, phieu.getMaPhong().getMaPhong());
 			statement.setString(6, phieu.getMaKhachHang().getMaKhachHang());
 			statement.executeUpdate();

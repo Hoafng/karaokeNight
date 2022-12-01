@@ -1,13 +1,14 @@
 package entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class PhieuDatPhong {
 	private String maPhieuDatPhong;
 	private int soGioDat;
-	private Date ngayDatPhong;
-	private Date ngayNhanPhong;
+	private Timestamp ngayDatPhong;
+	private Timestamp ngayNhanPhong;
 	private Phong maPhong;
 	private KhachHang maKhachHang;
 	private boolean tonTai;
@@ -23,16 +24,16 @@ public class PhieuDatPhong {
 	public void setSoGioDat(int soGioDat) {
 		this.soGioDat = soGioDat;
 	}
-	public Date getNgayDatPhong() {
+	public Timestamp getNgayDatPhong() {
 		return ngayDatPhong;
 	}
-	public void setNgayDatPhong(Date ngayDatPhong) {
+	public void setNgayDatPhong(Timestamp ngayDatPhong) {
 		this.ngayDatPhong = ngayDatPhong;
 	}
-	public Date getNgayNhanPhong() {
+	public Timestamp getNgayNhanPhong() {
 		return ngayNhanPhong;
 	}
-	public void setNgayNhanPhong(Date ngayNhanPhong) {
+	public void setNgayNhanPhong(Timestamp ngayNhanPhong) {
 		this.ngayNhanPhong = ngayNhanPhong;
 	}
 	public Phong getMaPhong() {
@@ -55,7 +56,7 @@ public class PhieuDatPhong {
 		this.tonTai = tonTai;
 	}
 	
-	public PhieuDatPhong(String maPhieuDatPhong, int soGioDat, Date ngayDatPhong, Date ngayNhanPhong, Phong maPhong,
+	public PhieuDatPhong(String maPhieuDatPhong, int soGioDat, Timestamp ngayDatPhong, Timestamp ngayNhanPhong, Phong maPhong,
 			KhachHang maKhachHang, boolean tonTai) {
 		super();
 		this.maPhieuDatPhong = maPhieuDatPhong;

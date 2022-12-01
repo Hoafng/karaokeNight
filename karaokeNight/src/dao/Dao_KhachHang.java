@@ -25,7 +25,7 @@ public class Dao_KhachHang {
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				ds.add(new KhachHang(rs.getString("maKhachHang"), rs.getString("soDienThoai"),
-						rs.getString("tenKhachHang")));
+						rs.getString("tenKhachHang"),rs.getString("diaChi"),rs.getBoolean("gioiTinh"),rs.getString("cmnd"),rs.getBoolean("tonTai"),rs.getDate("lanDungCuoi")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

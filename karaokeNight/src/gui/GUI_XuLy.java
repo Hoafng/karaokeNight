@@ -64,7 +64,7 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 	private ArrayList<Phong> danhSachPhong;
 	private JPanel pnPhong;
 	private GridBagConstraints gbc_pnPhong;
-	private DanhSachPhong dSP = new DanhSachPhong();
+	private DanhSachPhong dSP;
 	private JTextField txtThongTinLoaiPhong;
 	private JTextField txtThongTinGiaPhong;
 	private JTextField txtTinTrangPhong;
@@ -93,6 +93,7 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 			e.printStackTrace();
 		}
 		tk = taiKhoan;
+		dSP = new DanhSachPhong(tk);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1480, 780);
 		setLocationRelativeTo(null);
@@ -489,13 +490,13 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		txtThongTinMaPhong.setColumns(10);
 		txtThongTinMaPhong.setBounds(126, 30, 150, 30);
 		panel_3_1.add(txtThongTinMaPhong);
-		
+
 		JLabel lblGioVaoPhong = new JLabel("Giờ vào phòng");
 		lblGioVaoPhong.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGioVaoPhong.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		lblGioVaoPhong.setBounds(5, 230, 120, 30);
 		panel_3_1.add(lblGioVaoPhong);
-		
+
 		txtGioVaoPhong = new JTextField();
 		txtGioVaoPhong.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		txtGioVaoPhong.setEditable(false);
@@ -595,6 +596,9 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 			xemThongTin(p);
 			int i = danhSachPhong.indexOf(p);
 			dSP.changeBorder(i);
+			if (dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đang chờ")
+					|| dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đã đặt"))
+				dSP.showMenuDatPhong(i);
 		});
 
 	}
@@ -606,9 +610,10 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		txtThongTinLoaiPhong.setText(p.getMaLoaiPhong().getTenLoaiPhong());
 		txtThongTinGiaPhong.setText(String.valueOf(p.getGiaPhong()));
 		txtTinTrangPhong.setText(p.getTinhTrang());
-		if(dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đang sử dụng"))
+		if (dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đang sử dụng"))
 			txtGioVaoPhong.setText(hdtp.getGioVaoPhong().toString());
-		else txtGioVaoPhong.setText("");
+		else
+			txtGioVaoPhong.setText("");
 		phong = p;
 	}
 
@@ -690,7 +695,9 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 			xemThongTin(p);
 			int i = danhSachPhong.indexOf(p);
 			dSP.changeBorder(i);
-
+			if (dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đang chờ")
+					|| dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đã đặt"))
+				dSP.showMenuDatPhong(i);
 		}, ds);
 	}
 
