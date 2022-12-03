@@ -83,6 +83,14 @@ public class KhachHang {
 		this.tonTai = tonTai;
 		this.lanDungCuoi = lanDungCuoi;
 	}
+	public KhachHang(String maKhachHang, String soDienThoai, String tenKhachHang, boolean tonTai, Date lanDungCuoi) {
+		super();
+		this.maKhachHang = maKhachHang;
+		this.soDienThoai = soDienThoai;
+		this.tenKhachHang = tenKhachHang;
+		this.tonTai = tonTai;
+		this.lanDungCuoi = lanDungCuoi;
+	}
 	public KhachHang(String maKhachHang) {
 		super();
 		this.maKhachHang = maKhachHang;
