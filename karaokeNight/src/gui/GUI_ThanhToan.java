@@ -477,6 +477,12 @@ public class GUI_ThanhToan extends JFrame implements Printable {
 		
 		thanhTien = (thanhTien + phong.getGiaPhong());
 		thanhTien = thanhTien + thanhTien*1/10;
+		
+		Date lanDungCuoi = kh.getLanDungCuoi();
+		long now = date.getTime();
+		long check = now - lanDungCuoi.getTime();
+		if(check<=30*24*60*60*1000)
+			thanhTien = thanhTien*9/10;
 		txtThanhTien.setText(thanhTien+" vnđ");
 	}
 	
@@ -487,6 +493,10 @@ public class GUI_ThanhToan extends JFrame implements Printable {
 		long gioRaPhong = date.getTime();
 		Date ngayLap = Date.valueOf(txtNgayLap.getText());
 		Timestamp timeRaPhong = new Timestamp(gioRaPhong);
+		Dao_KhachHang dao_kh = new Dao_KhachHang();
+		KhachHang kh = dao_kh.getKhachHangTuHoaDon(maHoaDon);
+		String maKH = kh.getMaKhachHang();
+		dao_kh.updateLanDungCuoi(ngayLap,maKH);
 		if (dao_hd.updateThanhToan(timeRaPhong,ngayLap,maHoaDon) == true) {
 			dao_phong.updateTinhTrang(maPhong, "Trống");
 			JOptionPane.showMessageDialog(this, "Thanh toán thành công");

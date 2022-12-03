@@ -296,6 +296,9 @@ public class GUI_ThuePhong extends JFrame{
 		Dao_KhachHang dao_kh = new Dao_KhachHang();
 		String sdt = txtSoDienThoai.getText();
 		KhachHang khachHang = dao_kh.getKhachHang(sdt);
+
+		
+		
 		if (khachHang == null) {
 			int i = 1;
 			String maKH = null;
@@ -306,11 +309,12 @@ public class GUI_ThuePhong extends JFrame{
 				else if(i<100)
 					maKH="KH0"+i;
 				else maKH ="KH"+i;
-				khachHang = new KhachHang(maKH, sdt, txtTenKhachHang.getText());
+				khachHang = new KhachHang(maKH, sdt, txtTenKhachHang.getText(),true,null);
 				constrain1 = dao_kh.getAllKhachHang().contains(khachHang);
 				i++;
 			} while (constrain1 == true);
 			dao_kh.insertKhachHang(khachHang);
+			dao_kh.updateLanDungCuoi(null, maKH);
 		}
 		String maNhanVien = txtMaNhanVien.getText();
 		String maPhong = txtMaPhong.getText();
