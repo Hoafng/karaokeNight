@@ -1,41 +1,49 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Color;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
+import com.toedter.calendar.JDateChooser;
 
 import connectDB.ConnectDB;
 import dao.Dao_KhachHang;
 import entity.KhachHang;
-import entity.TaiKhoan;
 
-public class GUI_KhachHang extends JFrame implements MouseListener {
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+
+public class GUI_KhachHang extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableKhachHang;
@@ -54,7 +62,17 @@ public class GUI_KhachHang extends JFrame implements MouseListener {
 	private JButton btnSua;
 	private JButton btnLuu;
 	private JButton btnTimKiem;
-	private TaiKhoan tk;
+	private JDateChooser dateChooser;
+	private JTextField txtNgaySinh;
+	private JTextField txtDiaChi;
+	private JCheckBox chkcbxGioiTinh;
+	private JTextField txtCMND;
+	private JTextField textField;
+	private JDateChooser dateChooser_1;
+	private JTextField txtNgaySinhTim;
+	private JTextField txtCMNDTim;
+	private JCheckBox chkcbxNamTim;
+	private JCheckBox chckbxNuTim;
 
 	/**
 	 * Launch the application.
@@ -63,7 +81,7 @@ public class GUI_KhachHang extends JFrame implements MouseListener {
 	/**
 	 * Create the frame.
 	 */
-	public GUI_KhachHang(TaiKhoan taiKhoan) {
+	public GUI_KhachHang() {
 		try {
 			ConnectDB.getInstance().connect();
 		} catch (SQLException e) {
@@ -210,78 +228,84 @@ public class GUI_KhachHang extends JFrame implements MouseListener {
 
 		
 		JLabel lblKhachHang = new JLabel("Khách Hàng");
-		lblKhachHang.setBounds(602, 44, 232, 45);
+		lblKhachHang.setBounds(599, 29, 232, 45);
 		lblKhachHang.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		lblKhachHang.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblKhachHang);
 		
 		JPanel pnlDanhSachKhachHang = new JPanel();
-		pnlDanhSachKhachHang.setBounds(442, 277, 965, 418);
+		pnlDanhSachKhachHang.setBorder(new LineBorder(Color.CYAN, 2));
+		pnlDanhSachKhachHang.setBounds(397, 277, 1010, 440);
 		contentPane.add(pnlDanhSachKhachHang);
 		
-		String[] colHeader = { "Mã Khách Hàng", "số Điện Thoại", "Tên Khách Hàng "};
+		String[] colHeader = { "Mã Khách Hàng", "số Điện Thoại", "Tên Khách Hàng ", "Giới tính ", "Ngày Sinh ", "CMND ", "Địa Chỉ ", "Lần dùng gần nhất "};
 		modelKhachHang = new DefaultTableModel(colHeader, 0);
 		pnlDanhSachKhachHang.setLayout(null);
 		table = new JTable(modelKhachHang);
 		table.setFillsViewportHeight(true);
-		table.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		table.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		table.setBounds(0, 295, 1480, 462);
 		cpKhachHang = new JScrollPane(table);
-		cpKhachHang.setBounds(0, 0, 965, 418);
+		cpKhachHang.setBounds(5, 5, 1000, 430);
 		cpKhachHang.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		pnlDanhSachKhachHang.add(cpKhachHang);
-		table.setRowHeight(15);
+		table.setRowHeight(25);
 		docDuLieuTuSQL();
 		
 		JPanel pnlThongTinKhachHang = new JPanel();
-		pnlThongTinKhachHang.setBackground(new Color(101, 186, 118));
-		pnlThongTinKhachHang.setBounds(60, 86, 1347, 175);
+		pnlThongTinKhachHang.setBorder(new LineBorder(Color.CYAN, 2));
+		pnlThongTinKhachHang.setBounds(397, 84, 1010, 175);
 		contentPane.add(pnlThongTinKhachHang);
 		pnlThongTinKhachHang.setLayout(null);
 		
 		JLabel lblmaKhachHang = new JLabel("Mã Khách Hàng");
 		lblmaKhachHang.setHorizontalAlignment(SwingConstants.CENTER);
 		lblmaKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblmaKhachHang.setBounds(66, 52, 154, 30);
+		lblmaKhachHang.setBounds(10, 10, 147, 25);
 		pnlThongTinKhachHang.add(lblmaKhachHang);
 		
 		txtmaKhachHang = new JTextField();
+		txtmaKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		txtmaKhachHang.setHorizontalAlignment(SwingConstants.CENTER);
 		txtmaKhachHang.setColumns(10);
-		txtmaKhachHang.setBounds(242, 55, 148, 30);
+		txtmaKhachHang.setBounds(158, 10, 84, 25);
 		pnlThongTinKhachHang.add(txtmaKhachHang);
 		
 		JLabel lblSoDienThoai = new JLabel("Số Điện Thoại");
 		lblSoDienThoai.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblSoDienThoai.setBounds(398, 52, 154, 30);
+		lblSoDienThoai.setBounds(252, 10, 147, 25);
 		pnlThongTinKhachHang.add(lblSoDienThoai);
 		
 		txtSoDienThoai = new JTextField();
-		txtSoDienThoai.setBounds(562, 55, 190, 30);
+		txtSoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		txtSoDienThoai.setBounds(409, 10, 139, 25);
 		pnlThongTinKhachHang.add(txtSoDienThoai);
 		txtSoDienThoai.setColumns(10);
 		
 		JLabel lblTen = new JLabel("Họ và Tên ");
 		lblTen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTen.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblTen.setBounds(762, 52, 125, 30);
+		lblTen.setBounds(558, 10, 112, 25);
 		pnlThongTinKhachHang.add(lblTen);
 		
 		txtTen = new JTextField();
+		txtTen.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		txtTen.setColumns(10);
-		txtTen.setBounds(910, 55, 371, 30);
+		txtTen.setBounds(672, 10, 309, 25);
 		pnlThongTinKhachHang.add(txtTen);
 		
 		btnThem = new JButton("Thêm");
 		btnThem.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnThem.setBounds(285, 117, 125, 32);
+		btnThem.setBounds(210, 117, 125, 32);
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KhachHang kh=new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(),txtTen.getText());
+				java.util.Date date=new java.util.Date();
+				KhachHang kh=new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(),txtTen.getText(),dateChooser.getDate(),txtDiaChi.getText(),chkcbxGioiTinh.isSelected(),txtCMND.getText(),true,date);
 				daoKhachHang.insertKhachHang(kh);
 				if(daoKhachHang.insertKhachHang(kh)==true) {
 				JOptionPane.showInputDialog(this,"Thêm Thành Công");
+				docDuLieuTuSQL();
 				}
 			}
 		});
@@ -289,12 +313,15 @@ public class GUI_KhachHang extends JFrame implements MouseListener {
 		
 		btnXoa = new JButton("Xoá");
 		btnXoa.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnXoa.setBounds(557, 117, 125, 32);
+		btnXoa.setBounds(359, 117, 125, 32);
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(daoKhachHang.getTheoMa(txtmaKhachHang.getText())!=null) {
-					daoKhachHang.deleteKhacHang(txtmaKhachHang.getText());
+					java.util.Date date=new java.util.Date();
+					KhachHang kh=new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(),txtTen.getText(),dateChooser.getDate(),txtDiaChi.getText(),chkcbxGioiTinh.isSelected(),txtCMND.getText(),false,date);
+					daoKhachHang.updateKhachHang(kh);
 					JOptionPane.showInputDialog(this,"Xoá Thành Công");
+					docDuLieuTuSQL();
 					}
 			}
 		});
@@ -303,13 +330,15 @@ public class GUI_KhachHang extends JFrame implements MouseListener {
 		
 		btnSua = new JButton("Sửa");
 		btnSua.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnSua.setBounds(776, 117, 125, 32);
+		btnSua.setBounds(515, 117, 125, 32);
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(daoKhachHang.getTheoMa(txtmaKhachHang.getText())!=null) {
-				KhachHang kh=new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(),txtTen.getText());
+					java.util.Date date=new java.util.Date();
+					KhachHang kh=new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(),txtTen.getText(),dateChooser.getDate(),txtDiaChi.getText(),chkcbxGioiTinh.isSelected(),txtCMND.getText(),true,date);
 				daoKhachHang.updateKhachHang(kh);
 				JOptionPane.showInputDialog(this,"Sửa Thành Công");
+				docDuLieuTuSQL();
 				}
 			}
 		});
@@ -317,16 +346,88 @@ public class GUI_KhachHang extends JFrame implements MouseListener {
 		
 		btnLuu = new JButton("Lưu");
 		btnLuu.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnLuu.setBounds(1035, 117, 125, 32);
+		btnLuu.setBounds(672, 117, 125, 32);
 		btnLuu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		pnlThongTinKhachHang.add(btnLuu);
 		
+		JLabel lblNgaySinh = new JLabel("Ngày Sinh");
+		lblNgaySinh.setBounds(113, 45, 87, 25);
+		lblNgaySinh.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		pnlThongTinKhachHang.add(lblNgaySinh);
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(210, 45, 156, 25);
+		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		dateChooser.getCalendarButton().setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		dateChooser.getDateEditor().addPropertyChangeListener(
+		    (PropertyChangeListener) new PropertyChangeListener() {
+		        @Override
+		        public void propertyChange(PropertyChangeEvent e) {
+		        	SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");																																																																																																																																																												
+		            if ("date".equals(e.getPropertyName())) {
+		            	String a = sf.format(e.getNewValue());		   
+		            	txtNgaySinh.setText(a + "");
+		            }
+		        }
+		    });
+		dateChooser.getCalendarButton().setBounds(128, 0, 28, 26);
+		pnlThongTinKhachHang.add(dateChooser);
+		dateChooser.setLayout(null);
+		
+		
+		txtNgaySinh = new JTextField();
+		txtNgaySinh.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		txtNgaySinh.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNgaySinh.setColumns(10);
+		txtNgaySinh.setBounds(0, 0, 129, 26);
+		dateChooser.add(txtNgaySinh);
+		
+		JLabel lblDiaChi = new JLabel("Địa chỉ");
+		lblDiaChi.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDiaChi.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblDiaChi.setBounds(166, 82, 97, 25);
+		pnlThongTinKhachHang.add(lblDiaChi);
+		
+		txtDiaChi = new JTextField();
+		txtDiaChi.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDiaChi.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		txtDiaChi.setColumns(10);
+		txtDiaChi.setBounds(273, 82, 560, 25);
+		pnlThongTinKhachHang.add(txtDiaChi);
+		
+		JLabel lblGioiTinh = new JLabel("Giới Tính");
+		lblGioiTinh.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGioiTinh.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblGioiTinh.setBounds(394, 45, 112, 25);
+		pnlThongTinKhachHang.add(lblGioiTinh);
+		
+		chkcbxGioiTinh = new JCheckBox("Nam/Nữ");
+		chkcbxGioiTinh.setBounds(515, 45, 110, 25);
+		chkcbxGioiTinh.setHorizontalAlignment(SwingConstants.CENTER);
+		chkcbxGioiTinh.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		pnlThongTinKhachHang.add(chkcbxGioiTinh);
+		
+		JLabel lblCmnd = new JLabel("CMND");
+		lblCmnd.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCmnd.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblCmnd.setBounds(644, 45, 104, 25);
+		pnlThongTinKhachHang.add(lblCmnd);
+		
+		txtCMND = new JTextField();
+		txtCMND.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		txtCMND.setColumns(10);
+		txtCMND.setBounds(758, 45, 125, 25);
+		pnlThongTinKhachHang.add(txtCMND);
+		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(101, 186, 118));
-		panel.setBounds(60, 277, 371, 418);
+		panel.setBorder(new LineBorder(Color.CYAN, 2));
+		panel.setBounds(51, 84, 326, 631);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -337,66 +438,147 @@ public class GUI_KhachHang extends JFrame implements MouseListener {
 			}
 		});
 		btnTimKiem.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnTimKiem.setBounds(111, 336, 125, 32);
+		btnTimKiem.setBounds(102, 571, 125, 36);
 		panel.add(btnTimKiem);
 		
 		JLabel lblmaKhachHangTim = new JLabel("Mã Khách Hàng");
 		lblmaKhachHangTim.setHorizontalAlignment(SwingConstants.CENTER);
 		lblmaKhachHangTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblmaKhachHangTim.setBounds(101, 20, 154, 30);
+		lblmaKhachHangTim.setBounds(90, 74, 154, 25);
 		panel.add(lblmaKhachHangTim);
 		
 		JLabel lblSoDienThoaiTim = new JLabel("Số Điện Thoại");
 		lblSoDienThoaiTim.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSoDienThoaiTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblSoDienThoaiTim.setBounds(101, 128, 154, 30);
+		lblSoDienThoaiTim.setBounds(90, 153, 154, 25);
 		panel.add(lblSoDienThoaiTim);
 		
 		JLabel lblTenTim = new JLabel("Họ và Tên ");
 		lblTenTim.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTenTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblTenTim.setBounds(125, 239, 125, 30);
+		lblTenTim.setBounds(112, 229, 115, 25);
 		panel.add(lblTenTim);
 		
 		txtTenTim = new JTextField();
 		txtTenTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		txtTenTim.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTenTim.setColumns(10);
-		txtTenTim.setBounds(20, 282, 328, 30);
+		txtTenTim.setBounds(22, 266, 278, 27);
 		panel.add(txtTenTim);
 		
 		txtSDTTim = new JTextField();
 		txtSDTTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		txtSDTTim.setColumns(10);
-		txtSDTTim.setBounds(72, 180, 212, 30);
+		txtSDTTim.setBounds(73, 188, 196, 27);
 		panel.add(txtSDTTim);
 		
 		cbxMa = new JComboBox<String>();
 		cbxMa.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		cbxMa.setBounds(101, 66, 161, 32);
+		cbxMa.setBounds(92, 109, 144, 27);
 		panel.add(cbxMa);
 		cbxMa.setEditable(true);		
 		List<KhachHang> dsKH= daoKhachHang.getAllKhachHang();
 		for (KhachHang kh : dsKH) {
-			cbxMa.addItem(kh.getMaKhachHang());
+			if(kh.isTonTai()==true && kh.getLanDungCuoi().getMonth()<12) {
+				cbxMa.addItem(kh.getMaKhachHang());
+			}
 		}
 		panel.add(cbxMa);
+		
+		JLabel lblNgaySinhTim = new JLabel("Ngày Sinh");
+		lblNgaySinhTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblNgaySinhTim.setBounds(123, 314, 87, 25);
+		panel.add(lblNgaySinhTim);
+		
+		dateChooser_1 = new JDateChooser();
+		dateChooser_1.setBounds(85, 350, 156, 25);
+		dateChooser_1.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		dateChooser_1.getCalendarButton().setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		dateChooser_1.getDateEditor().addPropertyChangeListener(
+		    (PropertyChangeListener) new PropertyChangeListener() {
+		        @Override
+		        public void propertyChange(PropertyChangeEvent e) {
+		        	SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");																																																																																																																																																												
+		            if ("date".equals(e.getPropertyName())) {
+		            	String a = sf.format(e.getNewValue());		   
+		            	txtNgaySinhTim.setText(a + "");
+		            }
+		        }
+		    });
+		dateChooser_1.getCalendarButton().setBounds(128, 0, 28, 26);
+		panel.add(dateChooser_1);
+		dateChooser_1.setLayout(null);
+		
+		
+		txtNgaySinhTim = new JTextField();
+		txtNgaySinhTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		txtNgaySinhTim.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNgaySinhTim.setColumns(10);
+		txtNgaySinhTim.setBounds(0, 0, 129, 26);
+		dateChooser_1.add(txtNgaySinhTim);
+		
+		JLabel lblNewLabel = new JLabel("Tìm Kiếm Khách Hàng");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		lblNewLabel.setBounds(22, 25, 278, 39);
+		panel.add(lblNewLabel);
+		
+		JLabel lblCmndTim = new JLabel("CMND");
+		lblCmndTim.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCmndTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblCmndTim.setBounds(113, 470, 104, 25);
+		panel.add(lblCmndTim);
+		
+		txtCMNDTim = new JTextField();
+		txtCMNDTim.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		txtCMNDTim.setColumns(10);
+		txtCMNDTim.setBounds(102, 505, 125, 27);
+		panel.add(txtCMNDTim);
+		
+		JLabel lblGioiTinhTim = new JLabel("Giới Tính");
+		lblGioiTinhTim.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGioiTinhTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblGioiTinhTim.setBounds(112, 397, 112, 25);
+		panel.add(lblGioiTinhTim);
+		
+		chkcbxNamTim = new JCheckBox("Nam");
+		chkcbxNamTim.setHorizontalAlignment(SwingConstants.CENTER);
+		chkcbxNamTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		chkcbxNamTim.setBounds(86, 428, 76, 25);
+		panel.add(chkcbxNamTim);
+		
+		chckbxNuTim = new JCheckBox("Nữ");
+		chckbxNuTim.setHorizontalAlignment(SwingConstants.CENTER);
+		chckbxNuTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		chckbxNuTim.setBounds(164, 428, 80, 25);
+		panel.add(chckbxNuTim);
 		
 	}
 
 	private void docDuLieuTuSQL() {
 		// TODO Auto-generated method stub
+		SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
 		daoKhachHang = new Dao_KhachHang();
 		for (KhachHang kh : daoKhachHang.getAllKhachHang()) {
-			modelKhachHang.addRow(new Object[] {kh.getMaKhachHang(),kh.getSoDienThoai(),kh.getTenKhachHang()});
-		
-	}
+			if(kh.isTonTai()==true && kh.getLanDungCuoi().getMonth()<12) {
+				modelKhachHang.addRow(new Object[] {kh.getMaKhachHang(),kh.getSoDienThoai(),kh.getTenKhachHang(),sf.format(kh.isGioiTinh()),kh.getNgaySinh(),kh.getCmnd(),kh.getDiaChi(),sf.format(kh.getLanDungCuoi())});
+			}
+		}
 	}
 	private void timKiemNhieuThuocTinh() {
 		// TODO Auto-generated method stub
+		daoKhachHang = new Dao_KhachHang();
 		String ma=cbxMa.getSelectedItem().toString();
 		String sdt=txtSDTTim.getText();
 		String ten=txtTenTim.getText();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+		String ngaySinh=sdf.format(dateChooser_1).toString();
+		String gioiTinh="";
+		String cmnd=txtCMNDTim.getText();
 		if(cbxMa.getSelectedIndex()==0) {
 			ma="";
 		}
@@ -406,40 +588,26 @@ public class GUI_KhachHang extends JFrame implements MouseListener {
 		if(txtSDTTim.getText().trim().equals("")) {
 			sdt="";
 		}
-		daoKhachHang.getNhieuThuocTinh(ma, sdt, ten);
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		int row = table.getSelectedRow();
-		txtmaKhachHang.setText(modelKhachHang.getValueAt(row, 0).toString());
-		txtSoDienThoai.setText(modelKhachHang.getValueAt(row, 1).toString());
-		txtTen.setText(modelKhachHang.getValueAt(row, 2).toString());
-		// TODO Auto-generated method stub
+		if (sdf.format(dateChooser_1).toString().trim().equalsIgnoreCase("")) {
+			ngaySinh="";
+		}
+		if(chkcbxNamTim.isSelected()==true&&chckbxNuTim.isSelected()==true) {
+			gioiTinh="";
+		}
+		if(chkcbxNamTim.isSelected()==true&&chckbxNuTim.isSelected()==false) {
+			gioiTinh="1";
+		}
+		if(chkcbxNamTim.isSelected()==false&&chckbxNuTim.isSelected()==true) {
+			gioiTinh="0";
+		}
+		if (txtCMNDTim.getText().trim().equalsIgnoreCase("")) {
+			cmnd="";
+		}
 		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		for (KhachHang kh : daoKhachHang.getNhieuThuocTinh(ma, sdt, ten,ngaySinh,gioiTinh,cmnd)) {
+			if(kh.isTonTai()==true && kh.getLanDungCuoi().getMonth()<12) {
+				modelKhachHang.addRow(new Object[] {kh.getMaKhachHang(),kh.getSoDienThoai(),kh.getTenKhachHang(),sf.format(kh.isGioiTinh()),kh.getNgaySinh(),kh.getCmnd(),kh.getDiaChi(),sf.format(kh.getLanDungCuoi())});
+			}
+		}
 	}
 }
