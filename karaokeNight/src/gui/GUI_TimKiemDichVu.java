@@ -3,13 +3,15 @@ package gui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +32,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -39,14 +40,13 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import connectDB.ConnectDB;
+import connect.ConnectDB;
 import dao.Dao_DichVu;
 import dao.Dao_LoaiDichVu;
 import entity.DichVu;
 import entity.LoaiDichVu;
-import entity.TaiKhoan;
 
-public class GUI_TimKiemDichVu extends JFrame {
+public class GUI_TimKiemDichVu extends JFrame{
 
 	private JPanel contentPane;
 	private JTextField txtTenDichVu;
@@ -63,8 +63,8 @@ public class GUI_TimKiemDichVu extends JFrame {
 	String selectedValue = "";
 	private TaiKhoan tk;
 
-	List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(3);
 
+	List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(3);
 	/**
 	 * Launch the application.
 	 */
@@ -85,7 +85,7 @@ public class GUI_TimKiemDichVu extends JFrame {
 		tk = taiKhoan;
 		// contentPane
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1480, 780);
+		setBounds(100, 100,1480,780);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(101, 186, 118));
@@ -93,7 +93,7 @@ public class GUI_TimKiemDichVu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		// menuBar
+		//menuBar
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorderPainted(false);
 		menuBar.setBackground(SystemColor.menu);
@@ -209,7 +209,6 @@ public class GUI_TimKiemDichVu extends JFrame {
 		mnThongKe.add(mntmThongKeDichVu);
 
 		JMenuItem mnTroGiup = new JMenuItem("Trợ giúp ");
-		mnTroGiup.setHorizontalAlignment(SwingConstants.CENTER);
 		mnTroGiup.setFont(UIManager.getFont("MenuBar.font"));
 		mnTroGiup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -219,7 +218,7 @@ public class GUI_TimKiemDichVu extends JFrame {
 		});
 		menuBar.add(mnTroGiup);
 
-		// pnTop
+		//pnTop
 
 		JPanel pnTop = new JPanel();
 		pnTop.setBackground(new Color(101, 186, 118));
@@ -229,24 +228,24 @@ public class GUI_TimKiemDichVu extends JFrame {
 		JLabel lblTmKimDch = new JLabel("Tìm kiếm dịch vụ");
 		lblTmKimDch.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		pnTop.add(lblTmKimDch);
-		// pnCenter
+		//pnCenter
 
 		JPanel pnCenter = new JPanel();
 		pnCenter.setBackground(new Color(101, 186, 118));
 		pnCenter.setBounds(430, 66, 1036, 673);
 		contentPane.add(pnCenter);
 
-		String[] cols = { "Mã dịch vụ", "Tên dịch vụ", "Loại dịch vụ", "Giá", "Số lượng còn" };
+		String[] cols = { "Mã dịch vụ", "Tên dịch vụ", "Loại dịch vụ", "Giá", "Số lượng còn"};
 		modelDsDichVu = new DefaultTableModel(cols, 0);
 		pnCenter.setLayout(null);
 		tblDsDichVu = new JTable(modelDsDichVu);
 		JScrollPane scrtbl = new JScrollPane(tblDsDichVu, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		pnCenter.setBorder(BorderFactory.createTitledBorder("Danh sách dịch vụ"));
-		scrtbl.setBounds(10, 23, 1016, 640);
+		scrtbl.setBounds(10, 23, 1016, 629);
 		pnCenter.add(scrtbl);
 
-		// pnLefp
+		//pnLefp
 		JPanel pnLeft = new JPanel();
 		pnLeft.setBackground(new Color(101, 186, 118));
 		pnLeft.setBounds(10, 66, 392, 673);
@@ -303,7 +302,7 @@ public class GUI_TimKiemDichVu extends JFrame {
 		btnLamMoiDichVu.setBounds(54, 335, 300, 33);
 		pnLeft.add(btnLamMoiDichVu);
 
-		// Đưa dữ liệu vào combobox
+		//Đưa dữ liệu vào combobox
 		ArrayList<LoaiDichVu> loaiDv = dao_lDv.getAllLoaiDichVu();
 		for (LoaiDichVu lDv : loaiDv) {
 			cbLoaiDichVu.addItem(lDv.getTenLoaiDichVu());
@@ -312,7 +311,8 @@ public class GUI_TimKiemDichVu extends JFrame {
 		// load dữ liệu lên table
 		DocDuLieuDatabaseVaoTable();
 
-		// Bắt đầu tìm kiếm
+
+		//Bắt đầu tìm kiếm
 		btnTimKiemDichVu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				moKhoaTextfields(true);
@@ -326,7 +326,7 @@ public class GUI_TimKiemDichVu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				selectedValue = (String) cbLoaiDichVu.getSelectedItem();
 				RowFilter<Object, Object> temp = RowFilter.regexFilter(selectedValue, 2);
-				if (!filters.isEmpty() && filters.indexOf(temp) != -1)
+				if(!filters.isEmpty() && filters.indexOf(temp)!= -1 )
 					filters.remove(filters.indexOf(temp));
 				filters.add(temp);
 				RowFilter<DefaultTableModel, Object> rf = RowFilter.regexFilter(selectedValue, 2);
@@ -339,9 +339,9 @@ public class GUI_TimKiemDichVu extends JFrame {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				String text = txtTenDichVu.getText();
-				if (!txtGiaDichVu.getText().toString().isBlank()) {
-					filters.add(RowFilter.regexFilter(txtGiaDichVu.getText().toString(), 3));
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+				if(!txtGiaDichVu.getText().toString().isBlank()) {
+					filters.add(RowFilter.regexFilter(txtGiaDichVu.getText().toString(),3));
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 				}
 				if (text.trim().length() == 0) {
@@ -349,7 +349,7 @@ public class GUI_TimKiemDichVu extends JFrame {
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 1);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
@@ -360,39 +360,37 @@ public class GUI_TimKiemDichVu extends JFrame {
 				String text = txtTenDichVu.getText();
 				if (text.trim().length() == 0) {
 					RowFilter<DefaultTableModel, Object> rf;
-					if (filters.size() == 0) {
+					if(filters.size() == 0) {
 						rf = RowFilter.regexFilter("DV", 0);
 						rowSorter.setRowFilter(rf);
-					} else if (filters.size() == 1) {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
-						if (!txtGiaDichVu.getText().isBlank()) {
-							RowFilter<Object, Object> temp = RowFilter.regexFilter(txtGiaDichVu.getText().toString(),
-									3);
-							filter.add(temp);
-						}
-						if (!selectedValue.isBlank()) {
+					}
+					else if(filters.size() == 1) {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
+						if(!txtGiaDichVu.getText().isBlank()) {
+							RowFilter<Object, Object> temp = RowFilter.regexFilter(txtGiaDichVu.getText().toString(), 3);
+							filter.add(temp);}
+						if(!selectedValue.isBlank()) {
 							RowFilter<Object, Object> temp1 = RowFilter.regexFilter(selectedValue, 2);
-							filter.add(temp1);
-						}
-						rf = RowFilter.orFilter(filter);
+							filter.add(temp1);}
+						rf  = RowFilter.orFilter(filter);
 						rowSorter.setRowFilter(rf);
-						if (selectedValue.isBlank())
+						if(selectedValue.isBlank())
 							filters.remove(0);
-					} else {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
+					}else {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
 						RowFilter<Object, Object> temp = RowFilter.regexFilter(txtGiaDichVu.getText().toString(), 3);
 
 						filter.add(temp);
 						RowFilter<Object, Object> temp1 = RowFilter.regexFilter(selectedValue, 2);
 						filter.add(temp1);
-						rf = RowFilter.andFilter(filter);
+						rf  = RowFilter.andFilter(filter);
 						rowSorter.setRowFilter(rf);
 						filters.remove(0);
 					}
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 1);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
@@ -400,17 +398,16 @@ public class GUI_TimKiemDichVu extends JFrame {
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods,
-																				// choose Tools | Templates.
+				throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 			}
 		});
 
 		txtGiaDichVu.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				if (!txtTenDichVu.getText().toString().isBlank()) {
-					filters.add(RowFilter.regexFilter(txtTenDichVu.getText().toString(), 1));
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+				if(!txtTenDichVu.getText().toString().isBlank()) {
+					filters.add(RowFilter.regexFilter(txtTenDichVu.getText().toString(),1));
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 				}
 				String text = txtGiaDichVu.getText();
@@ -419,64 +416,58 @@ public class GUI_TimKiemDichVu extends JFrame {
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 3);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
 			}
-
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				String text = txtGiaDichVu.getText();
 				if (text.trim().length() == 0) {
 					RowFilter<DefaultTableModel, Object> rf;
-					if (filters.isEmpty()) {
+					if(filters.isEmpty()) {
 						rf = RowFilter.regexFilter("DV", 0);
 						rowSorter.setRowFilter(rf);
-					} else if (filters.size() == 1) {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
-						if (!txtTenDichVu.getText().isBlank()) {
-							RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenDichVu.getText().toString(),
-									1);
-							filter.add(temp);
-						}
-						if (!selectedValue.isBlank()) {
+					}else if(filters.size() == 1) {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
+						if(!txtTenDichVu.getText().isBlank()) {
+							RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenDichVu.getText().toString(), 1);
+							filter.add(temp);}
+						if(!selectedValue.isBlank()) {
 							RowFilter<Object, Object> temp1 = RowFilter.regexFilter(selectedValue, 2);
-							filter.add(temp1);
-						}
-						rf = RowFilter.orFilter(filter);
+							filter.add(temp1);}
+						rf  = RowFilter.orFilter(filter);
 						rowSorter.setRowFilter(rf);
-						if (selectedValue.isBlank())
+						if(selectedValue.isBlank())
 							filters.remove(0);
 					} else {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
 						RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenDichVu.getText().toString(), 1);
 						filter.add(temp);
 						RowFilter<Object, Object> temp1 = RowFilter.regexFilter(selectedValue, 2);
 						filter.add(temp1);
-						rf = RowFilter.andFilter(filter);
+						rf  = RowFilter.andFilter(filter);
 						rowSorter.setRowFilter(rf);
 						filters.remove(0);
 					}
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 3);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
 			}
-
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods,
-																				// choose Tools | Templates.
+				throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 			}
 		});
 		tblDsDichVu.setRowSorter(rowSorter);
-		// Kết thúc tìm kiếm
+		//Kết thúc tìm kiếm
 
-		// Click dữ liệu trên table đưa vào textFile
+		//Click dữ liệu trên table đưa vào textFile
 		tblDsDichVu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -488,7 +479,7 @@ public class GUI_TimKiemDichVu extends JFrame {
 			}
 		});
 
-		// Thực hiện làm mới
+		//Thực hiện làm mới
 		btnLamMoiDichVu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				moKhoaTextfields(false);
@@ -500,30 +491,25 @@ public class GUI_TimKiemDichVu extends JFrame {
 		});
 	}
 
-	// Lấy dữ liệu từ database để đưa lên table
+	//Lấy dữ liệu từ database để đưa lên table
 	public void DocDuLieuDatabaseVaoTable() {
 		ArrayList<DichVu> listDV = dao_dv.getAllDichVu();
 		for (DichVu dv : listDV) {
-			modelDsDichVu
-					.addRow(new Object[] { dv.getMaDichVu(), dv.getTenDichVu(), dv.getMaLoaiDichVu().getTenLoaiDichVu(),
-							formatNumberForMoney(dv.getGiaDichVu()), dv.getSoLuong(), });
+			modelDsDichVu.addRow(new Object[] {dv.getMaDichVu(),dv.getTenDichVu(),dv.getMaLoaiDichVu().getTenLoaiDichVu(),formatNumberForMoney(dv.getGiaDichVu()),dv.getSoLuong(),});
 		}
 	}
-
-	// Nạp dữ liệu vào TextFile
-	private void napDichVuVaoTextfields() {
+	//Nạp dữ liệu vào TextFile
+	private void napDichVuVaoTextfields(){
 		int row = tblDsDichVu.getSelectedRow();
 		if (row >= 0) {
 			if (modelDsDichVu.getValueAt(row, 2) != null) {
 				String loaiDV = modelDsDichVu.getValueAt(row, 2).toString();
 				cbLoaiDichVu.setSelectedItem(loaiDV);
-			} else
-				cbLoaiDichVu.setSelectedIndex(2);
+			} else cbLoaiDichVu.setSelectedIndex(2);
 			txtTenDichVu.setText(modelDsDichVu.getValueAt(row, 1).toString());
 			txtGiaDichVu.setText(modelDsDichVu.getValueAt(row, 3).toString());
 		}
 	}
-
 	private void moKhoaTextfields(boolean b) {
 		txtTenDichVu.setEditable(b);
 		txtGiaDichVu.setEditable(b);
@@ -533,13 +519,13 @@ public class GUI_TimKiemDichVu extends JFrame {
 		txtTenDichVu.setText("");
 		txtGiaDichVu.setText("");
 	}
-
 	private String formatNumberForMoney(double money) {
 		Locale localeVN = new Locale("vi", "VN");
 		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-		String str1 = currencyVN.format(Math.round(money));
-		str1 = str1.substring(0, str1.length() - 2);
-		return str1 + " VND";
+	    String str1 = currencyVN.format(Math.round(money));
+	    str1 = str1.substring(0,str1.length() - 2);
+	    return str1 + " VND";
 	}
+	
 
 }
