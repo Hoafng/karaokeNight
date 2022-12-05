@@ -1,19 +1,25 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import javax.sql.RowSetReader;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,9 +33,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -39,12 +42,23 @@ import javax.swing.table.TableRowSorter;
 
 import com.toedter.calendar.JDateChooser;
 
-import connectDB.ConnectDB;
-import dao.Dao_HoaDon;
+import connect.ConnectDB;
+import dao.Dao_DichVu;
+import dao.Dao_ThongKeDoanhThu;
 import dao.Dao_KhachHang;
+import dao.Dao_LoaiDichVu;
 import dao.Dao_NhanVien;
+import entity.DichVu;
 import entity.HoaDonThuePhong;
-import entity.TaiKhoan;
+
+import java.awt.Scrollbar;
+import javax.swing.JSpinner;
+import javax.swing.JProgressBar;
+import javax.swing.JToggleButton;
+import javax.swing.RowFilter;
+import javax.swing.UIManager;
+
+import java.awt.ScrollPane;
 
 public class GUI_TimKiemHoaDon extends JFrame {
 
@@ -60,7 +74,7 @@ public class GUI_TimKiemHoaDon extends JFrame {
 	private Dao_HoaDon dao_hdt;
 	private TaiKhoan tk;
 
-	List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(3);
+	List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(3);
 
 	/**
 	 * Launch the application.
@@ -81,9 +95,8 @@ public class GUI_TimKiemHoaDon extends JFrame {
 		dao_kh = new Dao_KhachHang();
 		dao_nv = new Dao_NhanVien();
 		dao_hdt = new Dao_HoaDon();
-		tk = taiKhoan;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1480, 780);
+		setBounds(100, 100,1480,780);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(101, 186, 118));
@@ -230,7 +243,7 @@ public class GUI_TimKiemHoaDon extends JFrame {
 		pnCenter.setBounds(430, 66, 1036, 673);
 		pnCenter.setBackground(new Color(101, 186, 118));
 		contentPane.add(pnCenter);
-		String[] cols = { "Mã hóa đơn", "Nhân viên lập hóa đơn", "Tên khách hàng", "Ngày lập hóa đơn", "Thành tiền" };
+		String[] cols = { "Mã hóa đơn", "Nhân viên lập hóa đơn","Tên khách hàng","Ngày lập hóa đơn", "Thành tiền"};
 		modelDsHoaDon = new DefaultTableModel(cols, 0);
 		pnCenter.setLayout(null);
 		tblDsHoaDon = new JTable(modelDsHoaDon);
@@ -267,16 +280,17 @@ public class GUI_TimKiemHoaDon extends JFrame {
 		pnLeft.add(lblNgaylapHD);
 
 		dateChooser = new JDateChooser();
-		dateChooser.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
-			@Override
-			public void propertyChange(PropertyChangeEvent e) {
-				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-				if ("date".equals(e.getPropertyName())) {
-					String a = sf.format(e.getNewValue());
-					txtNgayLapHD.setText(a + "");
-				}
-			}
-		});
+		dateChooser.getDateEditor().addPropertyChangeListener(
+				new PropertyChangeListener() {
+					@Override
+					public void propertyChange(PropertyChangeEvent e) {
+						SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");																																																																																																																																																												
+						if ("date".equals(e.getPropertyName())) {
+							String a = sf.format(e.getNewValue());		   
+							txtNgayLapHD.setText(a + "");
+						}
+					}
+				});
 		dateChooser.getCalendarButton().setBounds(170, 0, 30, 33);
 		dateChooser.setBounds(169, 136, 200, 30);
 		pnLeft.add(dateChooser);
@@ -293,12 +307,13 @@ public class GUI_TimKiemHoaDon extends JFrame {
 		lblTenKhacHang.setBounds(22, 216, 143, 30);
 		pnLeft.add(lblTenKhacHang);
 
+
 		txtTenKhachHang = new JTextField();
 		txtTenKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		txtTenKhachHang.setColumns(10);
 		txtTenKhachHang.setBounds(169, 216, 200, 30);
 		pnLeft.add(txtTenKhachHang);
-
+		
 		moKhoaTextfields(false);
 
 		ImageIcon iconLamMoi = new ImageIcon("IMG//iconButton//Refresh.png");
@@ -316,6 +331,7 @@ public class GUI_TimKiemHoaDon extends JFrame {
 		btnTimKiemHoaDon.setBounds(54, 307, 300, 33);
 		pnLeft.add(btnTimKiemHoaDon);
 
+
 		btnTimKiemHoaDon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				moKhoaTextfields(true);
@@ -326,14 +342,14 @@ public class GUI_TimKiemHoaDon extends JFrame {
 		txtTenNhanVienLapHD.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
 				String text = txtTenNhanVienLapHD.getText();
-				if (!txtTenKhachHang.getText().toString().isBlank()) {
-					filters.add(RowFilter.regexFilter(txtTenKhachHang.getText().toString(), 2));
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+				if(!txtTenKhachHang.getText().toString().isBlank()) {
+					filters.add(RowFilter.regexFilter(txtTenKhachHang.getText().toString(),2));
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 				}
-				if (!txtNgayLapHD.getText().toString().isBlank()) {
-					filters.add(RowFilter.regexFilter(txtNgayLapHD.getText().toString(), 3));
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+				if(!txtNgayLapHD.getText().toString().isBlank()) {
+					filters.add(RowFilter.regexFilter(txtNgayLapHD.getText().toString(),3));
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 				}
 				if (text.trim().length() == 0) {
@@ -341,7 +357,7 @@ public class GUI_TimKiemHoaDon extends JFrame {
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 1);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
@@ -352,40 +368,35 @@ public class GUI_TimKiemHoaDon extends JFrame {
 				String text = txtTenNhanVienLapHD.getText();
 				if (text.trim().length() == 0) {
 					RowFilter<DefaultTableModel, Object> rf;
-					if (filters.size() == 0) {
+					if(filters.size() == 0) {
 						rowSorter.setRowFilter(null);
-					} else if (filters.size() == 1) {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
-						if (!txtNgayLapHD.getText().isBlank()) {
-							RowFilter<Object, Object> temp = RowFilter.regexFilter(txtNgayLapHD.getText().toString(),
-									3);
-							filter.add(temp);
-						}
-						if (!txtTenKhachHang.getText().isBlank()) {
-							RowFilter<Object, Object> temp1 = RowFilter
-									.regexFilter(txtTenKhachHang.getText().toString(), 2);
-							filter.add(temp1);
-						}
-						rf = RowFilter.orFilter(filter);
+					}
+					else if(filters.size() == 1) {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
+						if(!txtNgayLapHD.getText().isBlank()) {
+							RowFilter<Object, Object> temp = RowFilter.regexFilter(txtNgayLapHD.getText().toString(), 3);
+							filter.add(temp);}
+						if(!txtTenKhachHang.getText().isBlank()) {
+							RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtTenKhachHang.getText().toString(), 2);
+							filter.add(temp1);}
+						rf  = RowFilter.orFilter(filter);
 						rowSorter.setRowFilter(rf);
-						if (txtTenKhachHang.getText().isBlank() || txtTenNhanVienLapHD.getText().isBlank()
-								|| txtNgayLapHD.getText().isBlank())
+						if(txtTenKhachHang.getText().isBlank() || txtTenNhanVienLapHD.getText().isBlank() || txtNgayLapHD.getText().isBlank())
 							filters.remove(0);
-					} else {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
+					}else {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
 						RowFilter<Object, Object> temp = RowFilter.regexFilter(txtNgayLapHD.getText().toString(), 3);
 						filter.add(temp);
-						RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtTenKhachHang.getText().toString(),
-								2);
+						RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtTenKhachHang.getText().toString(), 2);
 						filter.add(temp1);
-						rf = RowFilter.andFilter(filter);
+						rf  = RowFilter.andFilter(filter);
 						rowSorter.setRowFilter(rf);
 						filters.remove(0);
 					}
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 1);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
@@ -393,23 +404,22 @@ public class GUI_TimKiemHoaDon extends JFrame {
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods,
-																				// choose Tools | Templates.
+				throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 			}
 		});
-
+		
 		txtNgayLapHD.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				String text = txtNgayLapHD.getText();
-				if (!txtTenKhachHang.getText().toString().isBlank()) {
-					filters.add(RowFilter.regexFilter(txtTenKhachHang.getText().toString(), 2));
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+				if(!txtTenKhachHang.getText().toString().isBlank()) {
+					filters.add(RowFilter.regexFilter(txtTenKhachHang.getText().toString(),2));
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 				}
-				if (!txtTenNhanVienLapHD.getText().toString().isBlank()) {
-					filters.add(RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(), 1));
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+				if(!txtTenNhanVienLapHD.getText().toString().isBlank()) {
+					filters.add(RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(),1));
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 				}
 				if (text.trim().length() == 0) {
@@ -417,61 +427,52 @@ public class GUI_TimKiemHoaDon extends JFrame {
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 3);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
 			}
-
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				String text = txtNgayLapHD.getText();
 				if (text.trim().length() == 0) {
 					RowFilter<DefaultTableModel, Object> rf;
-					if (filters.size() == 0) {
+					if(filters.size() == 0) {
 						rowSorter.setRowFilter(null);
-					} else if (filters.size() == 1) {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
-						if (!txtTenNhanVienLapHD.getText().isBlank()) {
-							RowFilter<Object, Object> temp = RowFilter
-									.regexFilter(txtTenNhanVienLapHD.getText().toString(), 1);
-							filter.add(temp);
-						}
-						if (!txtTenKhachHang.getText().isBlank()) {
-							RowFilter<Object, Object> temp1 = RowFilter
-									.regexFilter(txtTenKhachHang.getText().toString(), 2);
-							filter.add(temp1);
-						}
-						rf = RowFilter.orFilter(filter);
+					}
+					else if(filters.size() == 1) {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
+						if(!txtTenNhanVienLapHD.getText().isBlank()) {
+							RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(), 1);
+							filter.add(temp);}
+						if(!txtTenKhachHang.getText().isBlank()) {
+							RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtTenKhachHang.getText().toString(), 2);
+							filter.add(temp1);}
+						rf  = RowFilter.orFilter(filter);
 						rowSorter.setRowFilter(rf);
-						if (txtTenKhachHang.getText().isBlank() || txtTenNhanVienLapHD.getText().isBlank()
-								|| txtNgayLapHD.getText().isBlank())
+						if(txtTenKhachHang.getText().isBlank() || txtTenNhanVienLapHD.getText().isBlank() || txtNgayLapHD.getText().isBlank())
 							filters.remove(0);
-					} else {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
-						RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(),
-								1);
+					}else {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
+						RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(), 1);
 						filter.add(temp);
-						RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtTenKhachHang.getText().toString(),
-								2);
+						RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtTenKhachHang.getText().toString(), 2);
 						filter.add(temp1);
-						rf = RowFilter.andFilter(filter);
+						rf  = RowFilter.andFilter(filter);
 						rowSorter.setRowFilter(rf);
 						filters.remove(0);
 					}
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 3);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
 			}
-
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods,
-																				// choose Tools | Templates.
+				throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 			}
 		});
 
@@ -479,80 +480,73 @@ public class GUI_TimKiemHoaDon extends JFrame {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				String text = txtTenKhachHang.getText();
-				if (!txtTenNhanVienLapHD.getText().toString().isBlank()) {
-					filters.add(RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(), 1));
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+				if(!txtTenNhanVienLapHD.getText().toString().isBlank()) {
+					filters.add(RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(),1));
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 				}
-				if (!txtNgayLapHD.getText().toString().isBlank()) {
-					filters.add(RowFilter.regexFilter(txtNgayLapHD.getText().toString(), 3));
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+				if(!txtNgayLapHD.getText().toString().isBlank()) {
+					filters.add(RowFilter.regexFilter(txtNgayLapHD.getText().toString(),3));
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 				}
-
+				
 				if (text.trim().length() == 0) {
 					rowSorter.setRowFilter(null);
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 2);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
 			}
-
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				String text = txtTenKhachHang.getText();
 				if (text.trim().length() == 0) {
 					RowFilter<DefaultTableModel, Object> rf;
-					if (filters.size() == 0) {
+					if(filters.size() == 0) {
 						rowSorter.setRowFilter(null);
-					} else if (filters.size() == 1) {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
-						if (!txtTenNhanVienLapHD.getText().isBlank()) {
-							RowFilter<Object, Object> temp = RowFilter
-									.regexFilter(txtTenNhanVienLapHD.getText().toString(), 1);
-							filter.add(temp);
-						}
-						if (!txtNgayLapHD.getText().isBlank()) {
-							RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtNgayLapHD.getText().toString(),
-									3);
-							filter.add(temp1);
-						}
-						rf = RowFilter.orFilter(filter);
+					}
+					else if(filters.size() == 1) {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
+						if(!txtTenNhanVienLapHD.getText().isBlank()) {
+							RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(), 1);
+							filter.add(temp);}
+						if(!txtNgayLapHD.getText().isBlank()) {
+							RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtNgayLapHD.getText().toString(), 3);
+							filter.add(temp1);}
+						rf  = RowFilter.orFilter(filter);
 						rowSorter.setRowFilter(rf);
-
-						if (txtTenKhachHang.getText().isBlank() || txtTenNhanVienLapHD.getText().isBlank()
-								|| txtNgayLapHD.getText().isBlank())
+						
+						if(txtTenKhachHang.getText().isBlank() || txtTenNhanVienLapHD.getText().isBlank() || txtNgayLapHD.getText().isBlank())
 							filters.remove(0);
-					} else {
-						List<RowFilter<Object, Object>> filter = new ArrayList<>();
-						RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(),
-								1);
+					}else {
+						List<RowFilter<Object,Object>> filter = new ArrayList<>();
+						RowFilter<Object, Object> temp = RowFilter.regexFilter(txtTenNhanVienLapHD.getText().toString(), 1);
 						filter.add(temp);
 						RowFilter<Object, Object> temp1 = RowFilter.regexFilter(txtNgayLapHD.getText().toString(), 3);
 						filter.add(temp1);
-						rf = RowFilter.andFilter(filter);
+						rf  = RowFilter.andFilter(filter);
 						rowSorter.setRowFilter(rf);
 						filters.remove(0);
 					}
 				} else {
 					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 2);
 					filters.add(temp);
-					RowFilter<DefaultTableModel, Object> rf = RowFilter.andFilter(filters);
+					RowFilter<DefaultTableModel, Object> rf  = RowFilter.andFilter(filters);
 					rowSorter.setRowFilter(rf);
 					filters.remove(filters.indexOf(temp));
 				}
 			}
-
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods,
-																				// choose Tools | Templates.
+				throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 			}
 		});
 		tblDsHoaDon.setRowSorter(rowSorter);
+		
 
 		btnLamMoiHoaDon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -562,7 +556,7 @@ public class GUI_TimKiemHoaDon extends JFrame {
 				rowSorter.setRowFilter(null);
 			}
 		});
-
+		
 		tblDsHoaDon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -574,39 +568,51 @@ public class GUI_TimKiemHoaDon extends JFrame {
 			}
 		});
 
-	}
 
-	// Lấy dữ liệu từ database để đưa lên table
+	}
+	//Lấy dữ liệu từ database để đưa lên table
+	
 	public void DocDuLieuDatabaseVaoTable() {
 		ArrayList<HoaDonThuePhong> listHD = dao_hdt.getAllHoaDon();
 		for (HoaDonThuePhong hdt : listHD) {
-			modelDsHoaDon.addRow(new Object[] { hdt.getMaHoaDon(), hdt.getMaNhanVien().getTenNhanVien(),
-					hdt.getMaKhachHang().getTenKhachHang(), hdt.getNgayLap() });
+			long tt = tongTien(hdt.getGioVaoPhong(), hdt.getGioRaPhong(),hdt.getMaPhong().getGiaPhong(), hdt.getCthdt().getSoLuongDichVu(),  hdt.getCthdt().getMaDichVu().getGiaDichVu());
+			modelDsHoaDon.addRow(new Object[] {hdt.getMaHoaDon(),hdt.getNhanVien().getTenNhanVien(),hdt.getKhachhang().getTenKhachHang(),hdt.getNgayLap(),formatNumberForMoney(tt)});
 		}
 	}
-
-	// Nạp dữ liệu vào TextFile
-	private void napHoaDonVaoTextfields() {
-		int row = tblDsHoaDon.getSelectedRow();
-		if (row >= 0) {
-			txtTenNhanVienLapHD.setText(modelDsHoaDon.getValueAt(row, 1).toString());
-			txtTenKhachHang.setText(modelDsHoaDon.getValueAt(row, 2).toString());
-			txtNgayLapHD.setText(modelDsHoaDon.getValueAt(row, 3).toString());
-
+	//Nạp dữ liệu vào TextFile
+		private void napHoaDonVaoTextfields(){
+			int row = tblDsHoaDon.getSelectedRow();
+			if (row >= 0) {
+				txtTenNhanVienLapHD.setText(modelDsHoaDon.getValueAt(row, 1).toString());
+				txtTenKhachHang.setText(modelDsHoaDon.getValueAt(row, 2).toString());
+				txtNgayLapHD.setText(modelDsHoaDon.getValueAt(row, 3).toString());
+				
+			}
 		}
-	}
+		private void moKhoaTextfields(boolean b) {
+			txtTenNhanVienLapHD.setEditable(b);
+			txtTenKhachHang.setEditable(b);
+			txtNgayLapHD.setEditable(b);
+			dateChooser.setEnabled(b);
+		}
 
-	private void moKhoaTextfields(boolean b) {
-		txtTenNhanVienLapHD.setEditable(b);
-		txtTenKhachHang.setEditable(b);
-		txtNgayLapHD.setEditable(b);
-		dateChooser.setEnabled(b);
-	}
+		private void xoaRongTextfields() {
+			txtTenKhachHang.setText("");
+			txtTenNhanVienLapHD.setText("");
+			txtNgayLapHD.setText("");
+		}
+		public long tongTien(LocalDateTime gioVaoPhong, LocalDateTime gioRaPhong, double giaPhong, int soLuongDichVu, double giaDichVu) {
+			
+			double tongTien = (gioRaPhong.getHour() - gioVaoPhong.getHour())* giaPhong + soLuongDichVu* giaDichVu;
+			return (long) tongTien;
+		}
 
-	private void xoaRongTextfields() {
-		txtTenKhachHang.setText("");
-		txtTenNhanVienLapHD.setText("");
-		txtNgayLapHD.setText("");
-	}
+		private String formatNumberForMoney(double money) {
+			Locale localeVN = new Locale("vi", "VN");
+			NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+			String str1 = currencyVN.format(Math.round(money));
+			str1 = str1.substring(0,str1.length() - 2);
+			return str1 + " VNĐ";
+		}
 
 }
