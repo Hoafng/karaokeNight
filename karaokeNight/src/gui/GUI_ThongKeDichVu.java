@@ -1,19 +1,24 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -24,20 +29,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.toedter.calendar.JDateChooser;
 
-import connectDB.ConnectDB;
-import dao.Dao_CTHoaDon;
+import connect.ConnectDB;
 import dao.Dao_DichVu;
-import entity.CTHoaDonThuePhong;
+import dao.Dao_LoaiDichVu;
+import dao.Dao_ThongKeDichVu;
 import entity.DichVu;
-import entity.TaiKhoan;
+import entity.LoaiDichVu;
 
 public class GUI_ThongKeDichVu extends JFrame implements ActionListener, PropertyChangeListener{
 
@@ -51,8 +60,17 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 	private Dao_DichVu dao_dv;
 	private Dao_CTHoaDon dao_CTHD = new Dao_CTHoaDon();
 	private TaiKhoan tk;
+	private Dao_ThongKeDichVu dao_tkdv;
+	private boolean checkDateChooser = false, checkDateChooser_1 = false;
+	private DefaultTableModel TempModelTkDichVu;
+	private JLabel lblKqTienDichVuBan;
 	private JLabel lblKqDichVuBan;
-
+	private JLabel lblKqDichVuBanChay;
+	private JComboBox cbLoaiDichVu;
+	private Dao_LoaiDichVu dao_lDv;
+	String oldText;
+	String selectedValue = "";
+	List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(3);
 	/**
 	 * Launch the application.
 	 */
@@ -63,13 +81,15 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 	 */
 	public GUI_ThongKeDichVu(TaiKhoan taiKhoan) {
 		// khởi tạo kết nối đến CSDL
-				try {
-					ConnectDB.getInstance().connect();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				dao_dv = new Dao_DichVu();
+		try {
+			ConnectDB.getInstance().connect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dao_dv = new Dao_DichVu();
+		dao_lDv = new Dao_LoaiDichVu();
+		dao_tkdv = new Dao_ThongKeDichVu();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100,1480,780);
 		contentPane = new JPanel();
@@ -82,9 +102,7 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 		tk=taiKhoan;
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBorderPainted(false);
-		menuBar.setBackground(SystemColor.menu);
-		menuBar.setBounds(5, 1, 420, 20);
+		menuBar.setBounds(0, 0, 434, 32);
 		contentPane.add(menuBar);
 		
 		JMenuItem mntmTrangChu = new JMenuItem("Trang chủ  ");
@@ -205,18 +223,18 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 			}
 		});
 		menuBar.add(mnTroGiup);
-		
+
 		JPanel pnTop = new JPanel();
 		pnTop.setBounds(0, 35, 1466, 52);
 		pnTop.setBackground(new Color(101, 186, 118));
 		contentPane.add(pnTop);
 		pnTop.setLayout(null);
-		
+
 		JLabel lblThongKeDichVu = new JLabel("Thống kê dịch vụ");
 		lblThongKeDichVu.setBounds(731, 10, 224, 35);
 		lblThongKeDichVu.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		pnTop.add(lblThongKeDichVu);
-		
+
 
 		JPanel pnLeft = new JPanel();
 		pnLeft.setBounds(10, 97, 392, 636);
@@ -224,97 +242,76 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 		contentPane.add(pnLeft);
 		pnLeft.setBorder(new TitledBorder("Nhập vào để thống kê"));
 		pnLeft.setLayout(null);
-		
-		JLabel lblTuNgay = new JLabel("Từ ngày :");
+
+		JLabel lblTuNgay = new JLabel("Từ ngày:");
 		lblTuNgay.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblTuNgay.setBounds(60, 65, 81, 34);
-		
+		lblTuNgay.setBounds(36, 73, 102, 34);
+
 		dateChooser = new JDateChooser();
-		dateChooser.getDateEditor().addPropertyChangeListener(
-		    new PropertyChangeListener() {
-		        @Override
-		        public void propertyChange(PropertyChangeEvent e) {
-		        	SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");																																																																																																																																																												
-		            if ("date".equals(e.getPropertyName())) {
-		            	String a = sf.format(e.getNewValue());		   
-		            	txtTuNgay.setText(a + "");
-		            }
-		        }
-		    });
 		dateChooser.getCalendarButton().setBounds(169, 0, 31, 30);
-		dateChooser.setBounds(151, 69, 200, 30);
+		dateChooser.setBounds(159, 77, 200, 30);
 		pnLeft.add(dateChooser);
 		dateChooser.setLayout(null);
-		
+
 		txtTuNgay = new JTextField();
-		txtTuNgay.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTuNgay.setBounds(0, 0, 170, 30);
 		dateChooser.add(txtTuNgay);
+		txtTuNgay.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTuNgay.setColumns(10);
 		pnLeft.add(lblTuNgay);
-		
-		
+
+
 		JLabel lblDenNgay = new JLabel("Đến ngày:");
 		lblDenNgay.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblDenNgay.setBounds(57, 142, 84, 30);
+		lblDenNgay.setBounds(36, 142, 102, 30);
 		dateChooser_1 = new JDateChooser();
-		dateChooser_1.getCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		
-		dateChooser_1.getDateEditor().addPropertyChangeListener(
-			    new PropertyChangeListener() {
-			        @Override
-			        public void propertyChange(PropertyChangeEvent e) {
-			        	SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");																																																																																																																																																												
-			            if ("date".equals(e.getPropertyName())) {
-			            	String a = sf.format(e.getNewValue());		   
-			            	txtDenNgay.setText(a + "");
-			            }
-			        }
-			    });
 		dateChooser_1.getCalendarButton().setBounds(170, 0, 30, 30);
-		dateChooser_1.setBounds(151, 142, 200, 30);
+		dateChooser_1.setBounds(159, 142, 200, 30);
 		pnLeft.add(dateChooser_1);
 		dateChooser_1.setLayout(null);
-		
+
 		txtDenNgay = new JTextField();
+		txtDenNgay.setBounds(0, 0, 170, 30);
+		dateChooser_1.add(txtDenNgay);
 		txtDenNgay.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtDenNgay.setColumns(10);
-		txtDenNgay.setBounds(0, 0, 172, 30);
-		dateChooser_1.add(txtDenNgay);
 		pnLeft.add(lblDenNgay);
 
-	
-		
-		
+		JLabel lblLoaiDichVu = new JLabel("Loại dịch vụ:");
+		lblLoaiDichVu.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblLoaiDichVu.setBounds(36, 210, 113, 23);
+		pnLeft.add(lblLoaiDichVu);
+		cbLoaiDichVu = new JComboBox();
+		cbLoaiDichVu.setToolTipText("");
+		cbLoaiDichVu.setBounds(159, 208, 170, 30);
+		pnLeft.add(cbLoaiDichVu);
+
+		moKhoaTextfields(false);
+
 		ImageIcon iconLamMoi = new ImageIcon("IMG//iconButton//Refresh.png");
 		JButton btnLamMoiDichVu = new JButton("Làm mới", iconLamMoi);
 		btnLamMoiDichVu.setBackground(new Color(255, 255, 140));
 		btnLamMoiDichVu.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnLamMoiDichVu.setBounds(60, 371, 291, 33);
+		btnLamMoiDichVu.setBounds(68, 448, 291, 33);
 		pnLeft.add(btnLamMoiDichVu);
 
-		
 		ImageIcon iconThongKe = new ImageIcon("IMG//iconButton//statistical.png");
 		JButton btnThongKe = new JButton("Thống kê", iconThongKe);
 		btnThongKe.setBackground(new Color(255, 255, 140));
 		btnThongKe.setForeground(new Color(0, 0, 0));
 		btnThongKe.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnThongKe.setBounds(60, 301, 291, 33);
+		btnThongKe.setBounds(68, 383, 291, 33);
 		pnLeft.add(btnThongKe);
-		
-		JButton btnInThongKe = new JButton("In thống kê", new ImageIcon("IMG//iconButton//print.png"));
+
+		JButton btnInThongKe = new JButton("Biểu đồ dịch vụ", new ImageIcon("IMG//iconButton//print.png"));
 		btnInThongKe.setForeground(Color.BLACK);
 		btnInThongKe.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnInThongKe.setBackground(new Color(255, 255, 140));
-		btnInThongKe.setBounds(60, 445, 291, 33);
+		btnInThongKe.setBounds(68, 515, 291, 33);
 		pnLeft.add(btnInThongKe);
-		
 
-	
+
+
 		JPanel pnCenter = new JPanel();
 		pnCenter.setBounds(430, 97, 1036, 636);
 		pnCenter.setBackground(new Color(101, 186, 118));
@@ -326,60 +323,195 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 		JScrollPane scrtbl = new JScrollPane(tblTkDichVu, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		pnCenter.setBorder(BorderFactory.createTitledBorder("Danh sách dịch vụ"));
-		scrtbl.setBounds(10, 25, 1016, 537);
+		scrtbl.setBounds(10, 25, 1016, 453);
 		pnCenter.add(scrtbl);
-		
+
+		TempModelTkDichVu = new DefaultTableModel(cols, 0);
+
 		JLabel lblTongDichVuBan = new JLabel("Tổng số lượng dịch vụ đã bán: ");
+		lblTongDichVuBan.setForeground(new Color(255, 0, 0));
 		lblTongDichVuBan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblTongDichVuBan.setBounds(749, 572, 196, 26);
+		lblTongDichVuBan.setBounds(757, 497, 196, 26);
 		pnCenter.add(lblTongDichVuBan);
-		
+
 		lblKqDichVuBan = new JLabel("");
+		lblKqDichVuBan.setForeground(new Color(255, 0, 0));
 		lblKqDichVuBan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblKqDichVuBan.setBounds(942, 572, 70, 26);
+		lblKqDichVuBan.setBounds(963, 497, 63, 26);
 		pnCenter.add(lblKqDichVuBan);
-		
+
 		JLabel lblDichVuBanChayNhat = new JLabel("Dịch vụ bán chạy nhất:");
+		lblDichVuBanChayNhat.setForeground(new Color(255, 0, 0));
 		lblDichVuBanChayNhat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblDichVuBanChayNhat.setBounds(10, 608, 150, 21);
+		lblDichVuBanChayNhat.setBounds(10, 548, 150, 21);
 		pnCenter.add(lblDichVuBanChayNhat);
-		
-		JLabel lblKqDichVuBanChay = new JLabel("");
+
+		lblKqDichVuBanChay = new JLabel("");
+		lblKqDichVuBanChay.setForeground(new Color(255, 0, 0));
 		lblKqDichVuBanChay.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblKqDichVuBanChay.setBounds(159, 608, 113, 21);
+		lblKqDichVuBanChay.setBounds(170, 548, 113, 21);
 		pnCenter.add(lblKqDichVuBanChay);
-		
+
 		JLabel lblTongTienDichVu = new JLabel("Tổng tiền dịch vụ đã bán: ");
+		lblTongTienDichVu.setForeground(new Color(255, 0, 0));
 		lblTongTienDichVu.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblTongTienDichVu.setBounds(10, 572, 164, 26);
+		lblTongTienDichVu.setBounds(10, 497, 164, 26);
 		pnCenter.add(lblTongTienDichVu);
-		
-		JLabel lblKqTienDichVuBan = new JLabel("0 VNĐ");
+
+		lblKqTienDichVuBan = new JLabel("0 VNĐ");
+		lblKqTienDichVuBan.setForeground(new Color(255, 0, 0));
 		lblKqTienDichVuBan.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblKqTienDichVuBan.setBounds(176, 575, 143, 21);
+		lblKqTienDichVuBan.setBounds(182, 500, 143, 21);
 		pnCenter.add(lblKqTienDichVuBan);
-		
-		DocDuLieuDatabaseVaoTable();
+
+		ArrayList<LoaiDichVu> loaiDv = dao_lDv.getAllLoaiDichVu();
+		for (LoaiDichVu lDv : loaiDv) {
+			cbLoaiDichVu.addItem(lDv.getTenLoaiDichVu());
+		}
+		btnThongKe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				moKhoaTextfields(true);
+			}
+		});
+
+		dateChooser.getDateEditor().addPropertyChangeListener(
+				new PropertyChangeListener() {
+					@Override
+					public void propertyChange(PropertyChangeEvent e) {
+						SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");																																																																																																																																																												
+						if ("date".equals(e.getPropertyName())) {
+							String a = sf.format(e.getNewValue());		   
+							txtTuNgay.setText(a + "");
+							checkDateChooser = true;
+							if(checkDateChooser && checkDateChooser_1 && !cbLoaiDichVu.getSelectedItem().toString().isBlank()) {
+								ArrayList<DichVu> listDV = dao_tkdv.getDichVuDaBan(txtTuNgay.getText().toString(), txtDenNgay.getText().toString());
+								DocDuLieuDatabaseVaoTable(listDV, TempModelTkDichVu);
+								tblTkDichVu.setModel(TempModelTkDichVu);
+								TempModelTkDichVu = new DefaultTableModel(cols, 0);
+							}
+
+						}
+					}
+				});
+
+
+		dateChooser_1.getDateEditor().addPropertyChangeListener(
+				new PropertyChangeListener() {
+					@Override
+					public void propertyChange(PropertyChangeEvent e) {
+						SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");																																																																																																																																																												
+						if ("date".equals(e.getPropertyName())) {
+							String a = sf.format(e.getNewValue());		   
+							txtDenNgay.setText(a + "");
+							checkDateChooser_1 = true;
+							if(checkDateChooser && checkDateChooser_1) {
+								ArrayList<DichVu> listDV = dao_tkdv.getDichVuDaBan(txtTuNgay.getText().toString(), txtDenNgay.getText().toString());
+								DocDuLieuDatabaseVaoTable(listDV, TempModelTkDichVu);
+								tblTkDichVu.setModel(TempModelTkDichVu);
+								TempModelTkDichVu = new DefaultTableModel(cols, 0);
+							}
+							else if(txtTuNgay.getText().toString() != null && lblDenNgay.getText().toString() != null) {
+								TableRowSorter<TableModel> rowSorter
+								= new TableRowSorter<>(tblTkDichVu.getModel()) ;
+								tblTkDichVu.setRowSorter(rowSorter);
+								txtTuNgay.getDocument().addDocumentListener(new DocumentListener() {
+									@Override
+									public void insertUpdate(DocumentEvent e) {
+										String text = txtTuNgay.getText();
+										if (text.trim().length() == 0) {
+											rowSorter.setRowFilter(null);
+										} else {
+											rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+										}
+									}
+
+									@Override
+									public void removeUpdate(DocumentEvent e) {
+										String text = txtTuNgay.getText();
+
+										if (text.trim().length() == 0) {
+											rowSorter.setRowFilter(null);
+										} else {
+											rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+										}
+									}
+
+									@Override
+									public void changedUpdate(DocumentEvent e) {
+										throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+									}
+								});
+							}
+						}
+					}
+				});
+	
+		ArrayList<DichVu> listDV = dao_tkdv.getDichVu();
+		DocDuLieuDatabaseVaoTable(listDV, modelTkDichVu);
+		btnLamMoiDichVu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tblTkDichVu.setModel(modelTkDichVu);
+				lblKqTienDichVuBan.setText("0 VNĐ");
+				lblKqDichVuBanChay.setText("");
+				lblKqDichVuBan.setText("");
+				txtTuNgay.setText("");
+				txtDenNgay.setText("");
+				moKhoaTextfields(false);
+
+			}
+		});
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
-		
-		
+
+
 	}
-	public void DocDuLieuDatabaseVaoTable() {
-		ArrayList<CTHoaDonThuePhong> listCTHD =dao_CTHD.getAllCTHD();
-		for (CTHoaDonThuePhong dv : listCTHD) {
-			modelTkDichVu.addRow(new Object[] {dv.getMaDichVu().getMaDichVu(),dv.getMaDichVu().getTenDichVu(),dv.getMaDichVu().getMaLoaiDichVu().getTenLoaiDichVu(),dv.getMaDichVu().getGiaDichVu(),dv.getSoLuongDichVu(),});
+	public void DocDuLieuDatabaseVaoTable(ArrayList<DichVu> listDV, DefaultTableModel modelTkDichVu) {
+		long sum =0;
+		long sumSl = 0;
+		long maxSl = 0;
+		String ldv = "";
+		for (DichVu dv : listDV) {
+			long tdv = tienDV(dv.getGiaDichVu(), dv.getCTHoaDonThue().getSoLuongDichVu());
+			long sl = dv.getCTHoaDonThue().getSoLuongDichVu();
+
+			sum = sum + tdv;
+			sumSl = sumSl +  sl;
+			if(sl >= maxSl) {
+				maxSl = sl;
+				ldv = dv.getTenDichVu();
+			}
+			modelTkDichVu.addRow(new Object[] {dv.getMaDichVu(),dv.getTenDichVu(),dv.getMaLoaiDichVu().getTenLoaiDichVu(),formatNumberForMoney(dv.getGiaDichVu()),dv.getCTHoaDonThue().getSoLuongDichVu()});
 		}
-		int sum = listCTHD.size();
-		lblKqDichVuBan.setText(""+ sum);
+		lblKqTienDichVuBan.setText(sum +" VNĐ");
+		lblKqDichVuBan.setText(sumSl + "");
+		lblKqDichVuBanChay.setText(ldv);
 	}
+	private String formatNumberForMoney(double money) {
+		Locale localeVN = new Locale("vi", "VN");
+		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+		String str1 = currencyVN.format(Math.round(money));
+		str1 = str1.substring(0,str1.length() - 2);
+		return str1 + " VNĐ";
+	}
+	private void moKhoaTextfields(boolean b) {
+		txtTuNgay.setEditable(b);
+		txtDenNgay.setEditable(b);
+		dateChooser.setEnabled(b);
+		dateChooser_1.setEnabled(b);
+	}
+	public long tienDV(double giaDichVu, int soluongbanRa) {
+		double tienDV = giaDichVu * soluongbanRa;
+		return (long) tienDV;
+	}
+
 }
