@@ -1,13 +1,14 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -17,7 +18,6 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -25,8 +25,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -39,20 +42,18 @@ import javax.swing.table.TableRowSorter;
 
 import com.toedter.calendar.JDateChooser;
 
-import connect.ConnectDB;
+import connectDB.ConnectDB;
+import dao.Dao_CTHoaDon;
+import dao.Dao_HoaDon;
+import dao.Dao_Phong;
 import dao.Dao_ThongKeDoanhThu;
-import dao.Dao_ThongKeDoanhThu;
-import entity.DichVu;
+import entity.CTHoaDonThuePhong;
 import entity.HoaDonThuePhong;
 import entity.TaiKhoan;
 
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
 
-
-	private JPanel contentPane;
+public class GUI_ThongKeHoaDon extends JFrame{
+private JPanel contentPane;
 	private DefaultTableModel modelTkHoaDon;
 	private JTable tblTkHoaDon;
 	private JDateChooser dateChooser;
@@ -61,8 +62,10 @@ import javax.swing.RowFilter;
 	private JTextField txtDenNgay;
 	private TaiKhoan tk;
 	private Dao_ThongKeDoanhThu dao_tkhd;
-	private Dao_ThongKeDoanhThu dao_hd;
+	private Dao_CTHoaDon dao_CTHD = new Dao_CTHoaDon();
+	private Dao_HoaDon dao_hoaDon = new Dao_HoaDon();
 	private boolean checkDateChooser = false, checkDateChooser_1 = false;
+	private Dao_Phong dao_Phong = new Dao_Phong();
 	private DefaultTableModel TempModelTkDoanhThu;
 	JLabel lblTongTienDoanhThu;
 	private JLabel lblKqDoanhThu;
@@ -76,14 +79,13 @@ import javax.swing.RowFilter;
 	/**
 	 * Create the frame.
 	 */
-
+	public GUI_ThongKeHoaDon(TaiKhoan taiKhoan)  {
 		try {
 			ConnectDB.getInstance().connect();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		dao_hd = new Dao_ThongKeDoanhThu();
 		dao_tkhd = new Dao_ThongKeDoanhThu();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -306,7 +308,7 @@ import javax.swing.RowFilter;
 		pnCenter.setBackground(new Color(101, 186, 118));
 		pnCenter.setBounds(433, 66, 1033, 673);
 		contentPane.add(pnCenter);
-		String[] cols = { "Mã hóa đơn", "Nhân viên lập hóa đơn", "Ngày lập hóa đơn", "Tên khách hàng","Tiền nhận của khách", "Tiên dư của khách", "Tổng tiền hóa đơn"};
+		String[] cols = { "Mã hóa đơn", "Nhân viên lập hóa đơn", "Ngày lập hóa đơn", "Tên khách hàng","Số điện thoại", "Tổng tiền hóa đơn"};
 		modelTkHoaDon = new DefaultTableModel(cols, 0);
 		pnCenter.setLayout(null);
 		tblTkHoaDon = new JTable(modelTkHoaDon);
@@ -321,19 +323,19 @@ import javax.swing.RowFilter;
 		JLabel lblDoanhThu = new JLabel("Tổng doanh thu:");
 		lblDoanhThu.setForeground(new Color(255, 0, 0));
 		lblDoanhThu.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblDoanhThu.setBounds(790, 520, 110, 26);
+		lblDoanhThu.setBounds(725, 520, 110, 26);
 		pnCenter.add(lblDoanhThu);
 
 		lblKqDoanhThu = new JLabel("0 VNĐ");
 		lblKqDoanhThu.setForeground(new Color(255, 0, 0));
 		lblKqDoanhThu.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblKqDoanhThu.setBounds(905, 523, 95, 21);
+		lblKqDoanhThu.setBounds(827, 523, 196, 21);
 		pnCenter.add(lblKqDoanhThu);
 
 		lblKqHdCaoNhat = new JLabel("");
 		lblKqHdCaoNhat.setForeground(new Color(255, 0, 0));
 		lblKqHdCaoNhat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblKqHdCaoNhat.setBounds(144, 523, 95, 21);
+		lblKqHdCaoNhat.setBounds(144, 523, 150, 21);
 		pnCenter.add(lblKqHdCaoNhat);
 
 		JLabel lblHoaDonCaoNhat = new JLabel("Hóa đơn cao nhất:");
@@ -351,7 +353,7 @@ import javax.swing.RowFilter;
 		lblKqHdThapNhat = new JLabel("0VNĐ");
 		lblKqHdThapNhat.setForeground(Color.RED);
 		lblKqHdThapNhat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblKqHdThapNhat.setBounds(144, 559, 95, 21);
+		lblKqHdThapNhat.setBounds(144, 559, 150, 21);
 		pnCenter.add(lblKqHdThapNhat);
 		
 
@@ -425,50 +427,49 @@ import javax.swing.RowFilter;
 					}
 
 				});
-		ArrayList<HoaDonThuePhong> listHD = dao_tkhd.getAllHoaDon();
+		ArrayList<HoaDonThuePhong> listHD = dao_hoaDon.getAllHoaDonDaThanhToan();
 		DocDuLieuDatabaseVaoTable(listHD, modelTkHoaDon);
 	}
 	public void DocDuLieuDatabaseVaoTable(ArrayList<HoaDonThuePhong> listHD, DefaultTableModel modelTkHoaDon) {
-		long sum = 0;
-		long minDT = 0;
-		long maxDT = 0;
-
+		double sum = 0;
+		double minDT =0;
+		double maxDT = 0;
+		double tdv = 0;
+		double tp;
 		for (HoaDonThuePhong hd : listHD) {
-
-			long tt = tongTien(hd.getGioVaoPhong(), hd.getGioRaPhong(),hd.getMaPhong().getGiaPhong(), 
-					hd.getCthdt().getSoLuongDichVu(), hd.getCthdt().getMaDichVu().getGiaDichVu());
-
-			sum = sum + tt;
-			
-			if(tt >= maxDT) {
-				maxDT = tt;
+			for (CTHoaDonThuePhong ct : dao_CTHD.getAllCTHDDichVuDaThanhToan(hd.getMaPhong().getMaPhong())) {
+				if(ct!=null)
+				tdv= tienDichVu(ct.getSoLuongDichVu(), ct.getMaDichVu().getGiaDichVu());
 			}
+				tp =tongTienPhong(hd.getGioVaoPhong(), hd.getGioRaPhong(), dao_Phong.getPhong(hd.getMaPhong().getMaPhong()).getGiaPhong());
 
-			long tdck = tienDuCuaKhach(hd.getGioVaoPhong(), hd.getGioRaPhong(),hd.getMaPhong().getGiaPhong(), 
-					hd.getCthdt().getSoLuongDichVu(),  hd.getCthdt().getMaDichVu().getGiaDichVu(), hd.getCthdt().getTienNhanCuaKhach());
+			sum = tp + tdv;
+			if(minDT ==0) minDT=sum;
+			if(sum >= maxDT) {
+				maxDT = sum;
+			}
 			
-			if(tt<=minDT) {
-				minDT = tt;
+			if(sum<=minDT) {
+				minDT = sum;
 			}
 			modelTkHoaDon.addRow(new Object[] {
-					hd.getMaHoaDon(),hd.getNhanVien().getTenNhanVien(), hd.getNgayLap(), hd.getKhachhang().getTenKhachHang(),
-					formatNumberForMoney(hd.getCthdt().getTienNhanCuaKhach()),formatNumberForMoney(tdck), formatNumberForMoney(tt)
+					hd.getMaHoaDon(),hd.getMaNhanVien().getTenNhanVien(), hd.getNgayLap(), hd.getMaKhachHang().getTenKhachHang(),hd.getMaKhachHang().getSoDienThoai(), formatNumberForMoney(sum)
 			});
 		}
-		lblKqDoanhThu.setText(sum + " VNĐ");
-		lblKqHdCaoNhat.setText(maxDT + " VNĐ");
-		lblKqHdThapNhat.setText(minDT + " VNĐ");
+		lblKqDoanhThu.setText(formatNumberForMoney(sum) );
+		lblKqHdCaoNhat.setText(formatNumberForMoney(maxDT) );
+		lblKqHdThapNhat.setText(formatNumberForMoney(minDT));
 	}
-	public long tongTien(LocalDateTime gioVaoPhong, LocalDateTime gioRaPhong, double giaPhong, int soLuongDichVu, double giaDichVu) {
+	public double tongTienPhong(Timestamp gioVaoPhong, Timestamp gioRaPhong, double giaPhong) {
 
-		double tongTien = (gioRaPhong.getHour() - gioVaoPhong.getHour())* giaPhong + soLuongDichVu* giaDichVu;
-		return (long) tongTien;
+		double tongTien = ((gioRaPhong.getTime() - gioVaoPhong.getTime())/1000/60)* (giaPhong/60);
+		return  tongTien;
 	}
-	public long tienDuCuaKhach(LocalDateTime gioVaoPhong, LocalDateTime gioRaPhong, double giaPhong, int soLuongDichVu, double giaDichVu, double tienNhanCuaKhach) {
-		double tienDuCuaKhach = tienNhanCuaKhach - ((gioRaPhong.getHour() - gioVaoPhong.getHour())* giaPhong + soLuongDichVu* giaDichVu);
-		return (long) tienDuCuaKhach;
+	public double tienDichVu(int soLuongDichVu, double giaDichVu) {
+		double tongTien =soLuongDichVu* giaDichVu*1.0;
+		return tongTien;
+	}
 
-	}
 	private String formatNumberForMoney(double money) {
 		Locale localeVN = new Locale("vi", "VN");
 		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);

@@ -37,7 +37,6 @@ import dao.Dao_KhachHang;
 import dao.Dao_NhanVien;
 import dao.Dao_Phong;
 import entity.CTHoaDonThuePhong;
-import entity.DichVu;
 import entity.HoaDonThuePhong;
 import entity.KhachHang;
 import entity.NhanVien;
@@ -82,19 +81,6 @@ public class GUI_ThanhToan extends JFrame implements Printable {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI_ThanhToan frame = new GUI_ThanhToan();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 	/**
 	 * Create the frame.
 	 */
@@ -455,7 +441,7 @@ public class GUI_ThanhToan extends JFrame implements Printable {
 		
 		
 		
-		SimpleDateFormat sf1 = new SimpleDateFormat("hh");
+		SimpleDateFormat sf1 = new SimpleDateFormat("kk");
 		SimpleDateFormat sf2 = new SimpleDateFormat("mm");
 		
 		String hour_Vao =sf1.format(hd1.getGioVaoPhong());

@@ -63,6 +63,7 @@ public class HoaDonThuePhong {
 		this.maNhanVien = maNhanVien;
 	}
 	
+	
 	public HoaDonThuePhong(String maHoaDon) {
 		super();
 		this.maHoaDon = maHoaDon;
@@ -72,7 +73,7 @@ public class HoaDonThuePhong {
 		// TODO Auto-generated constructor stub
 	}
 	public HoaDonThuePhong(String maHoaDon, Date ngayLap, double vat, Timestamp gioVaoPhong, Timestamp gioRaPhong,
-			Phong maPhong, KhachHang maKhachHang, NhanVien maNhanVien) {
+			Phong maPhong, KhachHang maKhachHang, NhanVien maNhanVien ) {
 		super();
 		this.maHoaDon = maHoaDon;
 		this.ngayLap = ngayLap;
@@ -82,6 +83,7 @@ public class HoaDonThuePhong {
 		this.maPhong = maPhong;
 		this.maKhachHang = maKhachHang;
 		this.maNhanVien = maNhanVien;
+
 	}
 	@Override
 	public int hashCode() {

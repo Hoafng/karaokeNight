@@ -7,6 +7,28 @@ public class CTHoaDonThuePhong {
 	private DichVu maDichVu;
 	private int soLuongDichVu;
 	
+
+
+	
+	public CTHoaDonThuePhong(HoaDonThuePhong maHoaDon, DichVu maDichVu, int soLuongDichVu ) {
+		super();
+		this.maHoaDon = maHoaDon;
+		this.maDichVu = maDichVu;
+		this.soLuongDichVu = soLuongDichVu;
+		
+	}
+
+	
+	public CTHoaDonThuePhong(int soLuongDichVu) {
+		super();
+		this.soLuongDichVu = soLuongDichVu;
+	}
+	
+
+	public CTHoaDonThuePhong() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public HoaDonThuePhong getMaHoaDon() {
 		return maHoaDon;
 	}
@@ -19,31 +41,22 @@ public class CTHoaDonThuePhong {
 	public void setMaDichVu(DichVu maDichVu) {
 		this.maDichVu = maDichVu;
 	}
+
 	public int getSoLuongDichVu() {
 		return soLuongDichVu;
 	}
 	public void setSoLuongDichVu(int soLuongDichVu) {
 		this.soLuongDichVu = soLuongDichVu;
 	}
+	
 
-	public CTHoaDonThuePhong(HoaDonThuePhong maHoaDon, DichVu maDichVu) {
-		super();
-		this.maHoaDon = maHoaDon;
-		this.maDichVu = maDichVu;
-	}
-	public CTHoaDonThuePhong(HoaDonThuePhong maHoaDon, DichVu maDichVu, int soLuongDichVu) {
-		super();
-		this.maHoaDon = maHoaDon;
-		this.maDichVu = maDichVu;
-		this.soLuongDichVu = soLuongDichVu;
-	}
-	public CTHoaDonThuePhong() {
-		super();
-	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(maDichVu, maHoaDon);
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,10 +68,12 @@ public class CTHoaDonThuePhong {
 		CTHoaDonThuePhong other = (CTHoaDonThuePhong) obj;
 		return Objects.equals(maDichVu, other.maDichVu) && Objects.equals(maHoaDon, other.maHoaDon);
 	}
+
+
 	@Override
 	public String toString() {
 		return "CTHoaDonThuePhong [maHoaDon=" + maHoaDon + ", maDichVu=" + maDichVu + ", soLuongDichVu=" + soLuongDichVu
-				+ "]";
+				+ ", tienNhanCuaKhach="  + "]";
 	}
-		
+	
 }

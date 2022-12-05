@@ -9,7 +9,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;

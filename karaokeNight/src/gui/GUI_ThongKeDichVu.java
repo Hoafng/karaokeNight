@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +9,6 @@ import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,10 +24,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -41,12 +39,15 @@ import javax.swing.table.TableRowSorter;
 
 import com.toedter.calendar.JDateChooser;
 
-import connect.ConnectDB;
+import connectDB.ConnectDB;
+import dao.Dao_CTHoaDon;
 import dao.Dao_DichVu;
 import dao.Dao_LoaiDichVu;
 import dao.Dao_ThongKeDichVu;
+import entity.CTHoaDonThuePhong;
 import entity.DichVu;
 import entity.LoaiDichVu;
+import entity.TaiKhoan;
 
 public class GUI_ThongKeDichVu extends JFrame implements ActionListener, PropertyChangeListener{
 
@@ -446,7 +447,7 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 					}
 				});
 	
-		ArrayList<DichVu> listDV = dao_tkdv.getDichVu();
+		ArrayList<DichVu> listDV = dao_tkdv.getAllDichVuDaThanhToan();
 		DocDuLieuDatabaseVaoTable(listDV, modelTkDichVu);
 		btnLamMoiDichVu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -476,13 +477,13 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 
 	}
 	public void DocDuLieuDatabaseVaoTable(ArrayList<DichVu> listDV, DefaultTableModel modelTkDichVu) {
-		long sum =0;
-		long sumSl = 0;
-		long maxSl = 0;
+		double sum =0;
+		double sumSl = 0;
+		double maxSl = 0;
 		String ldv = "";
 		for (DichVu dv : listDV) {
-			long tdv = tienDV(dv.getGiaDichVu(), dv.getCTHoaDonThue().getSoLuongDichVu());
-			long sl = dv.getCTHoaDonThue().getSoLuongDichVu();
+			double tdv = tienDV(dv.getGiaDichVu(),dv.getSoLuong());
+			double sl = dv.getSoLuong();
 
 			sum = sum + tdv;
 			sumSl = sumSl +  sl;
@@ -490,9 +491,9 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 				maxSl = sl;
 				ldv = dv.getTenDichVu();
 			}
-			modelTkDichVu.addRow(new Object[] {dv.getMaDichVu(),dv.getTenDichVu(),dv.getMaLoaiDichVu().getTenLoaiDichVu(),formatNumberForMoney(dv.getGiaDichVu()),dv.getCTHoaDonThue().getSoLuongDichVu()});
+			modelTkDichVu.addRow(new Object[] {dv.getMaDichVu(),dv.getTenDichVu(),dv.getMaLoaiDichVu().getTenLoaiDichVu(),formatNumberForMoney(dv.getGiaDichVu()),dv.getSoLuong()});
 		}
-		lblKqTienDichVuBan.setText(sum +" VNĐ");
+		lblKqTienDichVuBan.setText(formatNumberForMoney(sum));
 		lblKqDichVuBan.setText(sumSl + "");
 		lblKqDichVuBanChay.setText(ldv);
 	}
@@ -509,9 +510,9 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 		dateChooser.setEnabled(b);
 		dateChooser_1.setEnabled(b);
 	}
-	public long tienDV(double giaDichVu, int soluongbanRa) {
+	public double tienDV(double giaDichVu, int soluongbanRa) {
 		double tienDV = giaDichVu * soluongbanRa;
-		return (long) tienDV;
+		return tienDV;
 	}
 
 }

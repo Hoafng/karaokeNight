@@ -1,7 +1,8 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -9,44 +10,37 @@ import java.beans.PropertyChangeListener;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
+
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 import connectDB.ConnectDB;
 import dao.Dao_NhanVien;
-import dao.Dao_TaiKhoan;
-import entity.KhachHang;
 import entity.NhanVien;
 import entity.TaiKhoan;
 
+@SuppressWarnings("serial")
 public class GUI_NhanVien extends JFrame {
 
 	private JPanel contentPane;
@@ -68,11 +62,9 @@ public class GUI_NhanVien extends JFrame {
 	private JTextField txtma;
 	private JCheckBox chkcbxGioiTinh;
 	private JTextField txtEmail;
-	private Dao_TaiKhoan tk;
-	private JComboBox cbxMaNhanVienTim;
-	private JComboBox cbxChuVu;
-	private DefaultComboBoxModel modelCV;
-	private JComboBox cbxChuVuTim;
+	private JComboBox<String> cbxMaNhanVienTim;
+	private JComboBox<String> cbxChuVu;
+	private JComboBox<String> cbxChuVuTim;
 	private JCheckBox chkcbxNamTim;
 	private JButton btnLuu;
 	private JButton btnSua;
@@ -81,23 +73,12 @@ public class GUI_NhanVien extends JFrame {
 	private JButton btnTimNhanVien;
 	private JButton btnLamMoi;
 	private JCheckBox chckbxNuTim;
+	private TaiKhoan taiKhoan;
 
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI_NhanVien frame = new GUI_NhanVien();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -384,9 +365,9 @@ public class GUI_NhanVien extends JFrame {
 		btnThem.setFont(new Font("Times New Roman", Font.BOLD, 15));
 /**/	btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NhanVien nvthem=new NhanVien(txtma.getText(),txtTen.getText(),txtSoDienThoai.getText(),dateChooser_1.getDate(),
+				NhanVien nvthem=new NhanVien(txtma.getText(),txtTen.getText(),txtSoDienThoai.getText(),Date.valueOf(txtNgaySinh.getText()),
 						txtDiaChi.getText(),chkcbxGioiTinh.isSelected(),txtCMND.getText(),cbxChuVu.getSelectedItem().toString(),
-						txtEmail.getText(),new TaiKhoan(tk.tk.getTenTaiKhoan()));
+						txtEmail.getText(),new TaiKhoan(taiKhoan.getTenTaiKhoan()),true);
 				daoNhanVien.insertNhanVien(nvthem);
 				if(daoNhanVien.insertNhanVien(nvthem)==true) {
 				JOptionPane.showInputDialog(this,"Them Thanh Cong");
@@ -458,8 +439,8 @@ public class GUI_NhanVien extends JFrame {
 		pnlThongTinNhanVien.add(txtEmail);
 		
 	
-		cbxChuVu = new JComboBox();
-		cbxChuVu.setModel(new DefaultComboBoxModel(new String[] {"Quản Lý", "Nhân Viên"}));
+		cbxChuVu = new JComboBox<String>();
+		cbxChuVu.setModel(new DefaultComboBoxModel<String>(new String[] {"Quản Lý", "Nhân Viên"}));
 		cbxChuVu.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		cbxChuVu.setBounds(1059, 66, 107, 25);
 		pnlThongTinNhanVien.add(cbxChuVu);
@@ -577,8 +558,8 @@ public class GUI_NhanVien extends JFrame {
 		lblChucVuTim.setBounds(10, 219, 118, 25);
 		pnlTimKiemNhanVien.add(lblChucVuTim);
 		
-		cbxChuVuTim = new JComboBox();
-		cbxChuVuTim.setModel(new DefaultComboBoxModel(new String[] {"Quản Lý", "Nhân Viên"}));
+		cbxChuVuTim = new JComboBox<String>();
+		cbxChuVuTim.setModel(new DefaultComboBoxModel<String>(new String[] {"Quản Lý", "Nhân Viên"}));
 		cbxChuVuTim.setSelectedIndex(0);
 		cbxChuVuTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		cbxChuVuTim.setBounds(138, 219, 130, 25);

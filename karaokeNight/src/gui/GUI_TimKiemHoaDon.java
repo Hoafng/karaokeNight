@@ -1,25 +1,23 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import javax.sql.RowSetReader;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,9 +28,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -42,23 +42,15 @@ import javax.swing.table.TableRowSorter;
 
 import com.toedter.calendar.JDateChooser;
 
-import connect.ConnectDB;
-import dao.Dao_DichVu;
-import dao.Dao_ThongKeDoanhThu;
+import connectDB.ConnectDB;
+import dao.Dao_CTHoaDon;
+import dao.Dao_HoaDon;
 import dao.Dao_KhachHang;
-import dao.Dao_LoaiDichVu;
 import dao.Dao_NhanVien;
-import entity.DichVu;
+import dao.Dao_Phong;
+import entity.CTHoaDonThuePhong;
 import entity.HoaDonThuePhong;
-
-import java.awt.Scrollbar;
-import javax.swing.JSpinner;
-import javax.swing.JProgressBar;
-import javax.swing.JToggleButton;
-import javax.swing.RowFilter;
-import javax.swing.UIManager;
-
-import java.awt.ScrollPane;
+import entity.TaiKhoan;
 
 public class GUI_TimKiemHoaDon extends JFrame {
 
@@ -72,6 +64,8 @@ public class GUI_TimKiemHoaDon extends JFrame {
 	private Dao_KhachHang dao_kh;
 	private Dao_NhanVien dao_nv;
 	private Dao_HoaDon dao_hdt;
+	private Dao_CTHoaDon dao_CTHD = new Dao_CTHoaDon();
+	private Dao_Phong dao_Phong = new Dao_Phong();
 	private TaiKhoan tk;
 
 	List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(3);
@@ -573,10 +567,18 @@ public class GUI_TimKiemHoaDon extends JFrame {
 	//Lấy dữ liệu từ database để đưa lên table
 	
 	public void DocDuLieuDatabaseVaoTable() {
-		ArrayList<HoaDonThuePhong> listHD = dao_hdt.getAllHoaDon();
-		for (HoaDonThuePhong hdt : listHD) {
-			long tt = tongTien(hdt.getGioVaoPhong(), hdt.getGioRaPhong(),hdt.getMaPhong().getGiaPhong(), hdt.getCthdt().getSoLuongDichVu(),  hdt.getCthdt().getMaDichVu().getGiaDichVu());
-			modelDsHoaDon.addRow(new Object[] {hdt.getMaHoaDon(),hdt.getNhanVien().getTenNhanVien(),hdt.getKhachhang().getTenKhachHang(),hdt.getNgayLap(),formatNumberForMoney(tt)});
+		ArrayList<HoaDonThuePhong> listHD = dao_hdt.getAllHoaDonDaThanhToan();
+		double tdv =0;
+		double tp =0;
+		for (HoaDonThuePhong hd : listHD) {
+			for (CTHoaDonThuePhong ct : dao_CTHD.getAllCTHDDichVuDaThanhToan(hd.getMaPhong().getMaPhong())) {
+				if(ct!=null)
+				tdv = tienDichVu(ct.getSoLuongDichVu(), ct.getMaDichVu().getGiaDichVu());
+			}
+				tp =tongTienPhong(hd.getGioVaoPhong(), hd.getGioRaPhong(), dao_Phong.getPhong(hd.getMaPhong().getMaPhong()).getGiaPhong());
+
+				modelDsHoaDon.addRow(new Object[] { hd.getMaHoaDon(), hd.getMaNhanVien().getTenNhanVien(),
+						hd.getMaKhachHang().getTenKhachHang(), hd.getNgayLap(), formatNumberForMoney(tongTien(tdv, tp))});
 		}
 	}
 	//Nạp dữ liệu vào TextFile
@@ -601,12 +603,19 @@ public class GUI_TimKiemHoaDon extends JFrame {
 			txtTenNhanVienLapHD.setText("");
 			txtNgayLapHD.setText("");
 		}
-		public long tongTien(LocalDateTime gioVaoPhong, LocalDateTime gioRaPhong, double giaPhong, int soLuongDichVu, double giaDichVu) {
-			
-			double tongTien = (gioRaPhong.getHour() - gioVaoPhong.getHour())* giaPhong + soLuongDichVu* giaDichVu;
-			return (long) tongTien;
+		public double tongTien(double tienPhong , double tienDichVu) {
+		
+			return tienPhong+tienDichVu;
 		}
+		public double tongTienPhong(Timestamp gioVaoPhong, Timestamp gioRaPhong, double giaPhong) {
 
+			double tongTien = ((gioRaPhong.getTime() - gioVaoPhong.getTime())/1000/60)* (giaPhong/60);
+			return  tongTien;
+		}
+		public double tienDichVu(int soLuongDichVu, double giaDichVu) {
+			double tongTien =soLuongDichVu* giaDichVu*1.0;
+			return tongTien;
+		}
 		private String formatNumberForMoney(double money) {
 			Locale localeVN = new Locale("vi", "VN");
 			NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);

@@ -1,17 +1,16 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +21,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -35,7 +33,6 @@ import dao.Dao_NhanVien;
 import dao.Dao_TaiKhoan;
 import entity.NhanVien;
 import entity.TaiKhoan;
-import java.awt.Color;
 
 public class GUI_ThongTinTaiKhoan extends JFrame {
 

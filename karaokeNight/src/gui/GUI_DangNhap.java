@@ -16,7 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import connectDB.ConnectDB;
+import dao.Dao_NhanVien;
 import dao.Dao_TaiKhoan;
+import entity.NhanVien;
 import entity.TaiKhoan;
 
 public class GUI_DangNhap extends JFrame {
@@ -30,8 +32,8 @@ public class GUI_DangNhap extends JFrame {
 	private JButton btnDangNhap;
 	private JButton btnQuenMatKhau;
 	private Dao_TaiKhoan daotk = new Dao_TaiKhoan();
+	private Dao_NhanVien dao_NhanVien = new Dao_NhanVien();
 	private TaiKhoan tk;
-
 
 	/**
 	 * Launch the application.
@@ -104,13 +106,18 @@ public class GUI_DangNhap extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (daotk.getTaiKhoan(txtTaiKhoan.getText()) == null) {
 					lblNewLabel_1.setText("Tên tài khoản không tồn tại");
-					
+
 				} else if (daotk.getTaiKhoan(txtTaiKhoan.getText(), new String(txtMatKhau.getPassword())) == null) {
 					lblNewLabel_1.setText("Sai Mật Khẩu");
-				} else if(daotk.getTaiKhoan(txtTaiKhoan.getText(),  new String(txtMatKhau.getPassword())) != null){
-					tk=daotk.getTaiKhoan(txtTaiKhoan.getText(),  new String(txtMatKhau.getPassword()));
-					dispose();
-					new GUI_TrangChu(tk).setVisible(true);
+				} else if (daotk.getTaiKhoan(txtTaiKhoan.getText(), new String(txtMatKhau.getPassword())) != null) {
+					NhanVien nv = dao_NhanVien.getNhanVien(txtTaiKhoan.getText());
+					if (nv == null) {
+						lblNewLabel_1.setText("Nhân viên không tồn tại");
+					} else {
+						tk = daotk.getTaiKhoan(txtTaiKhoan.getText(), new String(txtMatKhau.getPassword()));
+						dispose();
+						new GUI_TrangChu(tk).setVisible(true);
+					}
 				}
 			}
 		});

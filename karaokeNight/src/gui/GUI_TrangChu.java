@@ -5,11 +5,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.sql.SQLException;
-import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,24 +15,22 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import connectDB.ConnectDB;
 import dao.Dao_NhanVien;
-import dao.Dao_TaiKhoan;
 import entity.NhanVien;
 import entity.TaiKhoan;
 
+@SuppressWarnings("serial")
 public class GUI_TrangChu extends JFrame {
 
 	private JPanel contentPane;
-	private JLabel lblNewLabel;
 	private TaiKhoan tk;
 	private Dao_NhanVien daonv = new Dao_NhanVien();
-	private Dao_TaiKhoan dao_TaiKhoan = new Dao_TaiKhoan();
+
 
 	/**
 	 * Launch the application.
@@ -46,7 +40,6 @@ public class GUI_TrangChu extends JFrame {
 	 * Create the frame.
 	 */
 
-	private JLabel labelClock;
 	private JLabel lblThongTinNhanVien;
 
 //	@SuppressWarnings("deprecation")

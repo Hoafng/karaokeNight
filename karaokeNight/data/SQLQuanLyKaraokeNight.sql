@@ -96,6 +96,7 @@ ALTER TABLE Phong ADD CONSTRAINT FK_MaLoaiPhong FOREIGN KEY(maLoaiPhong) REFEREN
 ALTER TABLE PhieuDatPhong ADD CONSTRAINT FK_MaPhong FOREIGN KEY(maPhong) REFERENCES Phong(maPhong)
 ALTER TABLE PhieuDatPhong ADD CONSTRAINT FK_MaKhachHang FOREIGN KEY(maKhachHang) REFERENCES KhachHang(maKhachHang)
 ALTER TABLE HoaDonThuePhong ADD CONSTRAINT FK_maKhachHangHoaDon FOREIGN KEY(maKhachHang) REFERENCES KhachHang(maKhachHang)
+ALTER TABLE HoaDonThuePhong ADD CONSTRAINT FK_HDTP_MaPhong FOREIGN KEY(maPhong) REFERENCES Phong(maPhong)
 ALTER TABLE HoaDonThuePhong ADD CONSTRAINT FK_MaNhanVien FOREIGN KEY(maNhanVien) REFERENCES NhanVien(maNhanVien)
 ALTER TABLE CTHoaDonThuePhong ADD CONSTRAINT FK_MaHoaDonCT FOREIGN KEY(maHoaDon) REFERENCES HoaDonThuePhong(maHoaDon)
 ALTER TABLE CTHoaDonThuePhong ADD CONSTRAINT FK_MaDichVuCT FOREIGN KEY(maDichVu) REFERENCES DichVu(maDichVu)
@@ -110,7 +111,6 @@ ALTER TABLE Phong ADD CONSTRAINT CHECK_giaPhong CHECK(giaPhong>=0)
 ALTER TABLE Phong ADD CONSTRAINT CHECK_soLuongNguoi CHECK(soLuongNguoi>0)
 ALTER TABLE NhanVien ADD CONSTRAINT CHECK_ngaySinh CHECK(getdate()>ngaySinh)
 ALTER TABLE NhanVien ADD CONSTRAINT CHECK_chucVu CHECK(chucVu like N'Quản lý' or chucVu like N'Nhân viên')
-
 
 
 --Insert Dữ liệu
@@ -128,7 +128,8 @@ Values('tester01','tester01'),
 	  ('nhanvien10' , 'nhanvien10'),
 	  ('quanly01' , 'quanly01'),
 	  ('quanly02' , 'quanly02'),
-	  ('quanly03' , 'quanly03')
+	  ('quanly03' , 'quanly03'),
+      ('1','1')
 
 
 Insert into NhanVien
@@ -145,7 +146,8 @@ Values('NV01' , N'Nguyễn A Đại' , '0909111111' , '2001-01-01' , N'Quận 1,
 	  ('NV11' , N'Nguyễn Thập Nhất' , '0909010101' , '2001-11-11' , N'Quận 11, Thành Phố Hồ Chí Minh' , 1 , '385010101' , N'Quản lý' , 'nguyenthapnhat@gmail.com' , 'tester01',1),
 	  ('NV12' , N'Nguyễn A Ngưu' , '0909121212' , '1998-12-12' , N'Quận 1, Thành Phố Hồ Chí Minh' , 1 , '385121212' , N'Quản lý' , 'nguyenanguu@gmail.com' , 'quanly01',1),
 	  ('NV13' , N'Nguyễn A Mã' , '0909131313' , '1998-12-13' , N'Quận 1, Thành Phố Hồ Chí Minh' , 1 , '385131313' , N'Quản lý' , 'nguyenama@gmail.com' , 'quanly02',1),
-	  ('NV14' , N'Nguyễn Thập Tứ' , '0909141414' , '2000-12-14' , N'Quận 1, Thành Phố Hồ Chí Minh' , 0 , '385121212' , N'Quản lý' , 'nguyenthaptu@gmail.com' , 'quanly03',1)
+	  ('NV14' , N'Nguyễn Thập Tứ' , '0909141414' , '2000-12-14' , N'Quận 1, Thành Phố Hồ Chí Minh' , 0 , '385121212' , N'Quản lý' , 'nguyenthaptu@gmail.com' , 'quanly03',1),
+      ('NV15' , N'Nguyễn Thập Tứ' , '0909141414' , '2000-12-14' , N'Quận 1, Thành Phố Hồ Chí Minh' , 0 , '385121212' , N'Quản lý' , 'nguyenthaptu@gmail.com' , '1',1)
 
 
 Insert into KhachHang
@@ -172,21 +174,6 @@ Values('KH001', '0909090909' , N'Diệp Chung Minh','2002-09-14',N'Quận 1, Th�
 	  ('KH021', '0911234567' , N'Tobirama Senju','2002-09-14',N'Quận 5, Thành Phố Hồ Chí Minh',0,'38581260',1,'2022-10-13'),
 	  ('KH022', '0922345678' , N'Uzumaki Naruto','2002-09-14',N'Quận 4, Thành Phố Hồ Chí Minh',1,'38581263',1,'2022-10-13'),
 	  ('KH023', '0933456789' , N'Namikaze Minato','2002-09-14',N'Quận 4, Thành Phố Hồ Chí Minh',1,'38581264d',1,'2022-10-13')
-
-Insert into PhieuDatPhong
-Values('MPDP01' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'PVip001008' , 'KH001',1),
-	  ('MPDP02' , 2 , '2022-11-01' , '2022-11-01 12:30:00.000' , 'P002007' , 'KH002',1),
-	  ('MPDP03' , 5 , '2022-10-29' , '2022-11-01 12:30:00.000' , 'P003001' , 'KH003',1),
-	  ('MPDP04' , 2 , '2022-10-28' , '2022-11-01 12:30:00.000' , 'P003007' , 'KH004',1),
-	  ('MPDP05' , 3 , '2022-10-27' , '2022-11-01 12:30:00.000' , 'P004003' , 'KH005',1),
-	  ('MPDP06' , 4 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P004007' , 'KH006',1),
-	  ('MPDP07' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P005003' , 'KH007',1),
-	  ('MPDP08' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P005007' , 'KH008',1),
-	  ('MPDP09' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P006003' , 'KH009',1),
-	  ('MPDP10' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P007003' , 'KH010',1),
-	  ('MPDP11' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P006007' , 'KH011',1),
-	  ('MPDP12' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P007007' , 'KH012',1)
-
 
 Insert into LoaiDichVu 
 Values('DV001' , N'Thức uống'),
@@ -401,3 +388,16 @@ Values('NV01101020220001','DVBia333',10),
         ('NV07011120220002','DVBiaLarue' ,10),
         ('NV07011120220002','DVKhanlanh' ,10)
 
+Insert into PhieuDatPhong
+Values('MPDP01' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'PVip001008' , 'KH001',1),
+	  ('MPDP02' , 2 , '2022-11-01' , '2022-11-01 12:30:00.000' , 'P002007' , 'KH002',1),
+	  ('MPDP03' , 5 , '2022-10-29' , '2022-11-01 12:30:00.000' , 'P003001' , 'KH003',1),
+	  ('MPDP04' , 2 , '2022-10-28' , '2022-11-01 12:30:00.000' , 'P003007' , 'KH004',1),
+	  ('MPDP05' , 3 , '2022-10-27' , '2022-11-01 12:30:00.000' , 'P004003' , 'KH005',1),
+	  ('MPDP06' , 4 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P004007' , 'KH006',1),
+	  ('MPDP07' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P005003' , 'KH007',1),
+	  ('MPDP08' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P005007' , 'KH008',1),
+	  ('MPDP09' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P006003' , 'KH009',1),
+	  ('MPDP10' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P007003' , 'KH010',1),
+	  ('MPDP11' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P006007' , 'KH011',1),
+	  ('MPDP12' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P007007' , 'KH012',1)

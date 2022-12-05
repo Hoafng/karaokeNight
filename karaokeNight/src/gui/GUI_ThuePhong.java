@@ -51,19 +51,7 @@ public class GUI_ThuePhong extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI_ThuePhong frame = new GUI_ThuePhong();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
+
 	/**
 	 * Create the frame.
 	 */
@@ -314,7 +302,6 @@ public class GUI_ThuePhong extends JFrame{
 				i++;
 			} while (constrain1 == true);
 			dao_kh.insertKhachHang(khachHang);
-			dao_kh.updateLanDungCuoi(null, maKH);
 		}
 		String maNhanVien = txtMaNhanVien.getText();
 		String maPhong = txtMaPhong.getText();

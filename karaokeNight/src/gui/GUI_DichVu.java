@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
@@ -42,7 +42,6 @@ import dao.Dao_LoaiDichVu;
 import entity.DichVu;
 import entity.LoaiDichVu;
 import entity.TaiKhoan;
-import java.awt.Color;
 
 public class GUI_DichVu extends JFrame implements MouseListener {
 

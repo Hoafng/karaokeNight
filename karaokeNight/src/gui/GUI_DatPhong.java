@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
@@ -364,10 +365,10 @@ public class GUI_DatPhong extends JFrame {
 	protected void themPhieuDatPhong() {
 		String maPhieuDatPhong = txtMaPhieuDatPhong.getText();
 		int soGioDat = (int) cbSoGioDat.getSelectedItem();
-		Date ngayDatPhong = Date.valueOf(txtNgayDatPhong.getText());
-		Date ngayNhanPhong = Date.valueOf(txtNgayNhanPhong.getText());
+		Timestamp ngayDatPhong = Timestamp.valueOf(txtNgayDatPhong.getText());
 		Date date = new Date(System.currentTimeMillis());
-		String time = cbGioGioNhanPhong.getSelectedItem().toString() +":"+cbPhutGioNhanPhong.getSelectedItem().toString()+":00";
+		String time = cbGioGioNhanPhong.getSelectedItem().toString() +":"+cbPhutGioNhanPhong.getSelectedItem().toString()+":00.000";
+		Timestamp ngayNhanPhong = Timestamp.valueOf(txtNgayNhanPhong.getText()+" "+time);
 		String maPhong = txtMaPhong.getText();
 		String sdt = txtSoDienThoai.getText();
 		KhachHang khachHang = dao_KhachHang.getKhachHang(sdt);
@@ -389,10 +390,10 @@ public class GUI_DatPhong extends JFrame {
 		}
 		Phong p = new Phong(maPhong);
 		PhieuDatPhong pdp= new PhieuDatPhong(maPhieuDatPhong, soGioDat, ngayDatPhong, ngayNhanPhong, p, khachHang,true);
-		if (this.dao_PhieuDatPhong.insertPhieuDatPhong(pdp,time) == false)
+		if (this.dao_PhieuDatPhong.insertPhieuDatPhong(pdp) == false)
 			JOptionPane.showMessageDialog(this, "Thất bại");
 		else {
-			this.dao_PhieuDatPhong.insertPhieuDatPhong(pdp,time);
+			this.dao_PhieuDatPhong.insertPhieuDatPhong(pdp);
 			this.dao_Phong.updateTinhTrang(maPhong, "Đã đặt");
 			JOptionPane.showMessageDialog(this, "Đặt phòng thành công");
 		}
@@ -454,8 +455,8 @@ public class GUI_DatPhong extends JFrame {
 		txtMaPhieuDatPhong.setText(maPhieu);
 		txtMaPhong.setText(phong.getMaPhong());
 		txtLoaiPhong.setText(phong.getMaLoaiPhong().getTenLoaiPhong());
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-		Date d = new Date(System.currentTimeMillis());
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+		Timestamp d = new Timestamp(System.currentTimeMillis());
 		txtNgayDatPhong.setText(sf.format(d));
 		txtGiaPhong.setText(String.valueOf(phong.getGiaPhong()));
 		
