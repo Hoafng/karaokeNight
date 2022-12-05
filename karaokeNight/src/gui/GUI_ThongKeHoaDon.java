@@ -1,4 +1,5 @@
-package gui;
+
+package ui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -47,19 +48,27 @@ public class GUI_ThongKeHoaDon extends JFrame {
 	private JDateChooser dateChooser_1;
 	private JTextField txtTuNgay;
 	private JTextField txtDenNgay;
-	private TaiKhoan tk;
-	private Dao_HoaDon dao_HoaDon = new Dao_HoaDon();
-	private JLabel lblKqHoaDon;
-	private JLabel lblKqTienCacHoaDon;
 
 	/**
 	 * Launch the application.
 	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Gui_ThongKeDoanhThu frame = new Gui_ThongKeDoanhThu();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public GUI_ThongKeHoaDon(TaiKhoan taiKhoan) {
+	public Gui_ThongKeDoanhThu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100,1480,780);
 		setLocationRelativeTo(null);
@@ -68,87 +77,92 @@ public class GUI_ThongKeHoaDon extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		tk=taiKhoan;
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorderPainted(false);
 		menuBar.setBackground(SystemColor.menu);
 		menuBar.setBounds(5, 1, 420, 20);
 		contentPane.add(menuBar);
-		
-		JMenuItem mntmTrangChu = new JMenuItem("Trang chủ  ");
-		mntmTrangChu.setHorizontalAlignment(SwingConstants.CENTER);
-		mntmTrangChu.addActionListener(new ActionListener() {
+
+		JMenu mnTrangChu = new JMenu("Trang chủ");
+		mnTrangChu.setFont(UIManager.getFont("MenuBar.font"));
+		menuBar.add(mnTrangChu);
+
+		JMenuItem mntmDoiMatKhau = new JMenuItem("Đổi mật khẩu");
+		mntmDoiMatKhau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_TrangChu(tk).setVisible(true);
+				new GUI_DoiMatKhau().setVisible(true);
 			}
 		});
-		mntmTrangChu.setFont(UIManager.getFont("MenuBar.font"));
-		menuBar.add(mntmTrangChu);
 
+		JMenuItem mntmTrangChu = new JMenuItem("Trang chủ");
+		mnTrangChu.add(mntmTrangChu);
 
-		JMenu mnDanhMuc = new JMenu("  Danh mục");
-		mnDanhMuc.setHorizontalAlignment(SwingConstants.CENTER);
+		JMenuItem mntmThongTinTaiKhoan = new JMenuItem("Thông tin tài khoản");
+		mntmThongTinTaiKhoan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GUI_ThongTinTaiKhoan().setVisible(true);
+			}
+		});
+		mnTrangChu.add(mntmThongTinTaiKhoan);
+		mnTrangChu.add(mntmDoiMatKhau);
+
+		JMenuItem mntmDangXuat = new JMenuItem("Đăng xuất");
+		mntmDangXuat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		mnTrangChu.add(mntmDangXuat);
+
+		JSeparator separator = new JSeparator();
+		mnTrangChu.add(separator);
+
+		JMenu mnDanhMuc = new JMenu("Danh mục");
 		menuBar.add(mnDanhMuc);
 
+		JSeparator separator_1 = new JSeparator();
+		mnDanhMuc.add(separator_1);
+
 		JMenuItem mntmDanhMucDichVu = new JMenuItem("Dịch vụ");
-		mntmDanhMucDichVu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_DichVu(tk).setVisible(true);
-			}
-		});
 		mnDanhMuc.add(mntmDanhMucDichVu);
 
 		JMenuItem mntmDanhMucKhachHang = new JMenuItem("Khách hàng");
-		mntmDanhMucKhachHang.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_KhachHang(tk).setVisible(true);
-			}
-		});
 		mnDanhMuc.add(mntmDanhMucKhachHang);
 
 		JMenuItem mntmDanhMucPhong = new JMenuItem("Phòng");
 		mntmDanhMucPhong.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_Phong(tk).setVisible(true);
+				new GUI_Phong().setVisible(true);
 			}
 		});
 		mnDanhMuc.add(mntmDanhMucPhong);
 
 		JMenuItem mntmDanhMucNhanVien = new JMenuItem("Nhân viên");
-		mntmDanhMucNhanVien.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_NhanVien(tk).setVisible(true);
-			}
-		});
 		mnDanhMuc.add(mntmDanhMucNhanVien);
 
-		JMenuItem mnXuLi = new JMenuItem("Xử lí");
-		mnXuLi.setHorizontalAlignment(SwingConstants.CENTER);
+		JMenuItem mnXuLi = new JMenuItem(" Xử lí  ");
 		mnXuLi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_XuLy(tk).setVisible(true);
+				new GUI_XuLy().setVisible(true);
 			}
 		});
-		mnXuLi.setFont(UIManager.getFont("MenuBar.font"));
+		mnXuLi.setFont(UIManager.getFont("Menu.font"));
 		menuBar.add(mnXuLi);
 
-		JMenu mnTimKiem = new JMenu("Tìm kiếm ");
-		mnTimKiem.setHorizontalAlignment(SwingConstants.CENTER);
+		JMenu mnTimKiem = new JMenu("Tìm kiếm");
 		menuBar.add(mnTimKiem);
+
+		JSeparator separator_2 = new JSeparator();
+		mnTimKiem.add(separator_2);
 
 		JMenuItem mntmTimKiemDichVu = new JMenuItem("Dịch vụ");
 		mntmTimKiemDichVu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_TimKiemDichVu(tk).setVisible(true);
+				new GUI_TimKiemDichVu().setVisible(true);
 			}
 		});
 		mnTimKiem.add(mntmTimKiemDichVu);
@@ -157,45 +171,32 @@ public class GUI_ThongKeHoaDon extends JFrame {
 		mntmTimKiemHoaDon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_TimKiemHoaDon(tk).setVisible(true);
+				new GUI_TimKiemHoaDon().setVisible(true);
 			}
 		});
 		mnTimKiem.add(mntmTimKiemHoaDon);
 
-		JMenu mnThongKe = new JMenu(" Thống kê ");
-		mnThongKe.setHorizontalAlignment(SwingConstants.CENTER);
+		JMenu mnThongKe = new JMenu("Thống kê");
 		menuBar.add(mnThongKe);
 
+		JSeparator separator_3 = new JSeparator();
+		mnThongKe.add(separator_3);
+
 		JMenuItem mntmThongKeDoanhThu = new JMenuItem("Doanh thu");
-		mntmThongKeDoanhThu.setSelected(true);
-		mntmThongKeDoanhThu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_ThongKeHoaDon(tk).setVisible(true);
-			}
-		});
 		mnThongKe.add(mntmThongKeDoanhThu);
 
 		JMenuItem mntmThongKeDichVu = new JMenuItem("Dịch vụ");
 		mntmThongKeDichVu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_ThongKeDichVu(tk).setVisible(true);
+				new Gui_ThongKeDichVu().setVisible(true);
 			}
 		});
 		mnThongKe.add(mntmThongKeDichVu);
-
 		JMenuItem mnTroGiup = new JMenuItem("Trợ giúp ");
-		mnTroGiup.setHorizontalAlignment(SwingConstants.CENTER);
 		mnTroGiup.setFont(UIManager.getFont("MenuBar.font"));
-		mnTroGiup.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_TroGiup(tk).setVisible(true);
-			}
-		});
 		menuBar.add(mnTroGiup);
-		
+
 		JPanel pnTop = new JPanel();
 		pnTop.setBackground(new Color(101, 186, 118));
 		pnTop.setBounds(0, 10, 1466, 52);
