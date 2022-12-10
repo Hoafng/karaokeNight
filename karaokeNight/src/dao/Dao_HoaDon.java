@@ -81,7 +81,7 @@ public class Dao_HoaDon {
 		Connection con = ConnectDB.getConnection();
 		try {
 			String sql = "Select *"
-					+ "from HoaDonThuePhong as hd join NhanVien as nv on hd.MaNhanVien = nv.MaNhanVien join KhachHang as kh on hd.MaKhachHang = kh.MaKhachHang where gioRaPhong is not NULL";
+					+ "from HoaDonThuePhong as hd join NhanVien as nv on hd.MaNhanVien = nv.MaNhanVien join KhachHang as kh on hd.MaKhachHang = kh.MaKhachHang where ngayLap is not NULL";
 
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
@@ -104,7 +104,35 @@ public class Dao_HoaDon {
 		return dshd;
 
 	}
+	public ArrayList<HoaDonThuePhong> getAllHoaDonChuaThanhToan() {
+		ArrayList<HoaDonThuePhong> dshd = new ArrayList<HoaDonThuePhong>();
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			String sql = "Select *"
+					+ "from HoaDonThuePhong as hd join NhanVien as nv on hd.MaNhanVien = nv.MaNhanVien join KhachHang as kh on hd.MaKhachHang = kh.MaKhachHang where ngayLap is NULL";
 
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String maHoaDon = rs.getString(1);
+				Date ngayLap = rs.getDate(2);
+				Timestamp gioVaoPhong = rs.getTimestamp(4);
+				Timestamp gioRaPhong = rs.getTimestamp(5);
+				Phong p = new Phong(rs.getString("maPhong"));
+				TaiKhoan tk =  new TaiKhoan(rs.getString("tenTaiKhoan"));
+				NhanVien nv = new NhanVien(rs.getString("maNhanVien"),rs.getString("tenNhanVien"), rs.getString(11), rs.getDate(12), rs.getString(13),
+						rs.getBoolean(14), rs.getString(15) , rs.getString("chucVu"), rs.getString("email"),tk,rs.getBoolean(19) );
+				KhachHang kh = new KhachHang(rs.getString("maKhachHang"),rs.getString(21),rs.getString(22), rs.getDate(23), rs.getString(24),rs.getBoolean(25), rs.getString(26) ,rs.getBoolean(27) ,rs.getDate("lanDungCuoi"));
+				HoaDonThuePhong hdt = new HoaDonThuePhong(maHoaDon, ngayLap, 0.1, gioVaoPhong, gioRaPhong, p, kh, nv);
+				dshd.add(hdt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dshd;
+
+	}
 	public ArrayList<HoaDonThuePhong> getAllMaHoaDon() {
 		ArrayList<HoaDonThuePhong> ds = new ArrayList<HoaDonThuePhong>();
 		try {
@@ -207,7 +235,7 @@ public class Dao_HoaDon {
 		PreparedStatement statement = null;
 		HoaDonThuePhong hoadon = null;
 		try {
-			String sql = " select * from HoaDonThuePhong where maPhong =? and gioRaPhong is NULL";
+			String sql = " select * from HoaDonThuePhong where maPhong =? and ngayLap is NULL";
 			statement = con.prepareStatement(sql);
 			statement.setString(1, maPhong);
 			ResultSet rs = statement.executeQuery();

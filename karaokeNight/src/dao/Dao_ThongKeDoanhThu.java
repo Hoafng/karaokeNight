@@ -68,10 +68,7 @@ public class Dao_ThongKeDoanhThu {
 					+ "join Phong as p on hd.MaPhong = p.MaPhong "
 					+ "join NhanVien as nv on hd.MaNhanVien = nv.MaNhanVien "
 					+ "join KhachHang as kh on hd.MaKhachHang = kh.MaKhachHang "
-					+ "join CTHoaDonThuePhong as cthd on hd.maHoaDon = cthd.maHoaDon "
-					+ "join DichVu as dv on dv.maDichVu = cthd.maDichVu "
-					+ "WHERE  ? <= hd.ngayLap and ? >= hd.ngayLap and soLuongDichVu > 0\r\n"
-					+ "order by soLuongDichVu DESC";
+					+ "WHERE  ? <= hd.ngayLap and ? >= hd.ngayLap";
 			
 		           ps = con.prepareStatement(sql);
 		           ps.setString(1, tuNgay);
@@ -85,13 +82,10 @@ public class Dao_ThongKeDoanhThu {
 				Timestamp gioRaPhong = rs.getTimestamp(5);
 				Phong p = new Phong(rs.getString("maPhong"));
 				TaiKhoan tk =  new TaiKhoan(rs.getString("tenTaiKhoan"));
-				LoaiDichVu ldv = new LoaiDichVu(rs.getString("maLoaiDichVu"));
-				DichVu dv = new DichVu(rs.getString("maDichVu"), rs.getString("tenDichVu"),rs.getDouble("giaDichVu") , rs.getInt("soLuongDichVu"),ldv);
 				NhanVien nv = new NhanVien(rs.getString("maNhanVien"),rs.getString("tenNhanVien"), rs.getString(17), rs.getDate(18), rs.getString(19),
 						rs.getBoolean(20), rs.getString(21) , rs.getString("chucVu"), rs.getString("email"),tk,rs.getBoolean(25) );
 				KhachHang kh = new KhachHang(rs.getString("maKhachHang"),rs.getString(27),rs.getString(28), rs.getDate(29), rs.getString(30),rs.getBoolean(31), rs.getString(32) ,rs.getBoolean(33) ,rs.getDate("lanDungCuoi"));
 				HoaDonThuePhong hdt = new HoaDonThuePhong(maHoaDon, ngayLap, 0.1, gioVaoPhong, gioRaPhong, p, kh, nv);
-				CTHoaDonThuePhong cthdt = new CTHoaDonThuePhong(hdt,dv, rs.getInt("soLuongDichVu"));
 				dshd.add(hdt);
 			}
 		} catch (SQLException e) {

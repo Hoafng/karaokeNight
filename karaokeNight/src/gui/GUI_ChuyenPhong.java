@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -55,6 +57,8 @@ public class GUI_ChuyenPhong extends JFrame {
 	private Phong phong;
 	private Dao_Phong dao_phong = new Dao_Phong();
 	private Dao_HoaDon dao_hoadon = new Dao_HoaDon();
+	private JTextField txtGioVaoPhong;
+	private JTextField txtGioHienTai;
 
 	/**
 	 * Launch the application.
@@ -104,83 +108,83 @@ public class GUI_ChuyenPhong extends JFrame {
 		
 		txtMaPhongChuyenDititle = new JTextField();
 		txtMaPhongChuyenDititle.setEditable(false);
-		txtMaPhongChuyenDititle.setBounds(155, 106, 131, 33);
+		txtMaPhongChuyenDititle.setBounds(155, 77, 131, 33);
 		contentPane.add(txtMaPhongChuyenDititle);
 		txtMaPhongChuyenDititle.setColumns(10);
 		
 		lbl_iconhome = new JLabel("");
 		lbl_iconhome.setIcon(new ImageIcon("image\\home.png"));
 		lbl_iconhome.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lbl_iconhome.setBounds(183, 46, 65, 60);
+		lbl_iconhome.setBounds(49, 50, 65, 60);
 		contentPane.add(lbl_iconhome);
 		
 		lbl_iconhome1 = new JLabel("");
 		lbl_iconhome1.setIcon(new ImageIcon("image\\home.png"));
 		lbl_iconhome1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lbl_iconhome1.setBounds(452, 46, 65, 60);
+		lbl_iconhome1.setBounds(590, 50, 65, 60);
 		contentPane.add(lbl_iconhome1);
 		
 		lbl_icon_rightsmall = new JLabel("");
 		lbl_icon_rightsmall.setIcon(new ImageIcon("image\\right_small.png"));
 		lbl_icon_rightsmall.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lbl_icon_rightsmall.setBounds(337, 67, 65, 60);
+		lbl_icon_rightsmall.setBounds(337, 62, 65, 60);
 		contentPane.add(lbl_icon_rightsmall);
 		
 		lblMaPhong = new JLabel("Mã phòng");
 		lblMaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblMaPhong.setBounds(49, 168, 120, 40);
+		lblMaPhong.setBounds(49, 139, 120, 40);
 		contentPane.add(lblMaPhong);
 		
 		txtMaPhongChuyenDi = new JTextField();
 		txtMaPhongChuyenDi.setEditable(false);
-		txtMaPhongChuyenDi.setBounds(155, 169, 131, 40);
+		txtMaPhongChuyenDi.setBounds(155, 141, 131, 40);
 		contentPane.add(txtMaPhongChuyenDi);
 		
 		txtMaPhongChuyenDen = new JTextField();
 		txtMaPhongChuyenDen.setEditable(false);
 		txtMaPhongChuyenDen.setColumns(10);
-		txtMaPhongChuyenDen.setBounds(418, 106, 131, 33);
+		txtMaPhongChuyenDen.setBounds(412, 77, 131, 33);
 		contentPane.add(txtMaPhongChuyenDen);
 		
 		lblLoaiPhong = new JLabel("Loại phòng");
 		lblLoaiPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblLoaiPhong.setBounds(49, 242, 120, 40);
+		lblLoaiPhong.setBounds(49, 201, 120, 40);
 		contentPane.add(lblLoaiPhong);
 		
 		txtLoaiPhong = new JTextField();
 		txtLoaiPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtLoaiPhong.setEditable(false);
 		txtLoaiPhong.setColumns(10);
-		txtLoaiPhong.setBounds(155, 242, 131, 40);
+		txtLoaiPhong.setBounds(155, 201, 131, 40);
 		contentPane.add(txtLoaiPhong);
 		
 		lblSucChua = new JLabel("Số lượng người");
 		lblSucChua.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblSucChua.setBounds(49, 313, 120, 40);
+		lblSucChua.setBounds(49, 261, 120, 40);
 		contentPane.add(lblSucChua);
 		
 		txtSoLuongNguoi = new JTextField();
 		txtSoLuongNguoi.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtSoLuongNguoi.setEditable(false);
 		txtSoLuongNguoi.setColumns(10);
-		txtSoLuongNguoi.setBounds(155, 313, 131, 40);
+		txtSoLuongNguoi.setBounds(155, 261, 131, 40);
 		contentPane.add(txtSoLuongNguoi);
 		
 		lblGiaPhong = new JLabel("Giá Phòng");
 		lblGiaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblGiaPhong.setBounds(49, 390, 120, 40);
+		lblGiaPhong.setBounds(49, 321, 120, 40);
 		contentPane.add(lblGiaPhong);
 		
 		txtGiaPhong = new JTextField();
 		txtGiaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtGiaPhong.setEditable(false);
 		txtGiaPhong.setColumns(10);
-		txtGiaPhong.setBounds(155, 390, 131, 40);
+		txtGiaPhong.setBounds(155, 321, 131, 40);
 		contentPane.add(txtGiaPhong);
 		
 		lblMaPhong_1 = new JLabel("Mã Phòng");
 		lblMaPhong_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblMaPhong_1.setBounds(418, 168, 120, 40);
+		lblMaPhong_1.setBounds(412, 139, 120, 40);
 		contentPane.add(lblMaPhong_1);
 		
 		comboBox_MaPhongChuyenDen = new JComboBox();
@@ -196,49 +200,49 @@ public class GUI_ChuyenPhong extends JFrame {
 				txtSoLuongNguoi1.setText(String.valueOf(p2.getSoLuongNguoi()));
 			}
 		});
-		comboBox_MaPhongChuyenDen.setBounds(524, 169, 131, 40);
+		comboBox_MaPhongChuyenDen.setBounds(524, 140, 131, 40);
 		contentPane.add(comboBox_MaPhongChuyenDen);
 		
 		lblLoaiPhong_1 = new JLabel("Loại Phòng");
 		lblLoaiPhong_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblLoaiPhong_1.setBounds(418, 242, 120, 40);
+		lblLoaiPhong_1.setBounds(412, 201, 120, 40);
 		contentPane.add(lblLoaiPhong_1);
 		
 		txtLoaiPhong1 = new JTextField();
 		txtLoaiPhong1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtLoaiPhong1.setEditable(false);
 		txtLoaiPhong1.setColumns(10);
-		txtLoaiPhong1.setBounds(524, 242, 131, 40);
+		txtLoaiPhong1.setBounds(524, 201, 131, 40);
 		contentPane.add(txtLoaiPhong1);
 		
 		lblSucChua_1 = new JLabel("Số lượng người");
 		lblSucChua_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblSucChua_1.setBounds(418, 313, 120, 40);
+		lblSucChua_1.setBounds(412, 261, 120, 40);
 		contentPane.add(lblSucChua_1);
 		
 		txtSoLuongNguoi1 = new JTextField();
 		txtSoLuongNguoi1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtSoLuongNguoi1.setEditable(false);
 		txtSoLuongNguoi1.setColumns(10);
-		txtSoLuongNguoi1.setBounds(524, 313, 131, 40);
+		txtSoLuongNguoi1.setBounds(524, 261, 131, 40);
 		contentPane.add(txtSoLuongNguoi1);
 		
 		lblGiaPhong_1 = new JLabel("Giá Phòng");
 		lblGiaPhong_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblGiaPhong_1.setBounds(418, 390, 120, 40);
+		lblGiaPhong_1.setBounds(412, 321, 120, 40);
 		contentPane.add(lblGiaPhong_1);
 		
 		txtGiaPhong1 = new JTextField();
 		txtGiaPhong1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtGiaPhong1.setEditable(false);
 		txtGiaPhong1.setColumns(10);
-		txtGiaPhong1.setBounds(524, 390, 131, 40);
+		txtGiaPhong1.setBounds(524, 321, 131, 40);
 		contentPane.add(txtGiaPhong1);
 		
 		lbl_icon_rightbig = new JLabel("");
 		lbl_icon_rightbig.setIcon(new ImageIcon("image\\right_big.png"));
 		lbl_icon_rightbig.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lbl_icon_rightbig.setBounds(317, 268, 85, 60);
+		lbl_icon_rightbig.setBounds(296, 251, 85, 60);
 		contentPane.add(lbl_icon_rightbig);
 		
 		btnXacNhan = new JButton("Xác nhận");
@@ -251,12 +255,12 @@ public class GUI_ChuyenPhong extends JFrame {
 	
 		});
 		btnXacNhan.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnXacNhan.setBounds(212, 474, 123, 40);
+		btnXacNhan.setBounds(200, 460, 123, 40);
 		contentPane.add(btnXacNhan);
 		
 		btnHuy = new JButton("Hủy");
 		btnHuy.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnHuy.setBounds(404, 474, 123, 40);
+		btnHuy.setBounds(387, 460, 123, 40);
 		btnHuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -265,6 +269,32 @@ public class GUI_ChuyenPhong extends JFrame {
 			}
 		});
 		contentPane.add(btnHuy);
+		
+		JLabel lblGioVaoPhong = new JLabel("Giờ vào phòng");
+		lblGioVaoPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblGioVaoPhong.setBounds(49, 381, 120, 40);
+		contentPane.add(lblGioVaoPhong);
+		
+		txtGioVaoPhong = new JTextField();
+		txtGioVaoPhong.setText("0.0");
+		txtGioVaoPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtGioVaoPhong.setEditable(false);
+		txtGioVaoPhong.setColumns(10);
+		txtGioVaoPhong.setBounds(155, 381, 131, 40);
+		contentPane.add(txtGioVaoPhong);
+		
+		JLabel lblGiHinTi = new JLabel("Giờ hiện tại");
+		lblGiHinTi.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblGiHinTi.setBounds(412, 381, 120, 40);
+		contentPane.add(lblGiHinTi);
+		
+		txtGioHienTai = new JTextField();
+		txtGioHienTai.setText("0.0");
+		txtGioHienTai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtGioHienTai.setEditable(false);
+		txtGioHienTai.setColumns(10);
+		txtGioHienTai.setBounds(524, 381, 131, 40);
+		contentPane.add(txtGioHienTai);
 		String maPhongChuyenDen;
 		for (Phong p1 : dao_phong.getPhongTheoTinhTrang("Trống")) {
 			maPhongChuyenDen = p1.getMaPhong();	
@@ -282,7 +312,10 @@ public class GUI_ChuyenPhong extends JFrame {
 		txtLoaiPhong.setText(phong.getMaLoaiPhong().getTenLoaiPhong());	
 		txtGiaPhong.setText(String.valueOf(phong.getGiaPhong()));
 		txtSoLuongNguoi.setText(String.valueOf(phong.getSoLuongNguoi()));
-	
+		SimpleDateFormat sf= new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		Timestamp date1 = new Timestamp(System.currentTimeMillis());
+		txtGioHienTai.setText(sf.format(date1));
+		txtGioVaoPhong.setText(sf.format(dao_hoadon.getMaHoaDonPhong(phong.getMaPhong()).getGioVaoPhong()));
 	}
 	
 	private void UpdateData() {

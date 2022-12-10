@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,6 +30,19 @@ import entity.KhachHang;
 import entity.NhanVien;
 import entity.Phong;
 import entity.TaiKhoan;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.AbstractListModel;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 
 public class GUI_ThuePhong extends JFrame{
 
@@ -41,7 +55,6 @@ public class GUI_ThuePhong extends JFrame{
 	private JTextField txtMaPhong;
 	private JTextField txtGiaPhong;
 	private JTextField txtGioVaoPhong;
-	private JTextField txtPhutVaoPhong;
 	private JLabel lblThongBaoSDT;
 	private JLabel lblThongBaoTenKhachHang;
 	private Phong phong;
@@ -81,22 +94,61 @@ public class GUI_ThuePhong extends JFrame{
 		
 		JLabel lblSoDienThoai = new JLabel("Số điện thoại");
 		lblSoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblSoDienThoai.setBounds(60, 68, 120, 40);
+		lblSoDienThoai.setBounds(60, 70, 120, 40);
 		contentPane.add(lblSoDienThoai);
 		
 		txtSoDienThoai = new JTextField();
 		txtSoDienThoai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtSoDienThoai.setColumns(10);
-		txtSoDienThoai.setBounds(165, 68, 158, 40);
+		txtSoDienThoai.setBounds(165, 70, 158, 40);
 		txtSoDienThoai.addKeyListener(new KeyAdapter() {
+
 			@Override
-			public void keyPressed(KeyEvent e) {
-				String sdt = txtSoDienThoai.getText();
-				KhachHang kh = dao_KhachHang.getKhachHang(sdt);
-				if (kh != null) {
-					txtTenKhachHang.setText(kh.getTenKhachHang());
-					txtTenKhachHang.setEditable(false);
-				}
+			public void keyReleased(KeyEvent evt) {
+				KhachHang kh=null;
+				if(evt.getKeyCode()==KeyEvent.VK_BACK_SPACE||evt.getKeyCode()==KeyEvent.VK_DELETE)
+		        {
+					kh = dao_KhachHang.getKhachHang(txtSoDienThoai.getText());
+					if (kh != null) {
+						txtTenKhachHang.setText(kh.getTenKhachHang());
+						txtTenKhachHang.setEditable(false);
+					}else {
+						txtTenKhachHang.setText("");
+						txtTenKhachHang.setEditable(true);
+					}
+		        }
+		        else
+		        {   
+		            String to_check=txtSoDienThoai.getText();
+		            int to_check_len=to_check.length();
+		            for(KhachHang data:dao_KhachHang.getAllKhachHang())
+		            {
+		                String check_from_data="";
+		                for(int i=0;i<to_check_len;i++)
+		                {
+		                    if(to_check_len<=data.getSoDienThoai().length())
+		                    {
+		                        check_from_data = check_from_data+data.getSoDienThoai().charAt(i);
+		                    }
+		                }
+		                if(check_from_data.equals(to_check))
+		                {
+		                    //System.out.print("Found");
+		                	txtSoDienThoai.setText(data.getSoDienThoai());
+		                	txtSoDienThoai.setSelectionStart(to_check_len);
+		                	txtSoDienThoai.setSelectionEnd(data.getSoDienThoai().length());
+		                	kh = dao_KhachHang.getKhachHang(txtSoDienThoai.getText());
+		    				if (kh != null) {
+		    					txtTenKhachHang.setText(kh.getTenKhachHang());
+		    					txtTenKhachHang.setEditable(false);
+		    				}
+		                    break;
+		                }else {
+							txtTenKhachHang.setText("");
+							txtTenKhachHang.setEditable(true);
+						}
+		            }
+		        }
 			}
 		});
 		contentPane.add(txtSoDienThoai);
@@ -110,7 +162,7 @@ public class GUI_ThuePhong extends JFrame{
 		txtTenKhachHang = new JTextField();
 		txtTenKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTenKhachHang.setColumns(10);
-		txtTenKhachHang.setBounds(630, 68, 158, 40);
+		txtTenKhachHang.setBounds(630, 70, 158, 40);
 		contentPane.add(txtTenKhachHang);
 		
 		lblThongBaoSDT = new JLabel();
@@ -126,97 +178,73 @@ public class GUI_ThuePhong extends JFrame{
 		
 		JLabel lblMaNhanVien = new JLabel("Mã nhân viên");
 		lblMaNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblMaNhanVien.setBounds(58, 162, 120, 40);
+		lblMaNhanVien.setBounds(58, 150, 120, 40);
 		contentPane.add(lblMaNhanVien);
 		
 		JLabel lblMaPhong = new JLabel("Mã phòng");
 		lblMaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblMaPhong.setBounds(504, 162, 120, 40);
+		lblMaPhong.setBounds(504, 150, 120, 40);
 		contentPane.add(lblMaPhong);
 		
 		JLabel lblLoaiPhong = new JLabel("Loại phòng");
 		lblLoaiPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblLoaiPhong.setBounds(58, 238, 120, 40);
+		lblLoaiPhong.setBounds(58, 230, 120, 40);
 		contentPane.add(lblLoaiPhong);
 		
 		JLabel lblGiaPhong = new JLabel("Giá phòng");
 		lblGiaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblGiaPhong.setBounds(504, 238, 120, 40);
+		lblGiaPhong.setBounds(504, 230, 120, 40);
 		contentPane.add(lblGiaPhong);
 		
-		JLabel lblSucChua = new JLabel("Sos lượng người");
+		JLabel lblSucChua = new JLabel("Số lượng người");
 		lblSucChua.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblSucChua.setBounds(58, 308, 120, 40);
+		lblSucChua.setBounds(58, 310, 120, 40);
 		contentPane.add(lblSucChua);
 		
 		JLabel lblGioVaoPhong = new JLabel("Giờ vào phòng");
 		lblGioVaoPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblGioVaoPhong.setBounds(504, 308, 120, 40);
+		lblGioVaoPhong.setBounds(504, 310, 120, 40);
 		contentPane.add(lblGioVaoPhong);
 		
-//		String[] hour = {"00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"};
-//		JComboBox comboBox_Gio = new JComboBox(hour);
-//		comboBox_Gio.setBounds(609, 308, 54, 40);
-//		contentPane.add(comboBox_Gio);
-//		
-		JLabel lblGio = new JLabel("Giờ");
-		lblGio.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblGio.setBounds(688, 308, 40, 40);
-		contentPane.add(lblGio);
-		
-		JLabel lblPhut = new JLabel("Phút");
-		lblPhut.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblPhut.setBounds(785, 308, 40, 40);
-		contentPane.add(lblPhut);
-		
-		SimpleDateFormat sf = new SimpleDateFormat("hh");
-		Date date1 = new Date(System.currentTimeMillis());
-		String hour1 = sf.format(date1);
-		txtGioVaoPhong = new JTextField(hour1);
+		txtGioVaoPhong = new JTextField();
 		txtGioVaoPhong.setEditable(false);
-		txtGioVaoPhong.setBounds(630, 308, 54, 40);
+		txtGioVaoPhong.setBounds(630, 310, 158, 40);
 		contentPane.add(txtGioVaoPhong);
 		
-		SimpleDateFormat sf1 = new SimpleDateFormat("mm");
-		String minute1 = sf1.format(date1);
-		txtPhutVaoPhong = new JTextField(minute1);
-		txtPhutVaoPhong.setEditable(false);
-		txtPhutVaoPhong.setBounds(727, 308, 54, 40);
-		contentPane.add(txtPhutVaoPhong);
 		
 		txtMaNhanVien = new JTextField();
 		txtMaNhanVien.setEditable(false);
 		txtMaNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtMaNhanVien.setColumns(10);
-		txtMaNhanVien.setBounds(163, 162, 158, 40);
+		txtMaNhanVien.setBounds(163, 150, 158, 40);
 		contentPane.add(txtMaNhanVien);
 		
 		txtLoaiPhong = new JTextField();
 		txtLoaiPhong.setEditable(false);
 		txtLoaiPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtLoaiPhong.setColumns(10);
-		txtLoaiPhong.setBounds(163, 238, 158, 40);
+		txtLoaiPhong.setBounds(163, 230, 158, 40);
 		contentPane.add(txtLoaiPhong);
 		
 		txtSoLuongNguoi = new JTextField();
 		txtSoLuongNguoi.setEditable(false);
 		txtSoLuongNguoi.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtSoLuongNguoi.setColumns(10);
-		txtSoLuongNguoi.setBounds(163, 308, 158, 40);
+		txtSoLuongNguoi.setBounds(163, 310, 158, 40);
 		contentPane.add(txtSoLuongNguoi);
 		
 		txtMaPhong = new JTextField();
 		txtMaPhong.setEditable(false);
 		txtMaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtMaPhong.setColumns(10);
-		txtMaPhong.setBounds(628, 162, 158, 40);
+		txtMaPhong.setBounds(628, 150, 158, 40);
 		contentPane.add(txtMaPhong);
 		
 		txtGiaPhong = new JTextField();
 		txtGiaPhong.setEditable(false);
 		txtGiaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtGiaPhong.setColumns(10);
-		txtGiaPhong.setBounds(628, 238, 158, 40);
+		txtGiaPhong.setBounds(628, 230, 158, 40);
 		contentPane.add(txtGiaPhong);
 		
 		JButton btnXacNhan = new JButton("Xác nhận");
@@ -242,9 +270,17 @@ public class GUI_ThuePhong extends JFrame{
 		});
 		btnHuy.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		btnHuy.setBounds(483, 412, 123, 40);
-		contentPane.add(btnHuy);
+		contentPane.add(btnHuy);	
 		
-		
+		JButton btnThemKhachHang = new JButton("");
+		btnThemKhachHang.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GUI_KhachHang(tk).setVisible(true);
+			}
+		});
+		btnThemKhachHang.setIcon(new ImageIcon("image\\add.png"));
+		btnThemKhachHang.setBounds(333, 70, 40, 40);
+		contentPane.add(btnThemKhachHang);
 
 		taikhoan =tk;
 		phong =p;
@@ -258,8 +294,9 @@ public class GUI_ThuePhong extends JFrame{
 		Dao_NhanVien dao_nv = new Dao_NhanVien();
 		NhanVien nv = dao_nv.getNhanVien(taikhoan.getTenTaiKhoan());	
 		txtMaNhanVien.setText(nv.getMaNhanVien());
-	
-	
+		SimpleDateFormat sf= new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		Timestamp date1 = new Timestamp(System.currentTimeMillis());
+		txtGioVaoPhong.setText(sf.format(date1));
 	}
 	
 	protected boolean kiemTraDuLieu() {
@@ -345,6 +382,21 @@ public class GUI_ThuePhong extends JFrame{
 			}
 		}	
 	}
-
-
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
 }

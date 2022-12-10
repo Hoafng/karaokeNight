@@ -79,7 +79,7 @@ public class GUI_DatPhong extends JFrame {
 	 */
 	public GUI_DatPhong(Phong p,TaiKhoan taiKhoan) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1480, 780);
+		setBounds(100, 100, 919, 556);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(101, 186, 118));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,7 +91,7 @@ public class GUI_DatPhong extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
-		panel_1.setBounds(275, 200, 350, 30);
+		panel_1.setBounds(89, 150, 350, 30);
 		contentPane.add(panel_1);
 
 		JLabel lblMaPhieuDatPhong = new JLabel("Mã phiếu đặt phòng");
@@ -107,7 +107,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(855, 200, 350, 30);
+		panel_1_1.setBounds(470, 150, 350, 30);
 		contentPane.add(panel_1_1);
 
 		JLabel lblMaPhong = new JLabel("Mã phòng");
@@ -123,7 +123,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel_1_2 = new JPanel();
 		panel_1_2.setLayout(null);
-		panel_1_2.setBounds(275, 280, 350, 30);
+		panel_1_2.setBounds(89, 210, 350, 30);
 		contentPane.add(panel_1_2);
 
 		JLabel lblLoaiPhong = new JLabel("Loai phòng");
@@ -139,7 +139,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel_1_2_1 = new JPanel();
 		panel_1_2_1.setLayout(null);
-		panel_1_2_1.setBounds(855, 280, 350, 30);
+		panel_1_2_1.setBounds(470, 210, 350, 30);
 		contentPane.add(panel_1_2_1);
 
 		JLabel lblGiaPhong = new JLabel("Giá phòng");
@@ -155,7 +155,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel_1_2_2 = new JPanel();
 		panel_1_2_2.setLayout(null);
-		panel_1_2_2.setBounds(275, 360, 350, 30);
+		panel_1_2_2.setBounds(89, 270, 350, 30);
 		contentPane.add(panel_1_2_2);
 
 		JLabel lblSoDienThoai = new JLabel("Số điện thoại");
@@ -166,13 +166,51 @@ public class GUI_DatPhong extends JFrame {
 		txtSoDienThoai = new JTextField();
 		txtSoDienThoai.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent e) {
-				String sdt = txtSoDienThoai.getText();
-				KhachHang kh = dao_KhachHang.getKhachHang(sdt);
-				if (kh != null) {
-					txtTenKhachHang.setText(kh.getTenKhachHang());
-					txtTenKhachHang.setEditable(false);
-				}
+			public void keyReleased(KeyEvent evt) {
+				KhachHang kh=null;
+				if(evt.getKeyCode()==KeyEvent.VK_BACK_SPACE||evt.getKeyCode()==KeyEvent.VK_DELETE)
+		        {
+					kh = dao_KhachHang.getKhachHang(txtSoDienThoai.getText());
+					if (kh != null) {
+						txtTenKhachHang.setText(kh.getTenKhachHang());
+						txtTenKhachHang.setEditable(false);
+					}else {
+						txtTenKhachHang.setText("");
+						txtTenKhachHang.setEditable(true);
+					}
+		        }
+		        else
+		        {   
+		            String to_check=txtSoDienThoai.getText();
+		            int to_check_len=to_check.length();
+		            for(KhachHang data:dao_KhachHang.getAllKhachHang())
+		            {
+		                String check_from_data="";
+		                for(int i=0;i<to_check_len;i++)
+		                {
+		                    if(to_check_len<=data.getSoDienThoai().length())
+		                    {
+		                        check_from_data = check_from_data+data.getSoDienThoai().charAt(i);
+		                    }
+		                }
+		                if(check_from_data.equals(to_check))
+		                {
+		                    //System.out.print("Found");
+		                	txtSoDienThoai.setText(data.getSoDienThoai());
+		                	txtSoDienThoai.setSelectionStart(to_check_len);
+		                	txtSoDienThoai.setSelectionEnd(data.getSoDienThoai().length());
+		                	kh = dao_KhachHang.getKhachHang(txtSoDienThoai.getText());
+		    				if (kh != null) {
+		    					txtTenKhachHang.setText(kh.getTenKhachHang());
+		    					txtTenKhachHang.setEditable(false);
+		    				}
+		                    break;
+		                }else {
+							txtTenKhachHang.setText("");
+							txtTenKhachHang.setEditable(true);
+						}
+		            }
+		        }
 			}
 		});
 		txtSoDienThoai.setColumns(10);
@@ -181,7 +219,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel_1_2_2_1 = new JPanel();
 		panel_1_2_2_1.setLayout(null);
-		panel_1_2_2_1.setBounds(855, 360, 350, 30);
+		panel_1_2_2_1.setBounds(470, 270, 350, 30);
 		contentPane.add(panel_1_2_2_1);
 
 		JLabel lblTenKhachHang = new JLabel("Tên khách hàng");
@@ -196,7 +234,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel lblNgayDatPhong = new JPanel();
 		lblNgayDatPhong.setLayout(null);
-		lblNgayDatPhong.setBounds(275, 440, 350, 30);
+		lblNgayDatPhong.setBounds(89, 330, 350, 30);
 		contentPane.add(lblNgayDatPhong);
 
 		JLabel lblNewLabel_1_1_2_2_2 = new JLabel("Ngày đặt phòng");
@@ -212,7 +250,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel_1_2_2_2_1 = new JPanel();
 		panel_1_2_2_2_1.setLayout(null);
-		panel_1_2_2_2_1.setBounds(275, 520, 350, 30);
+		panel_1_2_2_2_1.setBounds(89, 390, 350, 30);
 		contentPane.add(panel_1_2_2_2_1);
 
 		JLabel lblGioNhanPhong = new JLabel("Giờ nhận phòng");
@@ -235,7 +273,7 @@ public class GUI_DatPhong extends JFrame {
 
 		cbPhutGioNhanPhong = new JComboBox<Integer>();
 		cbPhutGioNhanPhong.setBounds(250, 0, 50, 30);
-		for (int i = 0; i < 60; i++) {
+		for (int i = 0; i < 60; i+=5) {
 			cbPhutGioNhanPhong.addItem(i);
 		}
 		panel_1_2_2_2_1.add(cbPhutGioNhanPhong);
@@ -248,7 +286,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel pnNgayNhanPhong = new JPanel();
 		pnNgayNhanPhong.setLayout(null);
-		pnNgayNhanPhong.setBounds(855, 440, 350, 30);
+		pnNgayNhanPhong.setBounds(470, 330, 350, 30);
 		contentPane.add(pnNgayNhanPhong);
 
 		JLabel lblNgayNhanPhong = new JLabel("Ngày nhận phòng");
@@ -281,7 +319,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel_1_2_2_2_1_2 = new JPanel();
 		panel_1_2_2_2_1_2.setLayout(null);
-		panel_1_2_2_2_1_2.setBounds(855, 520, 245, 30);
+		panel_1_2_2_2_1_2.setBounds(470, 390, 245, 30);
 		contentPane.add(panel_1_2_2_2_1_2);
 
 		JLabel lblSoGioDat = new JLabel("Số giờ đặt");
@@ -313,7 +351,7 @@ public class GUI_DatPhong extends JFrame {
 			}
 		});
 		btnXacNhan.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnXacNhan.setBounds(585, 631, 120, 30);
+		btnXacNhan.setBounds(470, 462, 120, 30);
 		contentPane.add(btnXacNhan);
 
 		JButton btnHuy = new JButton("Hủy");
@@ -324,12 +362,12 @@ public class GUI_DatPhong extends JFrame {
 			}
 		});
 		btnHuy.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnHuy.setBounds(795, 631, 120, 30);
+		btnHuy.setBounds(637, 462, 120, 30);
 		contentPane.add(btnHuy);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 140));
-		panel.setBounds(275, 20, 930, 110);
+		panel.setBounds(0, 10, 905, 110);
 		contentPane.add(panel);
 		panel.setLayout(null);
 

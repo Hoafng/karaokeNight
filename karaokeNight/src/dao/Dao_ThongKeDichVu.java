@@ -77,7 +77,7 @@ public class Dao_ThongKeDichVu {
 				String tenDichVu = rs.getString("tenDichVu");
 				double giaDichVu = rs.getDouble("giaDichVu");
 				LoaiDichVu loaiDichVu = new LoaiDichVu(rs.getString("maLoaiDichVu"), rs.getString("tenLoaiDichVu"));
-				DichVu dv = new DichVu(maDichVu, tenDichVu, giaDichVu,rs.getInt("soLuong"), loaiDichVu);
+				DichVu dv = new DichVu(maDichVu, tenDichVu, giaDichVu,rs.getInt("soLuongDichVu"), loaiDichVu);
 				dsdv.add(dv);
 			}
 		} catch (SQLException e) {
