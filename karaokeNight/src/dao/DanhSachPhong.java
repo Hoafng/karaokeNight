@@ -22,7 +22,6 @@ import javax.swing.SwingConstants;
 import entity.Phong;
 import entity.TaiKhoan;
 import gui.GUI_LichDatPhong;
-import gui.GUI_XuLy;
 
 public class DanhSachPhong {
 	JPanel pnDanhSachPhong;
@@ -141,7 +140,7 @@ public class DanhSachPhong {
 		popuMenu.add(item1);
 		item1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new GUI_LichDatPhong(tk).setVisible(true);
+				new GUI_LichDatPhong(tk,null,null).setVisible(true);
 			}
 		});
 		return popuMenu;

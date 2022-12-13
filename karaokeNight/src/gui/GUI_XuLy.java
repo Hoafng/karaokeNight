@@ -285,14 +285,13 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		mnNewMenu.add(mntmDoiMatKhau);
 		mntmDoiMatKhau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
 				new GUI_DoiMatKhau(tk).setVisible(true);
 			}
 		});
 
 		JMenuItem mntmDangXuat = new JMenuItem("Đăng xuất");
 		mnNewMenu.add(mntmDangXuat);
-		mnNewMenu.addActionListener(new ActionListener() {
+		mntmDangXuat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new GUI_DangNhap().setVisible(true);
@@ -333,7 +332,7 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		mntmDanhMucKhachHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_KhachHang(tk).setVisible(true);
+				new GUI_KhachHang(tk,null).setVisible(true);
 			}
 		});
 		mnDanhMuc.add(mntmDanhMucKhachHang);
@@ -515,7 +514,7 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 			public void actionPerformed(ActionEvent e) {
 				if (phong != null && phong.getTinhTrang().equals("Trống")) {
 					dispose();
-					new GUI_ThuePhong(phong, tk).setVisible(true);
+					new GUI_ThuePhong(phong, tk,null).setVisible(true);
 				}
 			}
 		});
@@ -531,7 +530,7 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 
 				if (phong != null && phong.getTinhTrang().equals("Trống")) {
 					dispose();
-					new GUI_DatPhong(phong, tk).setVisible(true);
+					new GUI_DatPhong(phong, tk ,null).setVisible(true);
 				}
 			}
 		});

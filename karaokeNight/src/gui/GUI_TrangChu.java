@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -130,7 +131,7 @@ public class GUI_TrangChu extends JFrame {
 		mntmDanhMucKhachHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_KhachHang(tk).setVisible(true);
+				new GUI_KhachHang(tk,null).setVisible(true);
 			}
 		});
 		mnDanhMuc.add(mntmDanhMucKhachHang);
@@ -222,55 +223,24 @@ public class GUI_TrangChu extends JFrame {
 		JLabel lblTrangChu = new JLabel("Trang Chủ");
 		lblTrangChu.setForeground(new Color(101, 186, 118));
 		lblTrangChu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTrangChu.setBounds(588, 44, 300, 50);
-		lblTrangChu.setFont(new Font("Times New Roman", Font.BOLD, 40));
+		lblTrangChu.setBounds(587, 10, 300, 50);
+		lblTrangChu.setFont(new Font("Times New Roman", Font.BOLD, 45));
 		contentPane.add(lblTrangChu);
-
-		JButton btnThongTinTaiKhoan = new JButton("Thông Tin Tài Khoản");
-		btnThongTinTaiKhoan.setBounds(55, 440, 222, 60);
-		btnThongTinTaiKhoan.setBackground(new Color(101, 186, 118));
-		btnThongTinTaiKhoan.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_ThongTinTaiKhoan(tk).setVisible(true);
-			}
-		});
-		btnThongTinTaiKhoan.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		contentPane.add(btnThongTinTaiKhoan);
-
-		JButton btnDoiMatKhau = new JButton("Đổi Mật Khẩu\r\n");
-		btnDoiMatKhau.setBounds(55, 520, 222, 60);
-		btnDoiMatKhau.setBackground(new Color(101, 186, 118));
-		btnDoiMatKhau.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new GUI_DoiMatKhau(tk).setVisible(true);
-			}
-		});
-		btnDoiMatKhau.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		contentPane.add(btnDoiMatKhau);
-
-		JButton btnDangXuat = new JButton("Đăng Xuất\r\n");
-		btnDangXuat.setBounds(55, 600, 222, 60);
-		btnDangXuat.setBackground(new Color(101, 186, 118));
-		btnDangXuat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnDangXuat.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		contentPane.add(btnDangXuat);
 
 		JLabel lblHinhNen = new JLabel("");
 		lblHinhNen.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblHinhNen.setBounds(319, 104, 1119, 585);
+		lblHinhNen.setBounds(0, 64, 1480, 688);
 		lblHinhNen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHinhNen.setIcon(new ImageIcon("image\\hingnen.png"));
+		ImageIcon hinhNen = new ImageIcon("image\\hingnen.png");
+	
+		Image im = hinhNen.getImage().getScaledInstance(1480, 688, Image.SCALE_SMOOTH);
+		ImageIcon hinhNen2 = new ImageIcon(im);
+		lblHinhNen.setIcon(hinhNen2);
 		contentPane.add(lblHinhNen);
 
 		lblThongTinNhanVien = new JLabel("");
 		lblThongTinNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblThongTinNhanVien.setBounds(1210, 44, 228, 48);
+		lblThongTinNhanVien.setBounds(1209, 10, 228, 48);
 		NhanVien nv=daonv.getNhanVien(tk.getTenTaiKhoan());
 		lblThongTinNhanVien.setText(nv.getTenNhanVien());
 		contentPane.add(lblThongTinNhanVien);
@@ -278,8 +248,9 @@ public class GUI_TrangChu extends JFrame {
 		JMenuBar menuBar_1 = new JMenuBar();
 		menuBar_1.setBorderPainted(false);
 		menuBar_1.setBackground(new Color(255, 255, 140));
-		menuBar_1.setBounds(1150, 44, 60, 48);
+		menuBar_1.setBounds(1150, 10, 60, 48);
 		contentPane.add(menuBar_1);
+
 		
 		JMenu mnNewMenu = new JMenu("");
 		mnNewMenu.setIcon(new ImageIcon("image\\nhanVien.png"));
@@ -305,7 +276,7 @@ public class GUI_TrangChu extends JFrame {
 		
 		JMenuItem mntmDangXuat = new JMenuItem("Đăng xuất");
 		mnNewMenu.add(mntmDangXuat);
-		mnNewMenu.addActionListener(new ActionListener() {
+		mntmDangXuat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new GUI_DangNhap().setVisible(true);

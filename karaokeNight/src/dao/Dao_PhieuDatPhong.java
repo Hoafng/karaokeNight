@@ -58,7 +58,7 @@ public class Dao_PhieuDatPhong {
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement statement = null;
 		try {
-			String sql = "INSERT into PhieuDatPhong VALUES(?,?,?,?,?,?)";
+			String sql = "INSERT into PhieuDatPhong VALUES(?,?,?,?,?,?,?)";
 			statement = con.prepareStatement(sql);
 			statement.setString(1, phieu.getMaPhieuDatPhong());
 			statement.setInt(2, phieu.getSoGioDat());
@@ -66,6 +66,7 @@ public class Dao_PhieuDatPhong {
 			statement.setTimestamp(4, phieu.getNgayNhanPhong());
 			statement.setString(5, phieu.getMaPhong().getMaPhong());
 			statement.setString(6, phieu.getMaKhachHang().getMaKhachHang());
+			statement.setBoolean(7, phieu.isTonTai());
 			statement.executeUpdate();
 			return true;
 		} catch (SQLException e) {

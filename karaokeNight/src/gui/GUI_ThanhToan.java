@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -80,6 +81,7 @@ public class GUI_ThanhToan extends JFrame implements Printable {
 	private Dao_HoaDon dao_hd = new Dao_HoaDon();
 	private Dao_Phong dao_phong = new Dao_Phong();
 	private JTextField txtGioHat;
+	private GUI_HoaDon gui_hd;
 
 	/**
 	 * Launch the application.
@@ -348,11 +350,21 @@ public class GUI_ThanhToan extends JFrame implements Printable {
 		btnXacNhan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (chckbx_InHoaDon.isSelected()) {
-					if (printFrame() == true) {
-						UpdateData();
-						dispose();
-						new GUI_XuLy(tk).setVisible(true);
+					gui_hd = new GUI_HoaDon(p, tk);
+					gui_hd.setVisible(true);
+					int in = JOptionPane.showConfirmDialog(null, "Xác nhận in", "Xác nhận", JOptionPane.YES_NO_OPTION);
+					if (in == 0) {
+						if (printFrame() == true) {
+							UpdateData();
+							gui_hd.dispose();
+							dispose();
+							new GUI_XuLy(tk).setVisible(true);
+						} else
+							gui_hd.dispose();
+					} else if (in == 1) {
+						gui_hd.dispose();
 					}
+
 				} else {
 					UpdateData();
 					dispose();
@@ -503,8 +515,12 @@ public class GUI_ThanhToan extends JFrame implements Printable {
 
 	private boolean printFrame() {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
-
-		printerJob.setPrintable(this);
+		PageFormat pf = printerJob.defaultPage();
+		Paper paper = pf.getPaper();
+		paper.setSize(800,800); // 1/72 inch
+		paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
+		pf.setPaper(paper);
+		printerJob.setPrintable(gui_hd,pf);
 		if (printerJob.printDialog()) {
 			try {
 				printerJob.print();

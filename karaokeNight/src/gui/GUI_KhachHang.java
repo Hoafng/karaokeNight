@@ -2,9 +2,12 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Date;
@@ -37,6 +40,7 @@ import com.toedter.calendar.JDateChooser;
 import connectDB.ConnectDB;
 import dao.Dao_KhachHang;
 import entity.KhachHang;
+import entity.Phong;
 import entity.TaiKhoan;
 
 @SuppressWarnings("serial")
@@ -72,15 +76,17 @@ public class GUI_KhachHang extends JFrame {
 	private JCheckBox chckbxNuTim;
 	private TaiKhoan tk;
 	private Date date;
+	private Phong phong;
 
 	/**
 	 * Launch the application.
 	 */
 
+
 	/**
 	 * Create the frame.
 	 */
-	public GUI_KhachHang(TaiKhoan taiKhoan) {
+	public GUI_KhachHang(TaiKhoan taiKhoan,Phong p) {
 		try {
 			ConnectDB.getInstance().connect();
 		} catch (SQLException e) {
@@ -93,6 +99,7 @@ public class GUI_KhachHang extends JFrame {
 		setLocationRelativeTo(null);
 
 		tk = taiKhoan;
+		phong =p;
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 140));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -135,7 +142,7 @@ public class GUI_KhachHang extends JFrame {
 		mntmDanhMucKhachHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_KhachHang(tk).setVisible(true);
+				new GUI_KhachHang(tk,phong).setVisible(true);
 			}
 		});
 		mnDanhMuc.add(mntmDanhMucKhachHang);
@@ -263,6 +270,7 @@ public class GUI_KhachHang extends JFrame {
 		pnlThongTinKhachHang.add(lblmaKhachHang);
 
 		txtmaKhachHang = new JTextField();
+		txtmaKhachHang.setEditable(false);
 		txtmaKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		txtmaKhachHang.setHorizontalAlignment(SwingConstants.CENTER);
 		txtmaKhachHang.setColumns(10);
@@ -295,32 +303,51 @@ public class GUI_KhachHang extends JFrame {
 
 		btnThem = new JButton("Thêm");
 		btnThem.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnThem.setBounds(210, 117, 125, 32);
+		btnThem.setBounds(80, 117, 125, 32);
 		btnThem.addActionListener(new ActionListener() {
+			private KhachHang khachHang;
+
 			public void actionPerformed(ActionEvent e) {
+				daoKhachHang = new Dao_KhachHang();
 				Date date = new Date(System.currentTimeMillis());
-				KhachHang kh = new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(), txtTen.getText(),
+				String maKH;
+				int i = 1;
+				boolean constrain1 = true;
+				do {
+					if (i < 10)
+						maKH = "KH00" + i;
+					else if (i < 100)
+						maKH = "KH0" + i;
+					else
+						maKH = "KH" + i;
+					khachHang = new KhachHang(maKH, "", "", true, null);
+					if (daoKhachHang.getTheoMa(maKH) == null)
+						constrain1 = false;
+					i++;
+				} while (constrain1 == true);
+				KhachHang kh = new KhachHang(maKH, txtSoDienThoai.getText(), txtTen.getText(),
 						Date.valueOf(txtNgaySinh.getText()), txtDiaChi.getText(), chkcbxGioiTinh.isSelected(),
 						txtCMND.getText(), true, date);
-				daoKhachHang.insertKhachHang(kh);
 				if (daoKhachHang.insertKhachHang(kh) == true) {
-					JOptionPane.showInputDialog(this, "Thêm Thành Công");
+					JOptionPane.showMessageDialog(null, "Thêm thành công");
 					docDuLieuTuSQL();
-				}
+				} else
+					JOptionPane.showMessageDialog(null, "Thêm ngu công");
 			}
 		});
 		pnlThongTinKhachHang.add(btnThem);
 
-		btnXoa = new JButton("Xoá");
+		btnXoa = new JButton("Hủy");
+		btnXoa.setEnabled(false);
 		btnXoa.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnXoa.setBounds(359, 117, 125, 32);
+		btnXoa.setBounds(409, 117, 125, 32);
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (daoKhachHang.getTheoMa(txtmaKhachHang.getText()) != null) {
 					Date date = new Date(System.currentTimeMillis());
 					KhachHang kh = new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(), txtTen.getText(),
 							Date.valueOf(txtNgaySinh.getText()), txtDiaChi.getText(), chkcbxGioiTinh.isSelected(),
-							txtCMND.getText(), true, date);
+							txtCMND.getText(), false, date);
 					daoKhachHang.updateKhachHang(kh);
 					JOptionPane.showMessageDialog(null, "Xoá Thành Công");
 					docDuLieuTuSQL();
@@ -331,7 +358,7 @@ public class GUI_KhachHang extends JFrame {
 
 		btnSua = new JButton("Sửa");
 		btnSua.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnSua.setBounds(515, 117, 125, 32);
+		btnSua.setBounds(241, 117, 125, 32);
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (daoKhachHang.getTheoMa(txtmaKhachHang.getText()) != null) {
@@ -349,7 +376,7 @@ public class GUI_KhachHang extends JFrame {
 
 		btnLuu = new JButton("Lưu");
 		btnLuu.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnLuu.setBounds(672, 117, 125, 32);
+		btnLuu.setBounds(580, 117, 125, 32);
 		btnLuu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -377,7 +404,7 @@ public class GUI_KhachHang extends JFrame {
 		dateChooser.getDateEditor().addPropertyChangeListener((PropertyChangeListener) new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent e) {
-				SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				if ("date".equals(e.getPropertyName())) {
 					String a = sf.format(e.getNewValue());
 					txtNgaySinh.setText(a + "");
@@ -407,7 +434,7 @@ public class GUI_KhachHang extends JFrame {
 		lblGioiTinh.setBounds(394, 45, 112, 25);
 		pnlThongTinKhachHang.add(lblGioiTinh);
 
-		chkcbxGioiTinh = new JCheckBox("Nam/Nữ");
+		chkcbxGioiTinh = new JCheckBox("Nam");
 		chkcbxGioiTinh.setBounds(515, 45, 110, 25);
 		chkcbxGioiTinh.setHorizontalAlignment(SwingConstants.CENTER);
 		chkcbxGioiTinh.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -424,6 +451,38 @@ public class GUI_KhachHang extends JFrame {
 		txtCMND.setColumns(10);
 		txtCMND.setBounds(758, 45, 125, 25);
 		pnlThongTinKhachHang.add(txtCMND);
+
+		JButton btnThue = new JButton("Thuê");
+		if (p == null)
+			btnThue.setEnabled(false);
+		else
+			btnThue.setEnabled(true);
+		btnThue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				KhachHang kh = new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(), txtTen.getText(), true, null);
+				new GUI_ThuePhong(p, tk,kh).setVisible(true);
+			}
+		});
+		btnThue.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnThue.setBounds(812, 117, 71, 32);
+		pnlThongTinKhachHang.add(btnThue);
+
+		JButton btnDat = new JButton("Đặt");
+		if (p == null)
+			btnDat.setEnabled(false);
+		else
+			btnDat.setEnabled(true);
+		btnDat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				KhachHang kh = new KhachHang(txtmaKhachHang.getText(), txtSoDienThoai.getText(), txtTen.getText(), true, null);
+				new GUI_DatPhong(p, tk,kh).setVisible(true);
+			}
+		});
+		btnDat.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnDat.setBounds(910, 117, 71, 32);
+		pnlThongTinKhachHang.add(btnDat);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.CYAN, 2));
@@ -502,7 +561,7 @@ public class GUI_KhachHang extends JFrame {
 		dateChooser_1.getDateEditor().addPropertyChangeListener((PropertyChangeListener) new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent e) {
-				SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				if ("date".equals(e.getPropertyName())) {
 					String a = sf.format(e.getNewValue());
 					txtNgaySinhTim.setText(a + "");
@@ -555,11 +614,55 @@ public class GUI_KhachHang extends JFrame {
 		chckbxNuTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		chckbxNuTim.setBounds(164, 428, 80, 25);
 		panel.add(chckbxNuTim);
+		table.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				int row = table.getSelectedRow();
+				txtmaKhachHang.setText(table.getValueAt(row, 0).toString());
+				txtSoDienThoai.setText(table.getValueAt(row, 1).toString());
+				txtTen.setText(table.getValueAt(row, 2).toString());
+				txtNgaySinh.setText(table.getValueAt(row, 4).toString());
+
+				txtDiaChi.setText(table.getValueAt(row, 6).toString());
+				txtCMND.setText(table.getValueAt(row, 5).toString());
+				if (table.getValueAt(row, 3).equals("Nam"))
+					chkcbxGioiTinh.setSelected(true);
+				else
+					chkcbxGioiTinh.setSelected(false);
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 	}
 
 	private void docDuLieuTuSQL() {
-		SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+		modelKhachHang.getDataVector().removeAllElements();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		date = new Date(System.currentTimeMillis());
 		daoKhachHang = new Dao_KhachHang();
 		long a = 31536000000L;

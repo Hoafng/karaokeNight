@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -24,6 +25,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 
+import dao.Dao_CTHoaDon;
+import dao.Dao_HoaDon;
 import dao.Dao_KhachHang;
 import dao.Dao_PhieuDatPhong;
 import dao.Dao_Phong;
@@ -48,36 +51,22 @@ public class GUI_DatPhong extends JFrame {
 	private JComboBox<Integer> cbSoGioDat;
 	private JComboBox<Integer> cbSoPhutDat;
 	private Phong phong;
-	private Dao_PhieuDatPhong dao_PhieuDatPhong;
+	private Dao_HoaDon dao_HoaDon = new Dao_HoaDon();
+	private Dao_PhieuDatPhong dao_PhieuDatPhong = new Dao_PhieuDatPhong();
 	private Dao_KhachHang dao_KhachHang = new Dao_KhachHang();
-	private Dao_Phong dao_Phong= new Dao_Phong();
+	private Dao_Phong dao_Phong = new Dao_Phong();
 	private TaiKhoan tk;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					GUI_DatPhong frame = new GUI_DatPhong();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private KhachHang khachHang;
+	private GUI_KhachHang guiKh;
 	private JDateChooser dateChooser;
 	private JLabel lblThongBaoSDT;
 	private JLabel lblPhiutPhng_1;
 	private JLabel lblThongBaoNgayNhanPhong;
 	private JLabel lblThongBaoTenKhachHang;
 	private JLabel lblThongBaoSoGioDat;
-
-	/**
-	 * Create the frame.
-	 */
-	public GUI_DatPhong(Phong p,TaiKhoan taiKhoan) {
+	private JButton btnThemKhachHang;
+	
+	public GUI_DatPhong(Phong p, TaiKhoan taiKhoan, KhachHang kh) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 919, 556);
 		contentPane = new JPanel();
@@ -87,43 +76,43 @@ public class GUI_DatPhong extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		tk=taiKhoan;
-		
+		tk = taiKhoan;
+		khachHang = kh;
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
-		panel_1.setBounds(89, 150, 350, 30);
+		panel_1.setBounds(89, 150, 280, 30);
 		contentPane.add(panel_1);
 
 		JLabel lblMaPhieuDatPhong = new JLabel("Mã phiếu đặt phòng");
 		lblMaPhieuDatPhong.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMaPhieuDatPhong.setBounds(0, 0, 150, 30);
+		lblMaPhieuDatPhong.setBounds(0, 0, 140, 30);
 		panel_1.add(lblMaPhieuDatPhong);
 
 		txtMaPhieuDatPhong = new JTextField();
 		txtMaPhieuDatPhong.setEditable(false);
 		txtMaPhieuDatPhong.setColumns(10);
-		txtMaPhieuDatPhong.setBounds(150, 0, 200, 30);
+		txtMaPhieuDatPhong.setBounds(140, 0, 140, 30);
 		panel_1.add(txtMaPhieuDatPhong);
 
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(470, 150, 350, 30);
+		panel_1_1.setBounds(540, 150, 280, 30);
 		contentPane.add(panel_1_1);
 
 		JLabel lblMaPhong = new JLabel("Mã phòng");
 		lblMaPhong.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMaPhong.setBounds(0, 0, 90, 30);
+		lblMaPhong.setBounds(40, 0, 90, 30);
 		panel_1_1.add(lblMaPhong);
 
 		txtMaPhong = new JTextField();
 		txtMaPhong.setEditable(false);
 		txtMaPhong.setColumns(10);
-		txtMaPhong.setBounds(150, 0, 200, 30);
+		txtMaPhong.setBounds(140, 0, 140, 30);
 		panel_1_1.add(txtMaPhong);
 
 		JPanel panel_1_2 = new JPanel();
 		panel_1_2.setLayout(null);
-		panel_1_2.setBounds(89, 210, 350, 30);
+		panel_1_2.setBounds(89, 210, 280, 30);
 		contentPane.add(panel_1_2);
 
 		JLabel lblLoaiPhong = new JLabel("Loai phòng");
@@ -134,12 +123,12 @@ public class GUI_DatPhong extends JFrame {
 		txtLoaiPhong = new JTextField();
 		txtLoaiPhong.setEditable(false);
 		txtLoaiPhong.setColumns(10);
-		txtLoaiPhong.setBounds(150, 0, 200, 30);
+		txtLoaiPhong.setBounds(140, 0, 140, 30);
 		panel_1_2.add(txtLoaiPhong);
 
 		JPanel panel_1_2_1 = new JPanel();
 		panel_1_2_1.setLayout(null);
-		panel_1_2_1.setBounds(470, 210, 350, 30);
+		panel_1_2_1.setBounds(540, 210, 280, 30);
 		contentPane.add(panel_1_2_1);
 
 		JLabel lblGiaPhong = new JLabel("Giá phòng");
@@ -150,12 +139,12 @@ public class GUI_DatPhong extends JFrame {
 		txtGiaPhong = new JTextField();
 		txtGiaPhong.setEditable(false);
 		txtGiaPhong.setColumns(10);
-		txtGiaPhong.setBounds(150, 0, 200, 30);
+		txtGiaPhong.setBounds(140, 0, 140, 30);
 		panel_1_2_1.add(txtGiaPhong);
 
 		JPanel panel_1_2_2 = new JPanel();
 		panel_1_2_2.setLayout(null);
-		panel_1_2_2.setBounds(89, 270, 350, 30);
+		panel_1_2_2.setBounds(89, 270, 280, 30);
 		contentPane.add(panel_1_2_2);
 
 		JLabel lblSoDienThoai = new JLabel("Số điện thoại");
@@ -167,59 +156,52 @@ public class GUI_DatPhong extends JFrame {
 		txtSoDienThoai.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent evt) {
-				KhachHang kh=null;
-				if(evt.getKeyCode()==KeyEvent.VK_BACK_SPACE||evt.getKeyCode()==KeyEvent.VK_DELETE)
-		        {
+				KhachHang kh = null;
+				if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_DELETE) {
 					kh = dao_KhachHang.getKhachHang(txtSoDienThoai.getText());
 					if (kh != null) {
 						txtTenKhachHang.setText(kh.getTenKhachHang());
 						txtTenKhachHang.setEditable(false);
-					}else {
+					} else {
 						txtTenKhachHang.setText("");
 						txtTenKhachHang.setEditable(true);
 					}
-		        }
-		        else
-		        {   
-		            String to_check=txtSoDienThoai.getText();
-		            int to_check_len=to_check.length();
-		            for(KhachHang data:dao_KhachHang.getAllKhachHang())
-		            {
-		                String check_from_data="";
-		                for(int i=0;i<to_check_len;i++)
-		                {
-		                    if(to_check_len<=data.getSoDienThoai().length())
-		                    {
-		                        check_from_data = check_from_data+data.getSoDienThoai().charAt(i);
-		                    }
-		                }
-		                if(check_from_data.equals(to_check))
-		                {
-		                    //System.out.print("Found");
-		                	txtSoDienThoai.setText(data.getSoDienThoai());
-		                	txtSoDienThoai.setSelectionStart(to_check_len);
-		                	txtSoDienThoai.setSelectionEnd(data.getSoDienThoai().length());
-		                	kh = dao_KhachHang.getKhachHang(txtSoDienThoai.getText());
-		    				if (kh != null) {
-		    					txtTenKhachHang.setText(kh.getTenKhachHang());
-		    					txtTenKhachHang.setEditable(false);
-		    				}
-		                    break;
-		                }else {
+				} else {
+					String to_check = txtSoDienThoai.getText();
+					int to_check_len = to_check.length();
+					for (KhachHang data : dao_KhachHang.getAllKhachHang()) {
+						String check_from_data = "";
+						for (int i = 0; i < to_check_len; i++) {
+							if (to_check_len <= data.getSoDienThoai().length()) {
+								check_from_data = check_from_data + data.getSoDienThoai().charAt(i);
+							}
+						}
+						if (check_from_data.equals(to_check)) {
+							// System.out.print("Found");
+							txtSoDienThoai.setText(data.getSoDienThoai());
+							txtSoDienThoai.setSelectionStart(to_check_len);
+							txtSoDienThoai.setSelectionEnd(data.getSoDienThoai().length());
+							kh = dao_KhachHang.getKhachHang(txtSoDienThoai.getText());
+							if (kh != null) {
+								txtTenKhachHang.setText(kh.getTenKhachHang());
+								txtTenKhachHang.setEditable(false);
+							}
+							break;
+						} else {
 							txtTenKhachHang.setText("");
 							txtTenKhachHang.setEditable(true);
 						}
-		            }
-		        }
+					}
+				}
 			}
 		});
 		txtSoDienThoai.setColumns(10);
-		txtSoDienThoai.setBounds(150, 0, 200, 30);
+		txtSoDienThoai.setBounds(140, 0, 140, 30);
 		panel_1_2_2.add(txtSoDienThoai);
 
 		JPanel panel_1_2_2_1 = new JPanel();
 		panel_1_2_2_1.setLayout(null);
-		panel_1_2_2_1.setBounds(470, 270, 350, 30);
+		panel_1_2_2_1.setBounds(540, 270, 280, 30);
 		contentPane.add(panel_1_2_2_1);
 
 		JLabel lblTenKhachHang = new JLabel("Tên khách hàng");
@@ -229,12 +211,12 @@ public class GUI_DatPhong extends JFrame {
 
 		txtTenKhachHang = new JTextField();
 		txtTenKhachHang.setColumns(10);
-		txtTenKhachHang.setBounds(150, 0, 200, 30);
+		txtTenKhachHang.setBounds(140, 0, 140, 30);
 		panel_1_2_2_1.add(txtTenKhachHang);
 
 		JPanel lblNgayDatPhong = new JPanel();
 		lblNgayDatPhong.setLayout(null);
-		lblNgayDatPhong.setBounds(89, 330, 350, 30);
+		lblNgayDatPhong.setBounds(89, 330, 280, 30);
 		contentPane.add(lblNgayDatPhong);
 
 		JLabel lblNewLabel_1_1_2_2_2 = new JLabel("Ngày đặt phòng");
@@ -245,12 +227,12 @@ public class GUI_DatPhong extends JFrame {
 		txtNgayDatPhong = new JTextField();
 		txtNgayDatPhong.setEditable(false);
 		txtNgayDatPhong.setColumns(10);
-		txtNgayDatPhong.setBounds(150, 0, 200, 30);
+		txtNgayDatPhong.setBounds(140, 0, 140, 30);
 		lblNgayDatPhong.add(txtNgayDatPhong);
 
 		JPanel panel_1_2_2_2_1 = new JPanel();
 		panel_1_2_2_2_1.setLayout(null);
-		panel_1_2_2_2_1.setBounds(89, 390, 350, 30);
+		panel_1_2_2_2_1.setBounds(89, 390, 300, 30);
 		contentPane.add(panel_1_2_2_2_1);
 
 		JLabel lblGioNhanPhong = new JLabel("Giờ nhận phòng");
@@ -259,7 +241,7 @@ public class GUI_DatPhong extends JFrame {
 		panel_1_2_2_2_1.add(lblGioNhanPhong);
 
 		cbGioGioNhanPhong = new JComboBox<Integer>();
-		cbGioGioNhanPhong.setBounds(150, 0, 50, 30);
+		cbGioGioNhanPhong.setBounds(140, 0, 40, 30);
 		for (int i = 0; i < 24; i++) {
 			cbGioGioNhanPhong.addItem(i);
 		}
@@ -268,12 +250,12 @@ public class GUI_DatPhong extends JFrame {
 		JLabel lblGioGioNhanPhong = new JLabel("Giờ");
 		lblGioGioNhanPhong.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGioGioNhanPhong.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblGioGioNhanPhong.setBounds(200, 0, 50, 30);
+		lblGioGioNhanPhong.setBounds(180, 0, 30, 30);
 		panel_1_2_2_2_1.add(lblGioGioNhanPhong);
 
 		cbPhutGioNhanPhong = new JComboBox<Integer>();
-		cbPhutGioNhanPhong.setBounds(250, 0, 50, 30);
-		for (int i = 0; i < 60; i+=5) {
+		cbPhutGioNhanPhong.setBounds(220, 0, 40, 30);
+		for (int i = 0; i < 60; i += 5) {
 			cbPhutGioNhanPhong.addItem(i);
 		}
 		panel_1_2_2_2_1.add(cbPhutGioNhanPhong);
@@ -281,12 +263,12 @@ public class GUI_DatPhong extends JFrame {
 		JLabel lblPhutGioNhanPhong = new JLabel("Phút");
 		lblPhutGioNhanPhong.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPhutGioNhanPhong.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblPhutGioNhanPhong.setBounds(300, 0, 50, 30);
+		lblPhutGioNhanPhong.setBounds(260, 0, 30, 30);
 		panel_1_2_2_2_1.add(lblPhutGioNhanPhong);
 
 		JPanel pnNgayNhanPhong = new JPanel();
 		pnNgayNhanPhong.setLayout(null);
-		pnNgayNhanPhong.setBounds(470, 330, 350, 30);
+		pnNgayNhanPhong.setBounds(540, 330, 280, 30);
 		contentPane.add(pnNgayNhanPhong);
 
 		JLabel lblNgayNhanPhong = new JLabel("Ngày nhận phòng");
@@ -296,13 +278,13 @@ public class GUI_DatPhong extends JFrame {
 
 		txtNgayNhanPhong = new JTextField();
 		txtNgayNhanPhong.setColumns(10);
-		txtNgayNhanPhong.setBounds(150, 0, 170, 30);
+		txtNgayNhanPhong.setBounds(140, 0, 110, 30);
 		pnNgayNhanPhong.add(txtNgayNhanPhong);
 
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd/MM/YYYY");
-		dateChooser.getCalendarButton().setBounds(169, 0, 31, 30);
-		dateChooser.setBounds(150, 0, 200, 30);
+		dateChooser.getCalendarButton().setBounds(109, 0, 31, 30);
+		dateChooser.setBounds(140, 0, 140, 30);
 		pnNgayNhanPhong.add(dateChooser);
 		dateChooser.setLayout(null);
 
@@ -319,7 +301,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel_1_2_2_2_1_2 = new JPanel();
 		panel_1_2_2_2_1_2.setLayout(null);
-		panel_1_2_2_2_1_2.setBounds(470, 390, 245, 30);
+		panel_1_2_2_2_1_2.setBounds(540, 390, 235, 30);
 		contentPane.add(panel_1_2_2_2_1_2);
 
 		JLabel lblSoGioDat = new JLabel("Số giờ đặt");
@@ -328,7 +310,7 @@ public class GUI_DatPhong extends JFrame {
 		panel_1_2_2_2_1_2.add(lblSoGioDat);
 
 		cbSoGioDat = new JComboBox<Integer>();
-		cbSoGioDat.setBounds(150, 0, 50, 30);
+		cbSoGioDat.setBounds(140, 0, 50, 30);
 		for (int i = 0; i < 24; i++) {
 			cbSoGioDat.addItem(i);
 		}
@@ -337,7 +319,7 @@ public class GUI_DatPhong extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Giờ");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(200, 0, 50, 30);
+		lblNewLabel_1.setBounds(190, 0, 40, 30);
 		panel_1_2_2_2_1_2.add(lblNewLabel_1);
 
 		JButton btnXacNhan = new JButton("Xác nhận");
@@ -358,7 +340,6 @@ public class GUI_DatPhong extends JFrame {
 		btnHuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_XuLy(tk).setVisible(true);
 			}
 		});
 		btnHuy.setFont(new Font("Times New Roman", Font.BOLD, 20));
@@ -367,7 +348,7 @@ public class GUI_DatPhong extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 140));
-		panel.setBounds(0, 10, 905, 110);
+		panel.setBounds(0, 0, 905, 104);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -396,7 +377,24 @@ public class GUI_DatPhong extends JFrame {
 		lblThongBaoSoGioDat.setForeground(Color.RED);
 		lblThongBaoSoGioDat.setBounds(945, 560, 260, 13);
 		contentPane.add(lblThongBaoSoGioDat);
-		phong = p;
+
+		btnThemKhachHang = new JButton("");
+		btnThemKhachHang.setBounds(379, 270, 30, 30);
+		btnThemKhachHang.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				guiKh = new GUI_KhachHang(tk, phong);
+				guiKh.setVisible(true);
+			}
+		});
+		btnThemKhachHang.setIcon(new ImageIcon("image\\add.png"));
+		contentPane.add(btnThemKhachHang);
+
+		JButton btnLichDat = new JButton("Lịch đặt");
+		btnLichDat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		btnLichDat.setBounds(790, 390, 88, 30);
+		contentPane.add(btnLichDat);
+		phong = dao_Phong.getPhong(p.getMaPhong());
 		docDuLieuTuSQL();
 	}
 
@@ -405,8 +403,9 @@ public class GUI_DatPhong extends JFrame {
 		int soGioDat = (int) cbSoGioDat.getSelectedItem();
 		Timestamp ngayDatPhong = Timestamp.valueOf(txtNgayDatPhong.getText());
 		Date date = new Date(System.currentTimeMillis());
-		String time = cbGioGioNhanPhong.getSelectedItem().toString() +":"+cbPhutGioNhanPhong.getSelectedItem().toString()+":00.000";
-		Timestamp ngayNhanPhong = Timestamp.valueOf(txtNgayNhanPhong.getText()+" "+time);
+		String time = cbGioGioNhanPhong.getSelectedItem().toString() + ":"
+				+ cbPhutGioNhanPhong.getSelectedItem().toString() + ":00.000";
+		Timestamp ngayNhanPhong = Timestamp.valueOf(txtNgayNhanPhong.getText() + " " + time);
 		String maPhong = txtMaPhong.getText();
 		String sdt = txtSoDienThoai.getText();
 		KhachHang khachHang = dao_KhachHang.getKhachHang(sdt);
@@ -415,23 +414,24 @@ public class GUI_DatPhong extends JFrame {
 			String maKH = null;
 			boolean constrain;
 			do {
-				if(i<10)
-					maKH="KH00"+i;
-				else if(i<100)
-					maKH="KH0"+i;
-				else maKH ="KH"+i;
-				khachHang = new KhachHang(maKH, sdt, txtTenKhachHang.getText(),true,date);
+				if (i < 10)
+					maKH = "KH00" + i;
+				else if (i < 100)
+					maKH = "KH0" + i;
+				else
+					maKH = "KH" + i;
+				khachHang = new KhachHang(maKH, sdt, txtTenKhachHang.getText(), true, date);
 				constrain = dao_KhachHang.getAllKhachHang().contains(khachHang);
 				i++;
 			} while (constrain == true);
 			dao_KhachHang.insertKhachHang(khachHang);
 		}
 		Phong p = new Phong(maPhong);
-		PhieuDatPhong pdp= new PhieuDatPhong(maPhieuDatPhong, soGioDat, ngayDatPhong, ngayNhanPhong, p, khachHang,true);
+		PhieuDatPhong pdp = new PhieuDatPhong(maPhieuDatPhong, soGioDat, ngayDatPhong, ngayNhanPhong, p, khachHang,
+				true);
 		if (this.dao_PhieuDatPhong.insertPhieuDatPhong(pdp) == false)
 			JOptionPane.showMessageDialog(this, "Thất bại");
 		else {
-			this.dao_PhieuDatPhong.insertPhieuDatPhong(pdp);
 			this.dao_Phong.updateTinhTrang(maPhong, "Đã đặt");
 			JOptionPane.showMessageDialog(this, "Đặt phòng thành công");
 		}
@@ -441,7 +441,8 @@ public class GUI_DatPhong extends JFrame {
 		String soDienThoai = txtSoDienThoai.getText();
 		String tenKhachHang = txtTenKhachHang.getText();
 		String ngayNhanPhong = txtNgayNhanPhong.getText();
-		Date ns=null;
+		Date ns = null;
+
 		Date date = new Date(System.currentTimeMillis());
 		int soGioHat = (int) cbSoGioDat.getSelectedItem();
 		if (soDienThoai.equals("") || !(soDienThoai.matches("^(0){1}[0-9]{9}$"))) {
@@ -462,7 +463,7 @@ public class GUI_DatPhong extends JFrame {
 			return false;
 		} else {
 			ns = Date.valueOf(txtNgayNhanPhong.getText());
-			if ((ns.getTime()+24*60*60*1000) <= date.getTime()) {
+			if ((ns.getTime() + 24 * 60 * 60 * 1000) <= date.getTime()) {
 				lblThongBaoNgayNhanPhong.setText("Thời gian nhận phòng sau thời gian hiện tại");
 				txtNgayNhanPhong.setText("");
 				return false;
@@ -475,6 +476,19 @@ public class GUI_DatPhong extends JFrame {
 			return false;
 		} else
 			lblThongBaoSoGioDat.setText("");
+//		for (PhieuDatPhong pdp : dao_PhieuDatPhong.getAllPhieuDatPhong()) {
+//			if (pdp.isTonTai() == true) {
+//			Timestamp ts = Timestamp.valueOf(txtNgayNhanPhong.getText()+" "+cbGioGioNhanPhong.getSelectedItem()+":"+cbPhutGioNhanPhong.getSelectedItem()+":00.000" );
+//			long timeDat =ts.getTime();
+//			long timePhong =pdp.getNgayDatPhong().getTime();
+//			long timeDat2 = timeDat +  (long) cbSoGioDat.getSelectedItem()*60*60*1000;
+//			long timePhong2 =pdp.getNgayDatPhong().getTime()+pdp.getSoGioDat()*60*60*1000;
+//			if(timeDat)
+//			
+//			
+//				
+//			}
+//		}
 		return true;
 	}
 
@@ -497,7 +511,14 @@ public class GUI_DatPhong extends JFrame {
 		Timestamp d = new Timestamp(System.currentTimeMillis());
 		txtNgayDatPhong.setText(sf.format(d));
 		txtGiaPhong.setText(String.valueOf(phong.getGiaPhong()));
-		
-		
+		if (khachHang != null) {
+			txtTenKhachHang.setText(khachHang.getTenKhachHang());
+			txtSoDienThoai.setText(khachHang.getSoDienThoai());
+			txtTenKhachHang.setEditable(false);
+		} else {
+			txtSoDienThoai.setText("");
+			txtTenKhachHang.setText("");
+		}
+
 	}
 }

@@ -134,7 +134,7 @@ private JPanel contentPane;
 		mntmDanhMucKhachHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_KhachHang(tk).setVisible(true);
+				new GUI_KhachHang(tk,null).setVisible(true);
 			}
 		});
 		mnDanhMuc.add(mntmDanhMucKhachHang);

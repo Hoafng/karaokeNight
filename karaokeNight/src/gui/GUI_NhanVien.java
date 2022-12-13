@@ -135,7 +135,7 @@ public class GUI_NhanVien extends JFrame {
 		mntmDanhMucKhachHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new GUI_KhachHang(taikhoan).setVisible(true);
+				new GUI_KhachHang(taikhoan,null).setVisible(true);
 			}
 		});
 		mnDanhMuc.add(mntmDanhMucKhachHang);
