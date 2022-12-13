@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -103,9 +104,11 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 		tk=taiKhoan;
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 434, 32);
+		menuBar.setBorderPainted(false);
+		menuBar.setBackground(SystemColor.menu);
+		menuBar.setBounds(5, 1, 420, 20);
 		contentPane.add(menuBar);
-		
+
 		JMenuItem mntmTrangChu = new JMenuItem("Trang chủ  ");
 		mntmTrangChu.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmTrangChu.addActionListener(new ActionListener() {
@@ -116,7 +119,6 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 		});
 		mntmTrangChu.setFont(UIManager.getFont("MenuBar.font"));
 		menuBar.add(mntmTrangChu);
-
 
 		JMenu mnDanhMuc = new JMenu("  Danh mục");
 		mnDanhMuc.setHorizontalAlignment(SwingConstants.CENTER);

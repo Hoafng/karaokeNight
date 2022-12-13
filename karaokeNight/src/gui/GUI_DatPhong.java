@@ -25,7 +25,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 
-import dao.Dao_CTHoaDon;
 import dao.Dao_HoaDon;
 import dao.Dao_KhachHang;
 import dao.Dao_PhieuDatPhong;
@@ -65,7 +64,8 @@ public class GUI_DatPhong extends JFrame {
 	private JLabel lblThongBaoTenKhachHang;
 	private JLabel lblThongBaoSoGioDat;
 	private JButton btnThemKhachHang;
-	
+	private JLabel lblThongBaoGioNhaPhong;
+
 	public GUI_DatPhong(Phong p, TaiKhoan taiKhoan, KhachHang kh) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 919, 556);
@@ -78,6 +78,7 @@ public class GUI_DatPhong extends JFrame {
 
 		tk = taiKhoan;
 		khachHang = kh;
+		phong = dao_Phong.getPhong(p.getMaPhong());
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBounds(89, 150, 280, 30);
@@ -322,12 +323,17 @@ public class GUI_DatPhong extends JFrame {
 		lblNewLabel_1.setBounds(190, 0, 40, 30);
 		panel_1_2_2_2_1_2.add(lblNewLabel_1);
 
+		lblThongBaoSoGioDat = new JLabel("");
+		lblThongBaoSoGioDat.setBounds(0, 37, 260, 13);
+		panel_1_2_2_2_1_2.add(lblThongBaoSoGioDat);
+		lblThongBaoSoGioDat.setForeground(Color.RED);
+
 		JButton btnXacNhan = new JButton("Xác nhận");
 		btnXacNhan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (kiemTraDuLieu() == true) {
-					themPhieuDatPhong();
-					dispose();
+					if (themPhieuDatPhong() == true)
+						dispose();
 					new GUI_XuLy(tk).setVisible(true);
 				}
 			}
@@ -360,23 +366,18 @@ public class GUI_DatPhong extends JFrame {
 
 		lblThongBaoSDT = new JLabel("");
 		lblThongBaoSDT.setForeground(new Color(255, 0, 0));
-		lblThongBaoSDT.setBounds(365, 400, 260, 13);
+		lblThongBaoSDT.setBounds(89, 307, 260, 13);
 		contentPane.add(lblThongBaoSDT);
 
 		lblThongBaoNgayNhanPhong = new JLabel("");
 		lblThongBaoNgayNhanPhong.setForeground(Color.RED);
-		lblThongBaoNgayNhanPhong.setBounds(945, 479, 260, 13);
+		lblThongBaoNgayNhanPhong.setBounds(540, 367, 260, 13);
 		contentPane.add(lblThongBaoNgayNhanPhong);
 
 		lblThongBaoTenKhachHang = new JLabel("");
 		lblThongBaoTenKhachHang.setForeground(Color.RED);
-		lblThongBaoTenKhachHang.setBounds(945, 400, 260, 13);
+		lblThongBaoTenKhachHang.setBounds(540, 307, 260, 13);
 		contentPane.add(lblThongBaoTenKhachHang);
-
-		lblThongBaoSoGioDat = new JLabel("");
-		lblThongBaoSoGioDat.setForeground(Color.RED);
-		lblThongBaoSoGioDat.setBounds(945, 560, 260, 13);
-		contentPane.add(lblThongBaoSoGioDat);
 
 		btnThemKhachHang = new JButton("");
 		btnThemKhachHang.setBounds(379, 270, 30, 30);
@@ -391,14 +392,24 @@ public class GUI_DatPhong extends JFrame {
 		contentPane.add(btnThemKhachHang);
 
 		JButton btnLichDat = new JButton("Lịch đặt");
+		btnLichDat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new GUI_LichDatPhong(tk,p,kh).setVisible(true);
+			}
+		});
 		btnLichDat.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnLichDat.setBounds(790, 390, 88, 30);
 		contentPane.add(btnLichDat);
-		phong = dao_Phong.getPhong(p.getMaPhong());
+
+		lblThongBaoGioNhaPhong = new JLabel("");
+		lblThongBaoGioNhaPhong.setForeground(Color.RED);
+		lblThongBaoGioNhaPhong.setBounds(89, 430, 260, 13);
+		contentPane.add(lblThongBaoGioNhaPhong);
 		docDuLieuTuSQL();
 	}
 
-	protected void themPhieuDatPhong() {
+	protected boolean themPhieuDatPhong() {
 		String maPhieuDatPhong = txtMaPhieuDatPhong.getText();
 		int soGioDat = (int) cbSoGioDat.getSelectedItem();
 		Timestamp ngayDatPhong = Timestamp.valueOf(txtNgayDatPhong.getText());
@@ -429,11 +440,13 @@ public class GUI_DatPhong extends JFrame {
 		Phong p = new Phong(maPhong);
 		PhieuDatPhong pdp = new PhieuDatPhong(maPhieuDatPhong, soGioDat, ngayDatPhong, ngayNhanPhong, p, khachHang,
 				true);
-		if (this.dao_PhieuDatPhong.insertPhieuDatPhong(pdp) == false)
+		if (this.dao_PhieuDatPhong.insertPhieuDatPhong(pdp) == false) {
 			JOptionPane.showMessageDialog(this, "Thất bại");
-		else {
+			return false;
+		} else {
 			this.dao_Phong.updateTinhTrang(maPhong, "Đã đặt");
 			JOptionPane.showMessageDialog(this, "Đặt phòng thành công");
+			return true;
 		}
 	}
 
@@ -476,19 +489,30 @@ public class GUI_DatPhong extends JFrame {
 			return false;
 		} else
 			lblThongBaoSoGioDat.setText("");
-//		for (PhieuDatPhong pdp : dao_PhieuDatPhong.getAllPhieuDatPhong()) {
-//			if (pdp.isTonTai() == true) {
-//			Timestamp ts = Timestamp.valueOf(txtNgayNhanPhong.getText()+" "+cbGioGioNhanPhong.getSelectedItem()+":"+cbPhutGioNhanPhong.getSelectedItem()+":00.000" );
-//			long timeDat =ts.getTime();
-//			long timePhong =pdp.getNgayDatPhong().getTime();
-//			long timeDat2 = timeDat +  (long) cbSoGioDat.getSelectedItem()*60*60*1000;
-//			long timePhong2 =pdp.getNgayDatPhong().getTime()+pdp.getSoGioDat()*60*60*1000;
-//			if(timeDat)
-//			
-//			
-//				
-//			}
-//		}
+		for (PhieuDatPhong pdp : dao_PhieuDatPhong.getAllPhieuDatPhong()) {
+			if (pdp.isTonTai() == true && pdp.getMaPhong().getMaPhong().equals(txtMaPhong.getText())) {
+				Timestamp ts = Timestamp.valueOf(txtNgayNhanPhong.getText() + " " + cbGioGioNhanPhong.getSelectedItem()
+						+ ":" + cbPhutGioNhanPhong.getSelectedItem() + ":00.000");
+				long timeDat = ts.getTime();
+				long timePhong = pdp.getNgayDatPhong().getTime();
+				long timeDat2 = timeDat + (int) cbSoGioDat.getSelectedItem() * 60 * 60 * 1000;
+				long timePhong2 = pdp.getNgayDatPhong().getTime() + pdp.getSoGioDat() * 60 * 60 * 1000;
+				JOptionPane.showMessageDialog(null, timeDat2 + ".." + timePhong + ".." + timePhong2 + ".." + timeDat);
+				return false;
+//				if (timeDat > timePhong && timeDat < timePhong2) {
+//					lblThongBaoGioNhaPhong.setText("Giờ nhận phòng bị trùng");
+//					cbGioGioNhanPhong.requestFocus();
+//					return false;
+//				} else
+//					lblThongBaoGioNhaPhong.setText("");
+//				if (timeDat2 > timePhong && timeDat2 < timePhong2) {
+//					lblThongBaoSoGioDat.setText("Số giờ hát bị trùng");
+//					cbSoGioDat.requestFocus();
+//					return false;
+//				} else
+//					lblThongBaoSoGioDat.setText("");
+			}
+		}
 		return true;
 	}
 

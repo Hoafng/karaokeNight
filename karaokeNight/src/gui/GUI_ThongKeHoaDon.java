@@ -432,6 +432,7 @@ private JPanel contentPane;
 	}
 	public void DocDuLieuDatabaseVaoTable(ArrayList<HoaDonThuePhong> listHD, DefaultTableModel modelTkHoaDon) {
 		double sum = 0;
+		double tongTien =0;
 		double minDT =0;
 		double maxDT = 0;
 		double tdv = 0;
@@ -452,11 +453,12 @@ private JPanel contentPane;
 			if(sum<=minDT) {
 				minDT = sum;
 			}
+			tongTien +=sum;
 			modelTkHoaDon.addRow(new Object[] {
 					hd.getMaHoaDon(),hd.getMaNhanVien().getTenNhanVien(), hd.getNgayLap(), hd.getMaKhachHang().getTenKhachHang(),hd.getMaKhachHang().getSoDienThoai(), formatNumberForMoney(sum)
 			});
 		}
-		lblKqDoanhThu.setText(formatNumberForMoney(sum) );
+		lblKqDoanhThu.setText(formatNumberForMoney(tongTien) );
 		lblKqHdCaoNhat.setText(formatNumberForMoney(maxDT) );
 		lblKqHdThapNhat.setText(formatNumberForMoney(minDT));
 	}

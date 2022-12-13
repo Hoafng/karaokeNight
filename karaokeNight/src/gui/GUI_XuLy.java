@@ -529,7 +529,6 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 			public void actionPerformed(ActionEvent e) {
 
 				if (phong != null && phong.getTinhTrang().equals("Trống")) {
-					dispose();
 					new GUI_DatPhong(phong, tk ,null).setVisible(true);
 				}
 			}
