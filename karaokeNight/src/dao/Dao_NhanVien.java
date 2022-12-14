@@ -155,35 +155,38 @@ public class Dao_NhanVien {
 		}
 	}
 
-	public void deleteNhanVien(String maNhanVien) {
+	public void deleteNhanVien(String maNhanVien,int a) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement statement = null;
 		try {
-			String sql = "Delete from NhanVien Where maNhanVien = ?";
+			String sql = "Update NhanVien set tonTai=? where maNhanVien=?";
 			statement = con.prepareStatement(sql);
-			statement.setString(1, maNhanVien);
+			statement.setInt(1,a);
+			statement.setString(2, maNhanVien);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void updateNhanVien(NhanVien nhanVien) {
+	public void updateNhanVien(String ten,String sdt, Date ns,String dc, int gt,String cmnd,String cv,String email,String tentk,int tonTai, String ma) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		try {
-			String sql = "Update NhanVien set tenNhanVien =?,soDienThoai=?,ngaySinh=?,diaChi=?,gioiTinh=?,cmnd=?,chuVu=?,email=?,tenTaiKhoan=? where maNhanVien = ?";
+			String sql = "Update NhanVien set tenNhanVien =?,soDienThoai=?,ngaySinh=?,diaChi=?,gioiTinh=?,cmnd=?,chuVu=?,email=?,tenTaiKhoan=?,tonTai=? where maNhanVien = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, nhanVien.getTenNhanVien());
-			stmt.setString(2, nhanVien.getSoDienThoai());
-			stmt.setDate(3, (Date) nhanVien.getNgaySinh());
-			stmt.setString(4, nhanVien.getDiaChi());
-			stmt.setBoolean(5, nhanVien.isGioiTinh());
-			stmt.setString(6, nhanVien.getCmnd());
-			stmt.setString(7, nhanVien.getChucVu());
-			stmt.setString(8, nhanVien.getEmail());
-			stmt.setString(9, nhanVien.getTenTaiKhoan().getTenTaiKhoan());
+			stmt.setString(1, ten);
+			stmt.setString(2, sdt);
+			stmt.setDate(3, ns);
+			stmt.setString(4, dc);
+			stmt.setInt(5, gt);
+			stmt.setString(6, cmnd);
+			stmt.setString(7, cv);
+			stmt.setString(8, email);
+			stmt.setString(9, tentk);
+			stmt.setInt(10, tonTai);
+			stmt.setString(11, ma);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
