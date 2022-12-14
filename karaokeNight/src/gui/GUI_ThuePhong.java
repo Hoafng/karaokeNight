@@ -243,7 +243,6 @@ public class GUI_ThuePhong extends JFrame {
 				if (kiemTraDuLieu() == true) {
 					InsertData();
 					dispose();
-					new GUI_XuLy(tk).setVisible(true);
 				}
 			}
 		});

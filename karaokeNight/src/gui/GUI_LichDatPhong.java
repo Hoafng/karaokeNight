@@ -119,7 +119,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		pnTop.add(lblThongKeDichVu);
 
 		JPanel pnLeft = new JPanel();
-		pnLeft.setBounds(10, 97, 392, 496);
+		pnLeft.setBounds(10, 97, 392, 427);
 		pnLeft.setBackground(new Color(101, 186, 118));
 		contentPane.add(pnLeft);
 		pnLeft.setBorder(new TitledBorder("Chức năng"));
@@ -138,7 +138,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		btnTimKiem.setBackground(new Color(255, 255, 140));
 		btnTimKiem.setForeground(new Color(0, 0, 0));
 		btnTimKiem.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnTimKiem.setBounds(60, 436, 291, 33);
+		btnTimKiem.setBounds(60, 371, 280, 33);
 		pnLeft.add(btnTimKiem);
 
 		JPanel panel_1_2_2_2_1 = new JPanel();
@@ -196,7 +196,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		});
 		btnLamMoiDichVu_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnLamMoiDichVu_1.setBackground(new Color(255, 255, 140));
-		btnLamMoiDichVu_1.setBounds(60, 393, 291, 33);
+		btnLamMoiDichVu_1.setBounds(60, 328, 280, 33);
 		pnLeft.add(btnLamMoiDichVu_1);
 
 		JPanel panel_1 = new JPanel();
@@ -280,7 +280,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		pnLeft_1.setLayout(null);
 		pnLeft_1.setBorder(new TitledBorder("Chức năng"));
 		pnLeft_1.setBackground(new Color(101, 186, 118));
-		pnLeft_1.setBounds(10, 603, 392, 130);
+		pnLeft_1.setBounds(10, 534, 392, 199);
 		contentPane.add(pnLeft_1);
 
 		JButton btnThuePhong_1 = new JButton("Đặt phòng", null);
@@ -294,7 +294,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		});
 		btnThuePhong_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnThuePhong_1.setBackground(new Color(255, 255, 140));
-		btnThuePhong_1.setBounds(60, 72, 280, 33);
+		btnThuePhong_1.setBounds(60, 93, 280, 33);
 		pnLeft_1.add(btnThuePhong_1);
 
 		JPanel panel_2_1 = new JPanel();
@@ -312,6 +312,16 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		txtMaPhongDat.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		txtMaPhongDat.setBounds(121, 0, 159, 30);
 		panel_2_1.add(txtMaPhongDat);
+		
+		JButton btnHuyPhong = new JButton("Hủy phòng", null);
+		btnHuyPhong.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnHuyPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		btnHuyPhong.setBackground(new Color(255, 255, 140));
+		btnHuyPhong.setBounds(60, 136, 280, 33);
+		pnLeft_1.add(btnHuyPhong);
 		txtNgay.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {

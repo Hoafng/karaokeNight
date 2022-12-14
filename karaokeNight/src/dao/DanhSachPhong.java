@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import entity.Phong;
 import entity.TaiKhoan;
 import gui.GUI_LichDatPhong;
+import gui.GUI_ThuePhong;
 
 public class DanhSachPhong {
 	JPanel pnDanhSachPhong;
@@ -40,7 +41,7 @@ public class DanhSachPhong {
 
 	public DanhSachPhong(TaiKhoan taiKhoan) {
 		danhSachPhong = new ArrayList<Phong>();
-		tk =taiKhoan;
+		tk = taiKhoan;
 	}
 
 	public JPanel themPhong(Phong p) {
@@ -140,7 +141,7 @@ public class DanhSachPhong {
 		popuMenu.add(item1);
 		item1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new GUI_LichDatPhong(tk,null,null).setVisible(true);
+				new GUI_LichDatPhong(tk, null, null).setVisible(true);
 			}
 		});
 		return popuMenu;
@@ -169,6 +170,8 @@ public class DanhSachPhong {
 			}
 		});
 	}
+
+
 
 	public void changeBorder(int i) {
 		for (int j = 0; j < soLuongPhong.size(); j++)

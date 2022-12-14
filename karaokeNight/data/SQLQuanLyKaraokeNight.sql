@@ -401,3 +401,12 @@ Values('MPDP01' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'PVip001008' , 
 	  ('MPDP10' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P007003' , 'KH010',1),
 	  ('MPDP11' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P006007' , 'KH011',1),
 	  ('MPDP12' , 5 , '2022-10-30' , '2022-11-01 12:30:00.000' , 'P007007' , 'KH012',1)
+
+      select * from Phong p join PhieuDatPhong pd on pd.maPhong = p.maPhong join HoaDonThuePhong hd on hd.maPhong = p.maPhong
+      
+
+      select * from HoaDonThuePhong
+
+      select * from PhieuDatPhong where maPhong='P002007'
+      
+   

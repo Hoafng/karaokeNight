@@ -497,20 +497,18 @@ public class GUI_DatPhong extends JFrame {
 				long timePhong = pdp.getNgayDatPhong().getTime();
 				long timeDat2 = timeDat + (int) cbSoGioDat.getSelectedItem() * 60 * 60 * 1000;
 				long timePhong2 = pdp.getNgayDatPhong().getTime() + pdp.getSoGioDat() * 60 * 60 * 1000;
-				JOptionPane.showMessageDialog(null, timeDat2 + ".." + timePhong + ".." + timePhong2 + ".." + timeDat);
-				return false;
-//				if (timeDat > timePhong && timeDat < timePhong2) {
-//					lblThongBaoGioNhaPhong.setText("Giờ nhận phòng bị trùng");
-//					cbGioGioNhanPhong.requestFocus();
-//					return false;
-//				} else
-//					lblThongBaoGioNhaPhong.setText("");
-//				if (timeDat2 > timePhong && timeDat2 < timePhong2) {
-//					lblThongBaoSoGioDat.setText("Số giờ hát bị trùng");
-//					cbSoGioDat.requestFocus();
-//					return false;
-//				} else
-//					lblThongBaoSoGioDat.setText("");
+				if (timeDat > timePhong && timeDat < timePhong2) {
+					lblThongBaoGioNhaPhong.setText("Giờ nhận phòng bị trùng");
+					cbGioGioNhanPhong.requestFocus();
+					return false;
+				} else
+					lblThongBaoGioNhaPhong.setText("");
+				if (timeDat2 > timePhong && timeDat2 < timePhong2) {
+					lblThongBaoSoGioDat.setText("Số giờ hát bị trùng");
+					cbSoGioDat.requestFocus();
+					return false;
+				} else
+					lblThongBaoSoGioDat.setText("");
 			}
 		}
 		return true;

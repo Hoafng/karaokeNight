@@ -28,13 +28,38 @@ public class Dao_PhieuDatPhong {
 				KhachHang kh = new KhachHang(rs.getString("maKhachHang"));
 				Phong p = new Phong(rs.getString("maPhong"));
 				ds.add(new PhieuDatPhong(rs.getString("maPhieuDatPhong"), rs.getInt("soGioDat"),
-						rs.getTimestamp("ngayDatPhong"), rs.getTimestamp("ngayNhanPhong"), p, kh,rs.getBoolean("tonTai")));
+						rs.getTimestamp("ngayDatPhong"), rs.getTimestamp("ngayNhanPhong"), p, kh,
+						rs.getBoolean("tonTai")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return ds;
 	}
+
+	public PhieuDatPhong getPhieuDatPhong(String maPhong) {
+		PhieuDatPhong pdp = null;
+
+		try {
+			ConnectDB.getInstance();
+			Connection con = ConnectDB.getConnection();
+			String sql = " select * from PhieuDatPhong where maPhong=?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, maPhong);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				KhachHang kh = new KhachHang(rs.getString("maKhachHang"));
+				Phong p = new Phong(rs.getString("maPhong"));
+				pdp = new PhieuDatPhong(rs.getString("maPhieuDatPhong"), rs.getInt("soGioDat"),
+						rs.getTimestamp("ngayDatPhong"), rs.getTimestamp("ngayNhanPhong"), p, kh,
+						rs.getBoolean("tonTai"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pdp;
+	}
+
 	public ArrayList<PhieuDatPhong> getAllMaPhieuDatPhong() {
 		ArrayList<PhieuDatPhong> ds = new ArrayList<PhieuDatPhong>();
 
