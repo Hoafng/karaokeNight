@@ -251,7 +251,10 @@ public class GUI_DichVu extends JFrame implements MouseListener {
 				if(daoDichVu.getDichVuTheoMa(txtMaDichVu.getText())!=null) {
 				DichVu dv=new DichVu(txtMaDichVu.getText(), txtTenDichVu.getText(), Double.parseDouble(txtGiaDichVu.getText()),Integer.parseInt(txtSoLuong.getText()),new LoaiDichVu(cbxMaLoaiDichVu.getSelectedItem().toString()));
 				daoDichVu.insertDichVu(dv);
-				JOptionPane.showInputDialog(this,"Thêm Thành Công");
+				JOptionPane.showMessageDialog(null, "Thêm thành công");
+				docDuLieuTuSQL();
+				}else {
+					JOptionPane.showMessageDialog(null, "Sửa không thành công");
 				}
 			}
 		});
@@ -264,7 +267,10 @@ public class GUI_DichVu extends JFrame implements MouseListener {
 			public void actionPerformed(ActionEvent e) {
 				if(daoDichVu.getDichVuTheoMa(txtMaDichVu.getText())!=null) {
 					daoDichVu.deleteDichVu(txtMaDichVu.getText());
-					JOptionPane.showInputDialog(this,"Xoá Thành Công");
+					JOptionPane.showMessageDialog(null, "Sửa thành công");
+					docDuLieuTuSQL();
+					}else {
+						JOptionPane.showMessageDialog(null, "Sửa không thành công");
 					}
 			}
 		});
@@ -284,8 +290,11 @@ public class GUI_DichVu extends JFrame implements MouseListener {
 				if(daoDichVu.getDichVuTheoMa(txtMaDichVu.getText())!=null) {
 					DichVu dv=new DichVu(txtMaDichVu.getText(), txtTenDichVu.getText(), Double.parseDouble(txtGiaDichVu.getText()),Integer.parseInt(txtSoLuong.getText()),new LoaiDichVu(cbxMaLoaiDichVu.getSelectedItem().toString()));
 					daoDichVu.updateDichVu(dv);
-					JOptionPane.showInputDialog(this,"Sửa Thành Công");
-					}	
+					JOptionPane.showMessageDialog(null, "Sửa thành công");
+					docDuLieuTuSQL();
+				}else {
+					JOptionPane.showMessageDialog(null, "Sửa không thành công");
+				}
 			}
 		});
 		btnSua.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -340,7 +349,7 @@ public class GUI_DichVu extends JFrame implements MouseListener {
 			}
 		});
 		btnNhapEXCEL.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnNhapEXCEL.setBounds(610, 132, 125, 32);
+		btnNhapEXCEL.setBounds(791, 132, 125, 32);
 		pnlThongTinDichVu.add(btnNhapEXCEL);
 		
 		JLabel lblTenDichVu = new JLabel("Tên dịch vụ");
@@ -398,12 +407,16 @@ public class GUI_DichVu extends JFrame implements MouseListener {
 		
 		pnlThongTinDichVu.add(cbxMaLoaiDichVu);
 		
-		btnXuatEXCEL = new JButton("Xuất File");
-		btnXuatEXCEL.setBounds(798, 132, 125, 32);
+		btnXuatEXCEL = new JButton("Làm mới");
+		btnXuatEXCEL.setBounds(611, 132, 125, 32);
 		pnlThongTinDichVu.add(btnXuatEXCEL);
 		btnXuatEXCEL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//bo sung sau				
+				txtMaDichVu.setText("");
+				txtTenDichVu.setText("");
+				txtGiaDichVu.setText("");
+				txtSoLuong.setText("");
+				cbxMaLoaiDichVu.setSelectedIndex(0);
 			}
 		});
 		btnXuatEXCEL.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -419,18 +432,14 @@ public class GUI_DichVu extends JFrame implements MouseListener {
 		
 	}
 	}
-	private void NhapFile() {
-		// TODO Auto-generated method stub
-		
-	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int row = table.getSelectedRow();
-		txtMaDichVu.setText(modelDichVu.getValueAt(row, 0).toString());
-		txtTenDichVu.setText(modelDichVu.getValueAt(row, 1).toString());
-		txtGiaDichVu.setText(modelDichVu.getValueAt(row, 2).toString());
-		txtSoLuong.setText(modelDichVu.getValueAt(row, 3).toString());
-		cbxMaLoaiDichVu.setSelectedItem(modelDichVu.getValueAt(row, 4).toString());
+		txtMaDichVu.setText(table.getValueAt(row, 0).toString());
+		txtTenDichVu.setText(table.getValueAt(row, 1).toString());
+		txtGiaDichVu.setText(table.getValueAt(row, 2).toString());
+		txtSoLuong.setText(table.getValueAt(row, 3).toString());
+		cbxMaLoaiDichVu.setSelectedItem(table.getValueAt(row, 4).toString());
 		// TODO Auto-generated method stub
 		
 	}
