@@ -96,5 +96,22 @@ public class Dao_TaiKhoan {
 			return false;
 		}
 	}
-
+	public int  getSoLuongTaiKhoan() {
+		int soLuong = 0;
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement statement = null;
+		try {
+			String sql = "select soluong=COUNT(*) from TaiKhoan";
+			statement = con.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				soLuong=rs.getInt("soluong");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return soLuong;
+	}
+	
 }
