@@ -68,7 +68,6 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 	private JLabel lblKqTienDichVuBan;
 	private JLabel lblKqDichVuBan;
 	private JLabel lblKqDichVuBanChay;
-	private JComboBox cbLoaiDichVu;
 	private Dao_LoaiDichVu dao_lDv;
 	String oldText;
 	String selectedValue = "";
@@ -280,15 +279,6 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 		txtDenNgay.setColumns(10);
 		pnLeft.add(lblDenNgay);
 
-		JLabel lblLoaiDichVu = new JLabel("Loại dịch vụ:");
-		lblLoaiDichVu.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblLoaiDichVu.setBounds(36, 210, 113, 23);
-		pnLeft.add(lblLoaiDichVu);
-		cbLoaiDichVu = new JComboBox();
-		cbLoaiDichVu.setToolTipText("");
-		cbLoaiDichVu.setBounds(159, 208, 170, 30);
-		pnLeft.add(cbLoaiDichVu);
-
 		moKhoaTextfields(false);
 
 		ImageIcon iconLamMoi = new ImageIcon("IMG//iconButton//Refresh.png");
@@ -367,10 +357,6 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 		lblKqTienDichVuBan.setBounds(182, 500, 143, 21);
 		pnCenter.add(lblKqTienDichVuBan);
 
-		ArrayList<LoaiDichVu> loaiDv = dao_lDv.getAllLoaiDichVu();
-		for (LoaiDichVu lDv : loaiDv) {
-			cbLoaiDichVu.addItem(lDv.getTenLoaiDichVu());
-		}
 		btnThongKe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				moKhoaTextfields(true);
@@ -386,7 +372,7 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 							String a = sf.format(e.getNewValue());		   
 							txtTuNgay.setText(a + "");
 							checkDateChooser = true;
-							if(checkDateChooser && checkDateChooser_1 && !cbLoaiDichVu.getSelectedItem().toString().isBlank()) {
+							if(checkDateChooser && checkDateChooser_1) {
 								ArrayList<DichVu> listDV = dao_tkdv.getDichVuDaBan(txtTuNgay.getText().toString(), txtDenNgay.getText().toString());
 								DocDuLieuDatabaseVaoTable(listDV, TempModelTkDichVu);
 								tblTkDichVu.setModel(TempModelTkDichVu);
