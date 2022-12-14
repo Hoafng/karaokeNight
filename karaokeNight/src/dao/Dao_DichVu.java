@@ -170,6 +170,7 @@ public class Dao_DichVu {
 			stmt.setDouble(2, dichVu.getGiaDichVu());
 			stmt.setInt(3, dichVu.getSoLuong());
 			stmt.setString(4, dichVu.getMaLoaiDichVu().getMaLoaiDichVu());
+			stmt.setString(5, dichVu.getMaDichVu());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
