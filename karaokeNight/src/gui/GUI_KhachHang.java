@@ -1,3 +1,4 @@
+
 package gui;
 
 import java.awt.Color;
@@ -332,7 +333,7 @@ public class GUI_KhachHang extends JFrame {
 					JOptionPane.showMessageDialog(null, "Thêm thành công");
 					docDuLieuTuSQL();
 				} else
-					JOptionPane.showMessageDialog(null, "Thêm ngu công");
+					JOptionPane.showMessageDialog(null, "Thêm không thành công");
 			}
 		});
 		pnlThongTinKhachHang.add(btnThem);
@@ -369,16 +370,25 @@ public class GUI_KhachHang extends JFrame {
 					daoKhachHang.updateKhachHang(kh);
 					JOptionPane.showMessageDialog(null, "Sửa Thành Công");
 					docDuLieuTuSQL();
+				}else {
+					JOptionPane.showMessageDialog(null, "Sửa không thành công");
 				}
 			}
 		});
 		pnlThongTinKhachHang.add(btnSua);
 
-		btnLuu = new JButton("Lưu");
+		btnLuu = new JButton("Làm mới");
 		btnLuu.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		btnLuu.setBounds(580, 117, 125, 32);
 		btnLuu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txtmaKhachHang.setText("");
+				txtSoDienThoai.setText("");
+				txtTen.setText("");
+				txtNgaySinh.setText("");
+				txtDiaChi.setText("");
+				chkcbxGioiTinh.setSelected(false);
+				txtCMND.setText("");
 			}
 		});
 		pnlThongTinKhachHang.add(btnLuu);
@@ -434,7 +444,7 @@ public class GUI_KhachHang extends JFrame {
 		lblGioiTinh.setBounds(394, 45, 112, 25);
 		pnlThongTinKhachHang.add(lblGioiTinh);
 
-		chkcbxGioiTinh = new JCheckBox("Nam");
+		chkcbxGioiTinh = new JCheckBox("Nam/Nữ");
 		chkcbxGioiTinh.setBounds(515, 45, 110, 25);
 		chkcbxGioiTinh.setHorizontalAlignment(SwingConstants.CENTER);
 		chkcbxGioiTinh.setFont(new Font("Times New Roman", Font.PLAIN, 20));
