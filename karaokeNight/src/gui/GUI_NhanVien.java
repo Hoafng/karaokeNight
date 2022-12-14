@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Date;
@@ -37,11 +39,12 @@ import com.toedter.calendar.JDateChooser;
 
 import connectDB.ConnectDB;
 import dao.Dao_NhanVien;
+import dao.Dao_TaiKhoan;
 import entity.NhanVien;
 import entity.TaiKhoan;
 
 @SuppressWarnings("serial")
-public class GUI_NhanVien extends JFrame {
+public class GUI_NhanVien extends JFrame  {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -74,6 +77,7 @@ public class GUI_NhanVien extends JFrame {
 	private JButton btnLamMoi;
 	private JCheckBox chckbxNuTim;
 	private TaiKhoan taiKhoan;
+	private Dao_TaiKhoan daotaiKhoan;
 
 
 	/**
@@ -95,6 +99,7 @@ public class GUI_NhanVien extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1480, 780);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
 		setContentPane(contentPane);
@@ -251,6 +256,7 @@ public class GUI_NhanVien extends JFrame {
 		docDuLieuTuSQL();
 		
 		JPanel pnlThongTinNhanVien = new JPanel();
+		pnlThongTinNhanVien.setBackground(new Color(101, 186, 118));
 		pnlThongTinNhanVien.setBorder(new LineBorder(new Color(0, 255, 255), 2));
 		pnlThongTinNhanVien.setBounds(10, 89, 1446, 200);
 		contentPane.add(pnlThongTinNhanVien);
@@ -365,12 +371,25 @@ public class GUI_NhanVien extends JFrame {
 		btnThem.setFont(new Font("Times New Roman", Font.BOLD, 15));
 /**/	btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NhanVien nvthem=new NhanVien(txtma.getText(),txtTen.getText(),txtSoDienThoai.getText(),Date.valueOf(txtNgaySinh.getText()),
+				String maNV="";
+				String tentk="";
+				if(cbxChuVu.getSelectedItem().toString().equalsIgnoreCase("Nhân Viên")) {
+					tentk="nhanvien"+daotaiKhoan.getSoLuongTaiKhoan();
+					maNV="NV"+daotaiKhoan.getSoLuongTaiKhoan();
+				}else{
+					tentk="quanly"+daotaiKhoan.getSoLuongTaiKhoan();
+					maNV="NV"+daotaiKhoan.getSoLuongTaiKhoan();
+				}
+				NhanVien nvthem=new NhanVien(maNV,txtTen.getText(),txtSoDienThoai.getText(),Date.valueOf(txtNgaySinh.getText()),
 						txtDiaChi.getText(),chkcbxGioiTinh.isSelected(),txtCMND.getText(),cbxChuVu.getSelectedItem().toString(),
-						txtEmail.getText(),new TaiKhoan(taiKhoan.getTenTaiKhoan()),true);
+						txtEmail.getText(),new TaiKhoan(tentk,tentk),true);
 				daoNhanVien.insertNhanVien(nvthem);
 				if(daoNhanVien.insertNhanVien(nvthem)==true) {
-				JOptionPane.showInputDialog(this,"Them Thanh Cong");
+					JOptionPane.showMessageDialog(null, "Thêm thành công");
+					docDuLieuTuSQL();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Thêm không thành công");
 				}
 			}
 		});
@@ -382,9 +401,11 @@ public class GUI_NhanVien extends JFrame {
 /**/	btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(daoNhanVien.getNhanVienTheoMa(txtma.getText())!=null) {
-					NhanVien nv1=daoNhanVien.getNhanVienTheoMa(txtma.getText());
-					daoNhanVien.deleteNhanVien(nv1.getMaNhanVien());
-					JOptionPane.showInputDialog("Xoa thanh cong");
+					daoNhanVien.deleteNhanVien(txtma.getText(),0);
+					JOptionPane.showMessageDialog(null, "Thêm thành công");
+					docDuLieuTuSQL();
+				}else {
+					JOptionPane.showMessageDialog(null, "Thêm không thành công");
 				}
 			}
 		});
@@ -396,29 +417,44 @@ public class GUI_NhanVien extends JFrame {
 /**/	btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(daoNhanVien.getNhanVienTheoMa(txtma.getText())!=null) {
-					NhanVien nv1=daoNhanVien.getNhanVienTheoMa(txtma.getText());
-					daoNhanVien.updateNhanVien(nv1);
-					JOptionPane.showInputDialog("Xoa thanh cong");
+					if(chkcbxGioiTinh.isSelected()==true) {
+						daoNhanVien.updateNhanVien(txtTen.getText(),txtSoDienThoai.getText(),Date.valueOf(txtNgaySinh.getText()),
+								txtDiaChi.getText(),1,txtCMND.getText(),cbxChuVu.getSelectedItem().toString(),
+								txtEmail.getText(),daoNhanVien.getNhanVienTheoMa(txtma.getText()).getTenTaiKhoan().toString(),1,txtma.getText());
+					}
+					daoNhanVien.updateNhanVien(txtTen.getText(),txtSoDienThoai.getText(),Date.valueOf(txtNgaySinh.getText()),
+							txtDiaChi.getText(),0,txtCMND.getText(),cbxChuVu.getSelectedItem().toString(),
+							txtEmail.getText(),daoNhanVien.getNhanVienTheoMa(txtma.getText()).getTenTaiKhoan().toString(),1,txtma.getText());
+					JOptionPane.showMessageDialog(null, "Thêm thành công");
+					docDuLieuTuSQL();
+				}else {
+					JOptionPane.showMessageDialog(null, "Thêm không thành công");
 				}
 			}
 		});
 		pnlThongTinNhanVien.add(btnSua);
 		
-		btnLuu = new JButton("Lưu");
+		btnLuu = new JButton("làm mới");
 		btnLuu.setBounds(867, 154, 118, 30);
 		btnLuu.setFont(new Font("Times New Roman", Font.BOLD, 15));
 /**/	btnLuu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(daoNhanVien.getNhanVienTheoMa(txtma.getText())!=null) {
-					NhanVien nv1=daoNhanVien.getNhanVienTheoMa(txtma.getText());
-					daoNhanVien.updateNhanVien(nv1);
-					JOptionPane.showInputDialog("Xoa thanh cong");
-				}
+				txtma.setText("");
+				txtTen.setText("");
+				txtSoDienThoai.setText("");
+				txtCMND.setText("");
+				chkcbxGioiTinh.setSelected(false);
+				cbxChuVu.setSelectedIndex(0);
+				txtNgaySinh.setText("");
+				txtDiaChi.setText("");
+				txtEmail.setText("");
+				
 			}
 		});
 		pnlThongTinNhanVien.add(btnLuu);
 		
 		txtma = new JTextField();
+		txtma.setEditable(false);
 		txtma.setBounds(342, 23, 86, 25);
 		txtma.setHorizontalAlignment(SwingConstants.CENTER);
 		txtma.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -446,6 +482,7 @@ public class GUI_NhanVien extends JFrame {
 		pnlThongTinNhanVien.add(cbxChuVu);
 		
 		JPanel pnlTimKiemNhanVien = new JPanel();
+		pnlTimKiemNhanVien.setBackground(new Color(101, 186, 118));
 		pnlTimKiemNhanVien.setBorder(new LineBorder(new Color(0, 255, 255), 2));
 		pnlTimKiemNhanVien.setBounds(10, 299, 278, 434);
 		contentPane.add(pnlTimKiemNhanVien);
@@ -549,6 +586,8 @@ public class GUI_NhanVien extends JFrame {
 				cbxChuVu.setSelectedItem("Quản Lý");
 				txtCMNDTim.setText("");
 				txtTimNgaySinh.setText("");
+				chkcbxNamTim.isSelected();
+				chckbxNuTim.isSelected();
 			}
 		});
 		pnlTimKiemNhanVien.add(btnLamMoi);
@@ -591,6 +630,56 @@ public class GUI_NhanVien extends JFrame {
 		chckbxNuTim.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		chckbxNuTim.setBounds(194, 255, 74, 30);
 		pnlTimKiemNhanVien.add(chckbxNuTim);
+		table.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				int row = table.getSelectedRow();
+				txtma.setText(table.getValueAt(row, 0).toString());
+				txtTen.setText(table.getValueAt(row, 1).toString());
+				txtSoDienThoai.setText(table.getValueAt(row, 2).toString());
+				
+				txtNgaySinh.setText(table.getValueAt(row, 3).toString());
+				txtDiaChi.setText(table.getValueAt(row, 4).toString());
+				txtCMND.setText(table.getValueAt(row, 6).toString());
+				if (table.getValueAt(row, 7).equals("Nhân Viên")) {
+					cbxChuVu.setSelectedIndex(0);
+				}else {
+					cbxChuVu.setSelectedIndex(1);
+				}
+				
+				txtEmail.setText(table.getValueAt(row, 8).toString());
+				if (table.getValueAt(row, 5).equals("Nam"))
+					chkcbxGioiTinh.setSelected(true);
+				else
+					chkcbxGioiTinh.setSelected(false);
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		
 		
 	}
@@ -600,8 +689,11 @@ public class GUI_NhanVien extends JFrame {
 		SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
 		daoNhanVien = new Dao_NhanVien();
 		for (NhanVien nv : daoNhanVien.getAllNhanVien()) {
-			Object[] rowData = { nv.getMaNhanVien(), nv.getTenNhanVien(),nv.getSoDienThoai(),sf.format(nv.getNgaySinh()),nv.getDiaChi(),nv.isGioiTinh()==true?"Nam":"Nữ", nv.getCmnd(), nv.getChucVu(),nv.getEmail(),nv.getTenTaiKhoan().getTenTaiKhoan() };
-			modelNhanVien.addRow(rowData);
+			if (nv.isTonTai() == true) {
+				Object[] rowData = { nv.getMaNhanVien(), nv.getTenNhanVien(),nv.getSoDienThoai(),sf.format(nv.getNgaySinh()),nv.getDiaChi(),nv.isGioiTinh()==true?"Nam":"Nữ", nv.getCmnd(), nv.getChucVu(),nv.getEmail(),nv.getTenTaiKhoan().getTenTaiKhoan() };
+				modelNhanVien.addRow(rowData);
+			}
+			
 		}
 	}
 	private void timKiemNhieuThuocTinh() {
