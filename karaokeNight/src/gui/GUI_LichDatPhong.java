@@ -9,6 +9,7 @@ import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -286,7 +288,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		JButton btnThuePhong_1 = new JButton("Đặt phòng", null);
 		btnThuePhong_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (p!=null) {
+				if (p != null) {
 					dispose();
 					new GUI_DatPhong(p, tk, kh).setVisible(true);
 				}
@@ -312,10 +314,23 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		txtMaPhongDat.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		txtMaPhongDat.setBounds(121, 0, 159, 30);
 		panel_2_1.add(txtMaPhongDat);
-		
+
 		JButton btnHuyPhong = new JButton("Hủy phòng", null);
 		btnHuyPhong.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int row = tbLichDatPhong.getSelectedRow();
+				if (row != -1) {
+					Timestamp date = Timestamp
+							.valueOf(tbLichDatPhong.getValueAt(row, 1) + " " + tbLichDatPhong.getValueAt(row, 2));
+					JOptionPane.showMessageDialog(null, date);
+					int huy = JOptionPane.showConfirmDialog(null, "Xác nhận hủy phòng", "Hủy phòng",
+							JOptionPane.YES_NO_OPTION);
+					if (huy == JOptionPane.YES_OPTION) {
+						dao_PhieuDatPhong.updateTonTai(tbLichDatPhong.getValueAt(row, 0).toString(), date, false);
+						modelTkDichVu.removeRow(row);
+					}
+
+				}
 			}
 		});
 		btnHuyPhong.setFont(new Font("Times New Roman", Font.PLAIN, 16));

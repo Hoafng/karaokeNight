@@ -60,6 +60,28 @@ public class Dao_PhieuDatPhong {
 		return pdp;
 	}
 
+	public KhachHang getKhachHang(String maPhong) {
+		PhieuDatPhong pdp = null;
+		KhachHang kh = null;
+		try {
+			ConnectDB.getInstance();
+			Connection con = ConnectDB.getConnection();
+			String sql = " select * from PhieuDatPhong p join KhachHang kh on kh.maKhachHang = p.maKhachHang where maPhong=? and DATEDIFF(minute,ngayNhanPhong,getDate()) < 60";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, maPhong);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("soDienThoai"),
+						rs.getString("tenKhachHang"), rs.getDate("ngaySinh"), rs.getString("diaChi"),
+						rs.getBoolean("gioiTinh"), rs.getString("cmnd"), rs.getBoolean("tonTai"),
+						rs.getDate("lanDungCuoi"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return kh;
+	}
+
 	public ArrayList<PhieuDatPhong> getAllMaPhieuDatPhong() {
 		ArrayList<PhieuDatPhong> ds = new ArrayList<PhieuDatPhong>();
 
@@ -98,5 +120,21 @@ public class Dao_PhieuDatPhong {
 			// e.printStackTrace();
 			return false;
 		}
+	}
+
+	public void updateTonTai(String maPhong, Timestamp ngayDatPhong, boolean tonTai) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			String sql = "update PhieuDatPhong set tonTai =? where ngayNhanPhong = ? and maPhong =?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setBoolean(1, tonTai);
+			stmt.setTimestamp(2, ngayDatPhong);
+			stmt.setString(3, maPhong);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

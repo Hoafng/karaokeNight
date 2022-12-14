@@ -176,4 +176,18 @@ public class Dao_DichVu {
 		}
 	}
 
+	public void updateSoLuong(String maDichVu, int SoLuong) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			String sql = "Update DichVu set soLuong= ? where maDichVu = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, SoLuong);
+			stmt.setString(2, maDichVu);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

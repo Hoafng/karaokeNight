@@ -334,7 +334,6 @@ public class GUI_DatPhong extends JFrame {
 				if (kiemTraDuLieu() == true) {
 					if (themPhieuDatPhong() == true)
 						dispose();
-					new GUI_XuLy(tk).setVisible(true);
 				}
 			}
 		});

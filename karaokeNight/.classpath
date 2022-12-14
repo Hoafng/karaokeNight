@@ -31,5 +31,7 @@
 	<classpathentry kind="lib" path="libs/SparseBitSet-1.2.jar"/>
 	<classpathentry kind="lib" path="libs/xmlbeans-5.1.1.jar"/>
 	<classpathentry kind="lib" path="miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="libs/mail.jar"/>
+	<classpathentry kind="lib" path="libs/javax.activation-1.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -47,7 +47,7 @@ public class Dao_TaiKhoan {
 		return dsTaiKhoan;
 	}
 
-	public void updateTaiKhoan(TaiKhoan tk) {
+	public boolean updateTaiKhoan(TaiKhoan tk) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		try {
@@ -56,8 +56,10 @@ public class Dao_TaiKhoan {
 			stmt.setString(1, tk.getMatKhau());
 			stmt.setString(2, tk.getTenTaiKhoan());
 			stmt.executeUpdate();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	public TaiKhoan getTaiKhoan(String tenTaiKhoan) {

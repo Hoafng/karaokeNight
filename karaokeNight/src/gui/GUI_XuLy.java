@@ -521,6 +521,9 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 				if (phong != null && phong.getTinhTrang().equals("Trống")) {
 					dispose();
 					new GUI_ThuePhong(phong, tk, null).setVisible(true);
+				} else if (phong != null && phong.getTinhTrang().equals("Đang chờ")) {
+					dispose();
+					new GUI_ThuePhong(phong, taiKhoan, dao_phieuDatPhong.getKhachHang(phong.getMaPhong())).setVisible(true);
 				}
 			}
 		});
@@ -533,10 +536,7 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		btnDatPhong.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-
-				if (phong != null && phong.getTinhTrang().equals("Trống")) {
-					new GUI_DatPhong(phong, tk, null).setVisible(true);
-				}
+				new GUI_DatPhong(phong, tk, null).setVisible(true);
 			}
 		});
 		btnDatPhong.setBackground(new Color(255, 255, 140));
@@ -647,8 +647,8 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 			if (dao_Phong.getPhong(pdp.getMaPhong().getMaPhong()).getTinhTrang().equals("Đã đặt") == false
 					&& pdp.isTonTai() == true)
 				dao_Phong.updateTinhTrang(pdp.getMaPhong().getMaPhong(), "Đã đặt");
-			else if (pdp.getNgayNhanPhong().getTime() - date.getTime() > 1 * 60 * 60 * 1000 && pdp.isTonTai() == true
-					&& dao_Phong.getPhong(pdp.getMaPhong().getMaPhong()).getTinhTrang().equals("Đang sử dụng") == false)
+			if (pdp.getNgayNhanPhong().getTime() - date.getTime() < 1 * 60 * 60 * 1000 && pdp.getNgayNhanPhong().getTime() - date.getTime() >0 && pdp.isTonTai() == true
+					&& dao_Phong.getPhong(pdp.getMaPhong().getMaPhong()).getTinhTrang().equals("Đã đặt") == true)
 				dao_Phong.updateTinhTrang(pdp.getMaPhong().getMaPhong(), "Đang chờ");
 		}
 	}

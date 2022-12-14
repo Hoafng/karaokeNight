@@ -267,29 +267,55 @@ public class GUI_ThemDichVu extends JFrame /* implements TableCellRenderer */ {
 	}
 
 	private void InsertData() {
-		dao_HoaDon= new Dao_HoaDon();
-		 String maHoaDon = dao_HoaDon.getMaHoaDonPhong(txtMaPhong.getText()).getMaHoaDon();
-		 ArrayList<CTHoaDonThuePhong> listCTHD = dao_CTHD.getAllCTHDDichVu(maHoaDon);
-		 for(int i =0;i<modelDichVuRight.getRowCount();i++) {
-				CTHoaDonThuePhong ct = new CTHoaDonThuePhong(new HoaDonThuePhong(maHoaDon),new DichVu(modelDichVuRight.getValueAt(i, 0).toString()),Integer.valueOf(modelDichVuRight.getValueAt(i, 3).toString() ));
-				if (listCTHD.contains(ct))
-					dao_CTHD.updateSoLuongThem(Integer.valueOf(modelDichVuRight.getValueAt(i, 3).toString() ), modelDichVuRight.getValueAt(i, 0).toString(), maHoaDon);
-				else dao_CTHD.insertDichVuThem(ct);
-			}
+		dao_HoaDon = new Dao_HoaDon();
+		String maHoaDon = dao_HoaDon.getMaHoaDonPhong(txtMaPhong.getText()).getMaHoaDon();
+		ArrayList<CTHoaDonThuePhong> listCTHD = dao_CTHD.getAllCTHDDichVu(maHoaDon);
+		for (int i = 0; i < modelDichVuRight.getRowCount(); i++) {
+			CTHoaDonThuePhong ct = new CTHoaDonThuePhong(new HoaDonThuePhong(maHoaDon),
+					new DichVu(modelDichVuRight.getValueAt(i, 0).toString()),
+					Integer.valueOf(modelDichVuRight.getValueAt(i, 3).toString()));
+			if (listCTHD.contains(ct)) {
+				dao_CTHD.updateSoLuongThem(Integer.valueOf(modelDichVuRight.getValueAt(i, 3).toString()),
+						modelDichVuRight.getValueAt(i, 0).toString(), maHoaDon);
+
+			} else
+				dao_CTHD.insertDichVuThem(ct);
+		}
+		for (int j = 0; j < modelDichVuRight.getRowCount(); j++) {
+			dao_dichvu.updateSoLuong(modelDichVu.getValueAt(j, 0).toString(),
+					Integer.valueOf(modelDichVu.getValueAt(j, 3).toString()));
+		}
 	}
 
-	private void addItem() {
+	private boolean addItem() {
 		int row = tableLeft.getSelectedRow();
 		String maDichVu = modelDichVu.getValueAt(row, 0).toString();
 		String tenDichVu = modelDichVu.getValueAt(row, 1).toString();
 		String gia = modelDichVu.getValueAt(row, 2).toString();
 		int soLuong = Integer.valueOf(modelDichVu.getValueAt(row, 3).toString());
-		int soLuongThem = Integer.valueOf(txtSoLuong.getText());
+		int soLuongThem = 0;
+		int soLuongRight = 0;
+		if (txtSoLuong.getText().equals("") == false)
+			soLuongThem = Integer.valueOf(txtSoLuong.getText());
 		Object[] rowData = { maDichVu, tenDichVu, gia, soLuongThem };
-		modelDichVuRight.addRow(rowData);
-		txtSoLuong.setText("");
 		soLuong = soLuong - soLuongThem;
+		if (soLuong <= 0) {
+			JOptionPane.showMessageDialog(null, "Số lượng dịch vụ không đủ");
+			txtSoLuong.requestFocus();
+			return false;
+		}
+		for (int i = 0; i < modelDichVuRight.getRowCount(); i++) {
+			if (maDichVu.equals(modelDichVuRight.getValueAt(i, 0))) {
+				soLuongRight = Integer.valueOf(modelDichVuRight.getValueAt(row, 3).toString());
+				soLuongRight = soLuongRight + soLuongThem;
+				modelDichVuRight.setValueAt(soLuongRight, i, 3);
+			}
+		}
+		if (soLuongRight == 0)
+			modelDichVuRight.addRow(rowData);
+		txtSoLuong.setText("");
 		modelDichVu.setValueAt(soLuong, row, 3);
+		return true;
 	}
 
 	private void returnItem() {
