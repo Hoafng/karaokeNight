@@ -43,7 +43,8 @@ public class Dao_PhieuDatPhong {
 		try {
 			ConnectDB.getInstance();
 			Connection con = ConnectDB.getConnection();
-			String sql = " select * from PhieuDatPhong where maPhong=?";
+			String sql = " select top 1 * from PhieuDatPhong where maPhong =? and tonTai = 1\n"
+					+ "order by ngayNhanPhong asc";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, maPhong);
 			ResultSet rs = statement.executeQuery();
@@ -122,19 +123,39 @@ public class Dao_PhieuDatPhong {
 		}
 	}
 
-	public void updateTonTai(String maPhong, Timestamp ngayDatPhong, boolean tonTai) {
+	public void updateTonTai(String maPhong, Timestamp ngayDatPhong, boolean tonTai,String maKhachHang) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		try {
-			String sql = "update PhieuDatPhong set tonTai =? where ngayNhanPhong = ? and maPhong =?";
+			String sql = "update PhieuDatPhong set tonTai =? where ngayNhanPhong = ? and maPhong =? and maKhachHang=?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setBoolean(1, tonTai);
 			stmt.setTimestamp(2, ngayDatPhong);
 			stmt.setString(3, maPhong);
+			stmt.setString(4, maKhachHang);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+	}
+	public boolean deletePhieuDatPhong(String maPhong, Timestamp ngayDatPhong, boolean tonTai,String maKhachHang) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement statement = null;
+		try {
+			String sql = "Delete from PhieuDatPhong where ngayNhanPhong = ? and maPhong =? and maKhachHang=? and tonTai =?";
+			statement = con.prepareStatement(sql);
+			statement.setTimestamp(1, ngayDatPhong);
+			statement.setString(2, maPhong);
+			statement.setString(3, maKhachHang);
+			statement.setBoolean(4, tonTai);
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 }

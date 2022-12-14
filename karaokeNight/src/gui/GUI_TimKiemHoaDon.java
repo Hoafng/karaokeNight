@@ -85,7 +85,7 @@ public class GUI_TimKiemHoaDon extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		tk =taiKhoan;
 		dao_kh = new Dao_KhachHang();
 		dao_nv = new Dao_NhanVien();
 		dao_hdt = new Dao_HoaDon();

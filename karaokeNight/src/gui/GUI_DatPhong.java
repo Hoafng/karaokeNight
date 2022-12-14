@@ -528,7 +528,7 @@ public class GUI_DatPhong extends JFrame {
 		txtMaPhieuDatPhong.setText(maPhieu);
 		txtMaPhong.setText(phong.getMaPhong());
 		txtLoaiPhong.setText(phong.getMaLoaiPhong().getTenLoaiPhong());
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Timestamp d = new Timestamp(System.currentTimeMillis());
 		txtNgayDatPhong.setText(sf.format(d));
 		txtGiaPhong.setText(String.valueOf(phong.getGiaPhong()));

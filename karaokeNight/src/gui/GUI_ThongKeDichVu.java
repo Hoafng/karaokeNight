@@ -446,7 +446,6 @@ public class GUI_ThongKeDichVu extends JFrame implements ActionListener, Propert
 				txtTuNgay.setText("");
 				txtDenNgay.setText("");
 				moKhoaTextfields(false);
-
 			}
 		});
 	}

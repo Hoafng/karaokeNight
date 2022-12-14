@@ -519,11 +519,12 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		btnThuePhong.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (phong != null && phong.getTinhTrang().equals("Trống")) {
-					dispose();
+
 					new GUI_ThuePhong(phong, tk, null).setVisible(true);
 				} else if (phong != null && phong.getTinhTrang().equals("Đang chờ")) {
-					dispose();
-					new GUI_ThuePhong(phong, taiKhoan, dao_phieuDatPhong.getKhachHang(phong.getMaPhong())).setVisible(true);
+
+					new GUI_ThuePhong(phong, taiKhoan, dao_phieuDatPhong.getKhachHang(phong.getMaPhong()))
+							.setVisible(true);
 				}
 			}
 		});
@@ -594,6 +595,7 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		gbc_pnPhong.fill = GridBagConstraints.HORIZONTAL;
 		gbc_pnPhong.gridx = 0;
 		gbc_pnPhong.gridy = 0;
+		updateDatPhong();
 		updateTrangThaiTrong();
 		updateTrangThaiDangCho();
 		dSP.docDuLieuTuSQL(p -> {
@@ -615,6 +617,8 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		if (dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đang sử dụng") == true)
 			txtGioVaoPhong.setText(hdtp.getGioVaoPhong().toString());
 		else if (dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đang chờ"))
+			txtGioVaoPhong.setText(pdp.getNgayNhanPhong().toString());
+		else if (dao_Phong.getPhong(p.getMaPhong()).getTinhTrang().equals("Đã đặt"))
 			txtGioVaoPhong.setText(pdp.getNgayNhanPhong().toString());
 		else
 			txtGioVaoPhong.setText("");
@@ -647,9 +651,15 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 			if (dao_Phong.getPhong(pdp.getMaPhong().getMaPhong()).getTinhTrang().equals("Đã đặt") == false
 					&& pdp.isTonTai() == true)
 				dao_Phong.updateTinhTrang(pdp.getMaPhong().getMaPhong(), "Đã đặt");
-			if (pdp.getNgayNhanPhong().getTime() - date.getTime() < 1 * 60 * 60 * 1000 && pdp.getNgayNhanPhong().getTime() - date.getTime() >0 && pdp.isTonTai() == true
+			if (pdp.getNgayNhanPhong().getTime() - date.getTime() < 1 * 60 * 60 * 1000
+					&& pdp.getNgayNhanPhong().getTime() - date.getTime() > 0 && pdp.isTonTai() == true
 					&& dao_Phong.getPhong(pdp.getMaPhong().getMaPhong()).getTinhTrang().equals("Đã đặt") == true)
 				dao_Phong.updateTinhTrang(pdp.getMaPhong().getMaPhong(), "Đang chờ");
+		}
+		dao_HoaDon = new Dao_HoaDon();
+		for (HoaDonThuePhong hd : dao_HoaDon.getAllHoaDonChuaThanhToan()) {
+			if (dao_Phong.getPhong(hd.getMaPhong().getMaPhong()).getTinhTrang().equals("Đang sử dụng") == false)
+				dao_Phong.updateTinhTrang(hd.getMaPhong().getMaPhong(), "Đang sử dụng");
 		}
 	}
 
@@ -657,10 +667,14 @@ public class GUI_XuLy extends JFrame implements MouseListener {
 		for (Phong phong : dao_Phong.getAllPhong()) {
 			dao_Phong.updateTinhTrang(phong.getMaPhong(), "Trống");
 		}
-		dao_HoaDon = new Dao_HoaDon();
-		for (HoaDonThuePhong hd : dao_HoaDon.getAllHoaDonChuaThanhToan()) {
-			if (dao_Phong.getPhong(hd.getMaPhong().getMaPhong()).getTinhTrang().equals("Đang sử dụng") == false)
-				dao_Phong.updateTinhTrang(hd.getMaPhong().getMaPhong(), "Đang sử dụng");
+	}
+
+	public void updateDatPhong() {
+		Timestamp date = new Timestamp(System.currentTimeMillis());
+		for (PhieuDatPhong pdp : dao_phieuDatPhong.getAllPhieuDatPhong()) {
+			if (date.getTime() - pdp.getNgayNhanPhong().getTime() > 30 * 60 * 1000)
+				dao_phieuDatPhong.updateTonTai(pdp.getMaPhong().getMaPhong(), pdp.getNgayNhanPhong(), false,
+						pdp.getMaKhachHang().getMaKhachHang());
 		}
 	}
 

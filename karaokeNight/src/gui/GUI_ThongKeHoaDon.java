@@ -252,6 +252,7 @@ private JPanel contentPane;
 		dateChooser.setLayout(null);
 
 		txtTuNgay = new JTextField();
+		txtTuNgay.setEditable(false);
 		txtTuNgay.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTuNgay.setBounds(0, 0, 170, 30);
 		dateChooser.add(txtTuNgay);
@@ -269,6 +270,7 @@ private JPanel contentPane;
 		dateChooser_1.setLayout(null);
 
 		txtDenNgay = new JTextField();
+		txtDenNgay.setEditable(false);
 		txtDenNgay.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtDenNgay.setColumns(10);
 		txtDenNgay.setBounds(0, 0, 172, 30);
@@ -280,27 +282,34 @@ private JPanel contentPane;
 
 		ImageIcon iconLamMoi = new ImageIcon("IMG//iconButton//Refresh.png");
 		JButton btnLamMoiHoaDon = new JButton("Làm mới", iconLamMoi);
+		btnLamMoiHoaDon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtTuNgay.setText("");
+				txtDenNgay.setText("");
+				moKhoaTextfields(false);
+				lblKqDoanhThu.setText("0");
+				lblKqHdCaoNhat.setText("0");
+				lblKqHdThapNhat.setText("0");
+			}
+		});
 		btnLamMoiHoaDon.setBackground(new Color(255, 255, 140));
 		btnLamMoiHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnLamMoiHoaDon.setBounds(60, 371, 291, 33);
+		btnLamMoiHoaDon.setBounds(60, 297, 291, 33);
 		pnLeft.add(btnLamMoiHoaDon);
 
 		ImageIcon iconThongKe = new ImageIcon("IMG//iconButton//statistical.png");
 		JButton btnThongKeHoaDon = new JButton("Thống kê", iconThongKe);
+		btnThongKeHoaDon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				moKhoaTextfields(true);
+			}
+		});
 		btnThongKeHoaDon.setBackground(new Color(255, 255, 140));
 		btnThongKeHoaDon.setForeground(new Color(0, 0, 0));
 		btnThongKeHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnThongKeHoaDon.setBounds(60, 301, 291, 33);
+		btnThongKeHoaDon.setBounds(60, 233, 291, 33);
 		pnLeft.add(btnThongKeHoaDon);
-
-		JButton btnInThongKeHoaDon = new JButton("Biểu đồ thống kê", new ImageIcon("IMG//iconButton//print.png"));
-		btnInThongKeHoaDon.setForeground(Color.BLACK);
 		Border roundedBorder = new LineBorder(new Color(210,210,210), 1, true);
-		btnInThongKeHoaDon.setBorder(new LineBorder(new Color(210, 210, 210), 1, true));
-		btnInThongKeHoaDon.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnInThongKeHoaDon.setBackground(new Color(255, 255, 140));
-		btnInThongKeHoaDon.setBounds(60, 445, 291, 33);
-		pnLeft.add(btnInThongKeHoaDon);
 
 
 
@@ -471,7 +480,12 @@ private JPanel contentPane;
 		double tongTien =soLuongDichVu* giaDichVu*1.0;
 		return tongTien;
 	}
-
+	private void moKhoaTextfields(boolean b) {
+		txtTuNgay.setEditable(b);
+		txtDenNgay.setEditable(b);
+		dateChooser.setEnabled(b);
+		dateChooser_1.setEnabled(b);
+	}
 	private String formatNumberForMoney(double money) {
 		Locale localeVN = new Locale("vi", "VN");
 		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);

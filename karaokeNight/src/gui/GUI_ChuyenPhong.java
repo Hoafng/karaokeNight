@@ -44,7 +44,7 @@ public class GUI_ChuyenPhong extends JFrame {
 	private JLabel lblGiaPhong;
 	private JTextField txtGiaPhong;
 	private JLabel lblMaPhong_1;
-	private JComboBox comboBox_MaPhongChuyenDen;
+	private JComboBox<String> comboBox_MaPhongChuyenDen;
 	private JLabel lblLoaiPhong_1;
 	private JTextField txtLoaiPhong1;
 	private JLabel lblSucChua_1;
@@ -187,7 +187,7 @@ public class GUI_ChuyenPhong extends JFrame {
 		lblMaPhong_1.setBounds(412, 139, 120, 40);
 		contentPane.add(lblMaPhong_1);
 		
-		comboBox_MaPhongChuyenDen = new JComboBox();
+		comboBox_MaPhongChuyenDen = new JComboBox<String>();
 		comboBox_MaPhongChuyenDen.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String maPhong = comboBox_MaPhongChuyenDen.getSelectedItem().toString();
@@ -299,7 +299,6 @@ public class GUI_ChuyenPhong extends JFrame {
 		for (Phong p1 : dao_phong.getPhongTheoTinhTrang("Trống")) {
 			maPhongChuyenDen = p1.getMaPhong();	
 			comboBox_MaPhongChuyenDen.addItem(maPhongChuyenDen);
-
 		}
 		
 		phong =p;

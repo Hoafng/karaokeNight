@@ -247,7 +247,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		pnCenter.setBackground(new Color(101, 186, 118));
 		contentPane.add(pnCenter);
 		String[] cols = { "Mã phòng", "Ngày nhận phòng", "Giờ nhận phòng", "Giờ trả phòng", "Số giờ thuê",
-				"Ngày đặt phòng", "Khách hàng", "Tình trạng" };
+				"Ngày đặt phòng", "Khách hàng","Số điện thoại", "Tình trạng" };
 		modelTkDichVu = new DefaultTableModel(cols, 0);
 		pnCenter.setLayout(null);
 		tbLichDatPhong = new JTable(modelTkDichVu);
@@ -322,12 +322,14 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 				if (row != -1) {
 					Timestamp date = Timestamp
 							.valueOf(tbLichDatPhong.getValueAt(row, 1) + " " + tbLichDatPhong.getValueAt(row, 2));
-					JOptionPane.showMessageDialog(null, date);
 					int huy = JOptionPane.showConfirmDialog(null, "Xác nhận hủy phòng", "Hủy phòng",
 							JOptionPane.YES_NO_OPTION);
 					if (huy == JOptionPane.YES_OPTION) {
-						dao_PhieuDatPhong.updateTonTai(tbLichDatPhong.getValueAt(row, 0).toString(), date, false);
-						modelTkDichVu.removeRow(row);
+						if(dao_PhieuDatPhong.deletePhieuDatPhong(tbLichDatPhong.getValueAt(row, 0).toString(), date, true,tbLichDatPhong.getValueAt(row, 6).toString())==true) {
+							modelTkDichVu.removeRow(row);
+							JOptionPane.showMessageDialog(null, "Hủy phòng thành công");
+						}
+						
 					}
 
 				}
@@ -342,19 +344,19 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 			public void insertUpdate(DocumentEvent e) {
 				String text = txtNgay.getText();
 				if (ckbDaDat.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbDangSuDung.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbTrong.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
@@ -378,7 +380,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 					filters.removeAll(filters);
 
 				} else {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 1);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter(text, 8);
 					filters.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rf = RowFilter.andFilter(filters);
@@ -392,19 +394,19 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 			public void removeUpdate(DocumentEvent e) {
 				String text = txtNgay.getText();
 				if (ckbDaDat.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbDangSuDung.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbTrong.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
@@ -447,19 +449,19 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 			public void itemStateChanged(ItemEvent e) {
 				String text = (String) cbMaPhong.getSelectedItem();
 				if (ckbDaDat.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbDangSuDung.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbTrong.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
@@ -497,19 +499,19 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 			public void itemStateChanged(ItemEvent e) {
 				String text = cbGioGioNhanPhong.getSelectedItem().toString();
 				if (ckbDaDat.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbDangSuDung.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbTrong.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
@@ -545,13 +547,13 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		ckbDaDat.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (ckbDangSuDung.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbTrong.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
@@ -579,7 +581,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 					filters.removeAll(filters);
 					filter2s.removeAll(filter2s);
 				} else {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					if (filters.isEmpty() == false)
@@ -593,13 +595,13 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		ckbDangSuDung.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (ckbDaDat.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbTrong.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
@@ -628,7 +630,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 					filters.removeAll(filters);
 					filter2s.removeAll(filter2s);
 				} else {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					if (filters.isEmpty() == false)
@@ -642,13 +644,13 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 		ckbTrong.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (ckbDaDat.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
 				}
 				if (ckbDangSuDung.isSelected() == true) {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Đang sử dụng", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					rowSorter.setRowFilter(rf);
@@ -676,7 +678,7 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 					filters.removeAll(filters);
 					filter2s.removeAll(filter2s);
 				} else {
-					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 7);
+					RowFilter<Object, Object> temp = RowFilter.regexFilter("Trống", 8);
 					filter2s.add(temp);
 					RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 					if (filters.isEmpty() == false)
@@ -707,14 +709,14 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 
 	public void DocDuLieuDatabaseVaoTable() {
 		SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat sf2 = new SimpleDateFormat("kk:mm:ss");
+		SimpleDateFormat sf2 = new SimpleDateFormat("HH:mm:ss");
 		for (PhieuDatPhong pd : dao_PhieuDatPhong.getAllPhieuDatPhong()) {
 			if (pd.isTonTai()) {
 				Object[] rowData = { pd.getMaPhong().getMaPhong(), sf1.format(pd.getNgayNhanPhong()),
 						sf2.format(pd.getNgayNhanPhong()),
 						sf2.format(pd.getNgayNhanPhong().getTime() + pd.getSoGioDat() * 60 * 60 * 1000),
 						pd.getSoGioDat(), sf1.format(pd.getNgayDatPhong()),
-						dao_KhachHang.getTheoMa(pd.getMaKhachHang().getMaKhachHang()).getTenKhachHang(), "Đã đặt" };
+						dao_KhachHang.getTheoMa(pd.getMaKhachHang().getMaKhachHang()).getTenKhachHang(),dao_KhachHang.getTheoMa(pd.getMaKhachHang().getMaKhachHang()).getSoDienThoai(), "Đã đặt" };
 				modelTkDichVu.addRow(rowData);
 			}
 		}
@@ -722,19 +724,19 @@ public class GUI_LichDatPhong extends JFrame implements ActionListener, Property
 			if (hd.getNgayLap() == null) {
 				Object[] rowData = { hd.getMaPhong().getMaPhong(), sf1.format(hd.getGioVaoPhong()),
 						sf2.format(hd.getGioVaoPhong()),
-						hd.getGioRaPhong() != null ? sf2.format(hd.getGioRaPhong()) : "", "", "",
-						dao_KhachHang.getTheoMa(hd.getMaKhachHang().getMaKhachHang()).getTenKhachHang(),
+						hd.getGioRaPhong() != null ? sf2.format(hd.getGioRaPhong()) : "", "","",
+						dao_KhachHang.getTheoMa(hd.getMaKhachHang().getMaKhachHang()).getTenKhachHang(),dao_KhachHang.getTheoMa(hd.getMaKhachHang().getMaKhachHang()).getSoDienThoai(),
 						"Đang sử dụng" };
 				modelTkDichVu.addRow(rowData);
 			}
 		}
 		for (Phong p : dao_Phong.getAllPhong()) {
 			if (p.getTinhTrang().equals("Trống")) {
-				Object[] rowData = { p.getMaPhong(), "", "", "", "", "", "", "Trống" };
+				Object[] rowData = { p.getMaPhong(), "", "", "", "", "", "","", "Trống" };
 				modelTkDichVu.addRow(rowData);
 			}
 		}
-		RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 7);
+		RowFilter<Object, Object> temp = RowFilter.regexFilter("Đã đặt", 8);
 		filter2s.add(temp);
 		RowFilter<DefaultTableModel, Object> rf = RowFilter.orFilter(filter2s);
 		rowSorter.setRowFilter(rf);

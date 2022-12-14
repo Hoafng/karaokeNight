@@ -380,7 +380,6 @@ public class GUI_ThuePhong extends JFrame {
 			if (dao_hd.insertHoaDonThuePhong(hdtp) == false)
 				JOptionPane.showMessageDialog(this, "Thuê phòng thất bại");
 			else {
-				dao_hd.insertHoaDonThuePhong(hdtp);
 				dao_phong.updateTinhTrang(maPhong, "Đang sử dụng");
 				JOptionPane.showMessageDialog(this, "Thuê phòng thành công");
 			}

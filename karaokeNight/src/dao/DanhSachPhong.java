@@ -31,8 +31,9 @@ public class DanhSachPhong {
 	ArrayList<JLabel> soLuongPhong;
 	ArrayList<Phong> danhSachPhong;
 	private JLabel lblSoPhong;
-	private int j;
+
 	private TaiKhoan tk;
+	
 
 	public interface Event {
 
@@ -98,6 +99,7 @@ public class DanhSachPhong {
 	public void docDuLieuTuSQL(Event event) {
 		soLuongPhong = new ArrayList<JLabel>();
 		int i = 0;
+		int j=0;
 		for (Phong p : dao_Phong.getAllPhong()) {
 			pnPhongDS[i] = themPhong(p);
 			soLuongPhong.add(lblSoPhong);
